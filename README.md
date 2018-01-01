@@ -1,5 +1,3 @@
-![去除背景](http://upload-images.jianshu.io/upload_images/576195-49002e3d302a8f51.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
 ![计算](http://upload-images.jianshu.io/upload_images/576195-fd957e0c51330db5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
@@ -9,6 +7,8 @@
 第一版使用垂直投影图的方案进行目标查找，结果不是太准备；
 
 第二版改为直接去除背景，以达到二值化。
+
+第三版去除背影的方式，太慢了，现在不去除背景，直接找极点，非常迅速！
 
 目前以 距离 x 1.5 作为长按时长，基本能跳到目标中心位置。
 
