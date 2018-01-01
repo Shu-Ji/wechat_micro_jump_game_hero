@@ -139,7 +139,7 @@ def run_cmd(cmd):
 
 while True:
     try:
-        debug = 1
+        debug = 0
 
         if not debug:
             fn = str(int(time.time()))
