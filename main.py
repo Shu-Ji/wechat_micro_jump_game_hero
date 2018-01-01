@@ -45,11 +45,10 @@ class Otsu(object):
 
     def find_hero(self):
         hero_poses = []
-        pixels = self.im.load()
         for y in xrange(self.h / 3, self.h * 2 / 3):
             for x in xrange(self.w):
                 # is purple
-                if pixels[x, y] == (56, 56, 97, 255):
+                if self.pixels[x, y] == (56, 56, 97, 255):
                     hero_poses.append((x, y))
         # calc the avg pos
         return map(lambda i: sum(i) / len(i), zip(*hero_poses))
@@ -114,7 +113,7 @@ class Otsu(object):
         if line_length > 550:
             length_time = line_length * 1.45
         else:
-            length_time = line_length * 1.5
+            length_time = line_length * 1.6
 
         holding = min(950, max(length_time, 300))
 
@@ -153,4 +152,4 @@ while True:
     except Exception as e:
         import traceback
         traceback.print_exc()
-        #time.sleep(2)
+        time.sleep(2)
