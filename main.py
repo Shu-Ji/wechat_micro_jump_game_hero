@@ -119,10 +119,10 @@ class Otsu(object):
         r = 25
         self.draw.ellipse((x, y, x + r, y + r), fill=color, outline=color)
 
-    def length_to_time(self):
+    def get_holding(self):
         line_length = int(math.sqrt(
-            pow(otsu.center_pos[0] - otsu.hero_pos[0], 2) + \
-            pow(otsu.center_pos[1] - otsu.hero_pos[1], 2)
+            pow(self.center_pos[0] - self.hero_pos[0], 2) + \
+            pow(self.center_pos[1] - self.hero_pos[1], 2)
         ))
 
         length_time = line_length * 1.5
@@ -153,8 +153,7 @@ while True:
             run_cmd('cp /tmp/{}.png /tmp/s.png'.format(fn))
             print(fn)
 
-        otsu = Otsu('/tmp/{}.png'.format(fn), debug=debug)
-        holding = otsu.length_to_time()
+        holding = Otsu('/tmp/{}.png'.format(fn), debug=debug).get_holding()
 
         if debug:
             raise KeyboardInterrupt
