@@ -32,6 +32,7 @@ class Otsu(object):
         print 'center pos', self.center_pos
 
         if debug:
+            #self.erase_background(bg_hsv)
             self.draw_pos(self.hero_pos)
             self.draw_pos(top_most)
             self.draw_pos(lr_most)
@@ -61,6 +62,15 @@ class Otsu(object):
         # use the (10, 800) as the background color
         bg_color = self.pixels[10, 800]
         return self.rgb_to_hsv(*bg_color)
+
+    def erase_background(self, bg_hsv):
+        for y in xrange(self.h / 4, self.h * 2 / 3):
+            for x in xrange(self.w):
+                h, s, v = self.rgb_to_hsv(*self.pixels[x, y])
+                if self.is_same_color(h, s, v, bg_hsv):
+                    self.im.putpixel((x, y), (0, 0, 0))
+                else:
+                    self.im.putpixel((x, y), (255, 255, 255))
 
     def find_most(self, is_hero_on_left, bg_hsv):
         hero_r = 15
@@ -97,7 +107,7 @@ class Otsu(object):
 
     def is_same_color(self, h, s, v, bg_hsv):
         bg_h, bg_s, bg_v = bg_hsv
-        return (abs(h - bg_h) < 10) and (abs(s - bg_s) < 20)
+        return (abs(h - bg_h) < 20) and (abs(s - bg_s) < 20)
 
     def draw_pos(self, pos, color=(0, 255, 0)):
         x, y = pos
@@ -129,7 +139,7 @@ def run_cmd(cmd):
 
 while True:
     try:
-        debug = 0
+        debug = 1
 
         if not debug:
             fn = str(int(time.time()))
