@@ -26,3 +26,46 @@
 视频：
 
 http://v.youku.com/v_show/id_XMzI3NjY5NjI5Mg==.html?spm=a2h3j.8428770.3416059.1
+
+
+## 开发环境搭建
+
+
+### 系统环境
+
+笔者环境：
+
+    $ uname -a
+    Darwin rmbp-finn.lan 17.3.0 Darwin Kernel Version 17.3.0: Thu Nov  9 18:09:22 PST 2017; root:xnu-4570.31.3~1/RELEASE_X86_64 x86_64
+
+    $ python --version
+    Python 2.7.10
+
+### 安装 Python 2.7
+
+略。
+
+### (可选安装) virtualenv, virtualenvwrapper
+
+略。
+
+### 安装 adb
+
+略。
+
+### 工程搭建
+
+
+先 fork 一份到自己账户。然后：
+
+    $ mkvirtualenv wechat_micro_jump_game_hero
+    $ cdvitualenv
+    $ git clone ...
+    $ cd wechat_micro_jump_game_hero
+    $ echo `pwd` > ../.project
+    $ pip install pipenv
+    $ pipenv install
+
+手机连上电脑，打开跳一跳小游戏，并点击开始，之后：
+
+    $ python main.py
