@@ -123,7 +123,7 @@ class Otsu(object):
         if line_length > 550:
             length_time = line_length * 1.45
         else:
-            length_time = line_length * 1.6
+            length_time = line_length * 1.5
 
         holding = min(950, max(length_time, 300))
 
