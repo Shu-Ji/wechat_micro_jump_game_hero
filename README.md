@@ -47,6 +47,9 @@
     $ python --version
     Python 2.7.10
 
+    $ adb version
+    Android Debug Bridge version 1.0.39
+
     $ 测试机
     小米5
 
