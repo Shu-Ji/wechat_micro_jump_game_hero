@@ -1,10 +1,13 @@
 # coding: u8
 
+from __future__ import print_function, unicode_literals
+
 import colorsys
 import commands
 import itertools
 import math
 import time
+import traceback
 
 from PIL import Image, ImageDraw
 
@@ -19,19 +22,19 @@ class Otsu(object):
         self.draw = ImageDraw.Draw(self.im)
 
         self.hero_pos = self.find_hero()
-        print 'hero pos:', self.hero_pos
+        print('hero pos:', self.hero_pos)
 
         is_hero_on_left = self.hero_pos[0] < self. w / 2
 
         bg_hsv = self.get_background_hsv()
-        print 'background hsv:', bg_hsv
+        print('background hsv:', bg_hsv)
 
         top_most, lr_most = self.find_most(is_hero_on_left, bg_hsv)
-        print 'top most pos：', top_most
-        print 'left/right most pos', lr_most
+        print('top most pos：', top_most)
+        print('left/right most pos', lr_most)
 
         self.center_pos = top_most[0], lr_most[1]
-        print 'center pos', self.center_pos
+        print('center pos', self.center_pos)
 
         if debug:
             #self.erase_background(bg_hsv)
@@ -126,8 +129,8 @@ class Otsu(object):
 
         holding = min(950, max(length_time, 300))
 
-        print 'length, duration, bolding: ', line_length, length_time, holding
-        print
+        print('length, duration, holding: ', line_length, length_time, holding)
+        print()
 
         return int(holding)
 
@@ -139,28 +142,27 @@ def run_cmd(cmd):
 jump_times = itertools.count(0)
 while True:
     try:
-        debug = 0
+        debug = False
 
-        if not debug:
+        if debug:
+            fn = 's'
+        else:
             fn = str(next(jump_times))
             run_cmd('adb shell screencap -p /sdcard/s.png')
             run_cmd('adb pull /sdcard/s.png /tmp/{}.png'.format(fn))
             run_cmd('cp /tmp/{}.png /tmp/s.png'.format(fn))
-            print fn
-        else:
-            fn = 's'
+            print(fn)
 
         otsu = Otsu('/tmp/{}.png'.format(fn), debug=debug)
         holding = otsu.length_to_time()
 
-        if not debug:
+        if debug:
+            raise KeyboardInterrupt
+        else:
             run_cmd('adb shell input swipe 255 255 0 0 {}'.format(holding))
             time.sleep(2)
-        else:
-            raise KeyboardInterrupt
     except KeyboardInterrupt:
-        raise
+        raise KeyboardInterrupt
     except Exception as e:
-        import traceback
         traceback.print_exc()
         time.sleep(2)
