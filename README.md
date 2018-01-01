@@ -46,8 +46,9 @@
 
     $ python --version
     Python 2.7.10
-    
-    测试机：小米5
+
+    $ 测试机
+    小米5
 
 ### 安装 Python 2.7
 
