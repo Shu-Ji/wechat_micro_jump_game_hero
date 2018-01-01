@@ -1,20 +1,23 @@
 # coding: u8
 
-import commands
-import time
-import math
 import colorsys
+import commands
+import itertools
+import math
+import time
 
 from PIL import Image, ImageDraw
+import psutil
 
 
 class Otsu(object):
 
     def __init__(self, path, debug=False):
         self.im = Image.open(path)
+
         self.w, self.h = self.im.size
-        self.draw = ImageDraw.Draw(self.im)
         self.pixels = self.im.load()
+        self.draw = ImageDraw.Draw(self.im)
 
         self.hero_pos = self.find_hero()
         print 'hero pos:', self.hero_pos
@@ -107,7 +110,7 @@ class Otsu(object):
 
     def is_same_color(self, h, s, v, bg_hsv):
         bg_h, bg_s, bg_v = bg_hsv
-        return (abs(h - bg_h) < 20) and (abs(s - bg_s) < 20)
+        return (abs(h - bg_h) < 15) and (abs(s - bg_s) < 20)
 
     def draw_pos(self, pos, color=(0, 255, 0)):
         x, y = pos
@@ -120,10 +123,7 @@ class Otsu(object):
             pow(otsu.center_pos[1] - otsu.hero_pos[1], 2)
         ))
 
-        if line_length > 550:
-            length_time = line_length * 1.45
-        else:
-            length_time = line_length * 1.5
+        length_time = line_length * 1.5
 
         holding = min(950, max(length_time, 300))
 
@@ -137,17 +137,19 @@ def run_cmd(cmd):
     return commands.getstatusoutput(cmd)
 
 
+jump_times = itertools.count(0)
 while True:
     try:
         debug = 0
 
         if not debug:
-            fn = str(int(time.time()))
-            run_cmd('adb shell screencap -p /sdcard/1.png')
-            run_cmd('adb pull /sdcard/1.png /tmp/{}.png'.format(fn))
-            run_cmd('cp /tmp/{}.png /tmp/1.png'.format(fn))
+            fn = str(next(jump_times))
+            run_cmd('adb shell screencap -p /sdcard/s.png')
+            run_cmd('adb pull /sdcard/s.png /tmp/{}.png'.format(fn))
+            run_cmd('cp /tmp/{}.png /tmp/s.png'.format(fn))
+            print fn
         else:
-            fn = '1'
+            fn = 's'
 
         otsu = Otsu('/tmp/{}.png'.format(fn), debug=debug)
         holding = otsu.length_to_time()
