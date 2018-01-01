@@ -7,7 +7,6 @@ import math
 import time
 
 from PIL import Image, ImageDraw
-import psutil
 
 
 class Otsu(object):
