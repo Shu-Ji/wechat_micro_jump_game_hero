@@ -54,7 +54,7 @@ class Otsu(object):
                 if self.pixels[x, y] == (56, 56, 97, 255):
                     hero_poses.append((x, y))
         # calc the avg pos
-        return map(lambda i: sum(i) / len(i), zip(*hero_poses))
+        return map(lambda i: sum(i) / len(i), itertools.izip(*hero_poses))
 
     def rgb_to_hsv(self, r, g, b, a=255):
         h, s, v = colorsys.rgb_to_hsv(r / 255., g / 255., b / 255.)
