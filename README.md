@@ -1,3 +1,5 @@
+## 原理说明
+
 ![计算](http://upload-images.jianshu.io/upload_images/576195-fd957e0c51330db5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
@@ -15,7 +17,7 @@
 1. 将距离换算为长按时长
 1. 使用 adb 跳
 
-更新日志：
+## 更新日志
 
 **2018-01-01**
 
