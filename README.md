@@ -55,6 +55,9 @@
     $ python --version
     Python 2.7.10
 
+    $ python3 --version
+    Python 3.6.1
+
     $ adb version
     Android Debug Bridge version 1.0.39
 

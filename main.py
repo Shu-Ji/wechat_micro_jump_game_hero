@@ -3,13 +3,26 @@
 from __future__ import print_function, unicode_literals
 
 import colorsys
-import commands
 import itertools
 import math
+import os
+import os.path as osp
+import platform
+import random
+import subprocess
 import time
 import traceback
 
 from PIL import Image, ImageDraw
+
+
+# check python version
+if int(platform.python_version_tuple()[0]) == 2:
+    range = xrange
+    zip = itertools.izip
+else:
+    defalut_range = range
+    range = lambda *args: defalut_range(*(int(arg) for arg in args))
 
 
 class Otsu(object):
@@ -36,28 +49,29 @@ class Otsu(object):
         self.center_pos = top_most[0], lr_most[1]
         print('center pos', self.center_pos)
 
+        self.draw_pos(self.hero_pos)
+        self.draw_pos(top_most)
+        self.draw_pos(lr_most)
+        self.draw_pos(self.center_pos)
+
+        cx, cy = self.center_pos
+        hx, hy = self.hero_pos
+        self.draw.line((cx, cy, hx, hy), fill=(0, 255, 0), width=8)
+        self.im.save(path + '.debug.png')
+
         if debug:
-            #self.erase_background(bg_hsv)
-            self.draw_pos(self.hero_pos)
-            self.draw_pos(top_most)
-            self.draw_pos(lr_most)
-            self.draw_pos(self.center_pos)
-
-            cx, cy = self.center_pos
-            hx, hy = self.hero_pos
-            self.draw.line((cx, cy, hx, hy), fill=(0, 255, 0), width=8)
-
+            self.erase_background(bg_hsv)
             self.im.show()
 
     def find_hero(self):
         hero_poses = []
-        for y in xrange(self.h / 3, self.h * 2 / 3):
-            for x in xrange(self.w):
+        for y in range(self.h / 3, self.h * 2 / 3):
+            for x in range(self.w):
                 # is purple
                 if self.pixels[x, y] == (56, 56, 97, 255):
                     hero_poses.append((x, y))
         # calc the avg pos
-        return map(lambda i: sum(i) / len(i), itertools.izip(*hero_poses))
+        return [int(sum(i) / len(i)) for i in zip(*hero_poses)]
 
     def rgb_to_hsv(self, r, g, b, a=255):
         h, s, v = colorsys.rgb_to_hsv(r / 255., g / 255., b / 255.)
@@ -69,8 +83,8 @@ class Otsu(object):
         return self.rgb_to_hsv(*bg_color)
 
     def erase_background(self, bg_hsv):
-        for y in xrange(self.h / 4, self.h * 2 / 3):
-            for x in xrange(self.w):
+        for y in range(self.h / 4, self.h * 2 / 3):
+            for x in range(self.w):
                 h, s, v = self.rgb_to_hsv(*self.pixels[x, y])
                 if self.is_same_color(h, s, v, bg_hsv):
                     self.im.putpixel((x, y), (0, 0, 0))
@@ -97,15 +111,15 @@ class Otsu(object):
         return top_most, lr_most
 
     def find_top_most(self, bg_hsv, from_x, to_x, from_y, to_y, step):
-        for y in xrange(from_y, to_y):
-            for x in xrange(from_x, to_x, step):
+        for y in range(from_y, to_y):
+            for x in range(from_x, to_x, step):
                 h, s, v = self.rgb_to_hsv(*self.pixels[x, y])
                 if not self.is_same_color(h, s, v, bg_hsv):
                     return x, y
 
     def find_lr_most(self, bg_hsv, from_x, to_x, from_y, to_y, step):
-        for x in xrange(from_x, to_x, step):
-            for y in xrange(from_y, to_y):
+        for x in range(from_x, to_x, step):
+            for y in range(from_y, to_y):
                 h, s, v = self.rgb_to_hsv(*self.pixels[x, y])
                 if not self.is_same_color(h, s, v, bg_hsv):
                     return x, y
@@ -136,32 +150,58 @@ class Otsu(object):
 
 
 def run_cmd(cmd):
-    return commands.getstatusoutput(cmd)
+    p = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+            stdin=subprocess.PIPE, shell=True)
+    stdout, stderr = p.communicate()
+    if stderr:
+        print(stderr)
+    p.wait()
+    return stdout, stderr
+
+
+debug = False
+
+# directory where screenshot image will be saved in.
+# if you use Windows, e.g 'c:/wechat_micro_jump_game_screenshot'
+screenshot_director = '/tmp/wechat_micro_jump_game_screenshot'
+if not osp.exists(screenshot_director):
+    os.makedirs(screenshot_director)
 
 
 jump_times = itertools.count(0)
 while True:
     try:
-        debug = False
-
         if debug:
-            fn = 's'
+            # your last failed image name
+            fn = '34.png'
+            fp = osp.join(screenshot_director, fn)
         else:
-            fn = str(next(jump_times))
-            run_cmd('adb shell screencap -p /sdcard/s.png')
-            run_cmd('adb pull /sdcard/s.png /tmp/{}.png'.format(fn))
-            run_cmd('cp /tmp/{}.png /tmp/s.png'.format(fn))
-            print(fn)
+            fn = str(next(jump_times)) + '.png'
+            fp = osp.join(screenshot_director, fn)
 
-        holding = Otsu('/tmp/{}.png'.format(fn), debug=debug).get_holding()
+            run_cmd('adb shell screencap -p /sdcard/s.png')
+            run_cmd('adb pull /sdcard/s.png {}'.format(fp))
+
+        print(fp)
+
+        otsu = Otsu(fp, debug=debug)
+        holding = otsu.get_holding()
 
         if debug:
             raise KeyboardInterrupt
         else:
-            run_cmd('adb shell input swipe 255 255 0 0 {}'.format(holding))
+            # random tap position
+            # anti-wechat detect
+            rand_x = lambda: random.randint(0, otsu.w)
+            rand_y = lambda: random.randint(0, otsu.h * 3 / 4)
+            x1, y1 = rand_x(), rand_y()
+            x2, y2 = rand_x(), rand_y()
+
+            run_cmd('adb shell input swipe {0} {1} {2} {3} {4}'.format(
+                x1, y1, x2, y2, holding))
             time.sleep(2)
     except KeyboardInterrupt:
         raise KeyboardInterrupt
-    except Exception as e:
+    except:
         traceback.print_exc()
         time.sleep(2)
