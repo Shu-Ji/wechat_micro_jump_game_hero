@@ -60,6 +60,7 @@ class Otsu(object):
         self.im.save(path + '.debug.png')
 
         if debug:
+            self.im.show()
             self.erase_background(bg_hsv)
             self.im.show()
 
@@ -92,16 +93,16 @@ class Otsu(object):
                     self.im.putpixel((x, y), (255, 255, 255))
 
     def find_most(self, is_hero_on_left, bg_hsv):
-        hero_r = 15
+        hero_radius = 25
         if is_hero_on_left:
             # top most is on the right, scan from right
             from_x = self.w - 1
-            to_x = self.hero_pos[0] + hero_r
+            to_x = self.hero_pos[0] + hero_radius
             step = -1
         else:
             # top most is on the left, scan from left
             from_x = 0
-            to_x = self.hero_pos[0] - hero_r
+            to_x = self.hero_pos[0] - hero_radius
             step = 1
 
         from_y, to_y = self.h / 4, self.hero_pos[1]
@@ -159,8 +160,6 @@ def run_cmd(cmd):
     return stdout, stderr
 
 
-debug = False
-
 # directory where screenshot image will be saved in.
 # if you use Windows, e.g 'c:/wechat_micro_jump_game_screenshot'
 screenshot_director = '/tmp/wechat_micro_jump_game_screenshot'
@@ -171,9 +170,11 @@ if not osp.exists(screenshot_director):
 jump_times = itertools.count(0)
 while True:
     try:
+        debug = True
+
         if debug:
             # your last failed image name
-            fn = '34.png'
+            fn = '6.png'
             fp = osp.join(screenshot_director, fn)
         else:
             fn = str(next(jump_times)) + '.png'
