@@ -1,3 +1,11 @@
+# 声明
+
+请勿将此用于任何商业用途，仅供个人使用。
+
+使用此工程带来的后果，由使用者自己承担，与本工程作者完全无关。
+
+克隆、fork、下载，即代表您遵循此声明。
+
 ## 原理说明
 
 ![计算](http://upload-images.jianshu.io/upload_images/576195-fd957e0c51330db5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
