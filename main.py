@@ -170,7 +170,7 @@ if not osp.exists(screenshot_director):
 jump_times = itertools.count(0)
 while True:
     try:
-        debug = True
+        debug = False
 
         if debug:
             # your last failed image name
