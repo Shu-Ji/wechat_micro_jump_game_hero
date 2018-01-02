@@ -28,6 +28,8 @@ else:
 class Otsu(object):
 
     def __init__(self, path, debug=False):
+        self.hero_color = (56, 56, 97, 255)
+
         self.im = Image.open(path)
 
         self.w, self.h = self.im.size
@@ -69,7 +71,7 @@ class Otsu(object):
         for y in range(self.h / 3, self.h * 2 / 3):
             for x in range(self.w):
                 # is purple
-                if self.pixels[x, y] == (56, 56, 97, 255):
+                if self.pixels[x, y] == self.hero_color:
                     hero_poses.append((x, y))
         # calc the avg pos
         return [int(sum(i) / len(i)) for i in zip(*hero_poses)]
@@ -93,7 +95,7 @@ class Otsu(object):
                     self.im.putpixel((x, y), (255, 255, 255))
 
     def find_most(self, is_hero_on_left, bg_hsv):
-        hero_radius = 25
+        hero_radius = 50
         if is_hero_on_left:
             # top most is on the right, scan from right
             from_x = self.w - 1
@@ -127,7 +129,15 @@ class Otsu(object):
 
     def is_same_color(self, h, s, v, bg_hsv):
         bg_h, bg_s, bg_v = bg_hsv
-        return (abs(h - bg_h) < 15) and (abs(s - bg_s) < 20)
+
+        # yellow background(lightter background)
+        if 30 < bg_h < 40:
+            diff = 8
+        # other background(darker background)
+        else:
+            diff = 15
+
+        return (abs(h - bg_h) < diff) and (abs(s - bg_s) < 20)
 
     def draw_pos(self, pos, color=(0, 255, 0)):
         x, y = pos
@@ -174,7 +184,7 @@ while True:
 
         if debug:
             # your last failed image name
-            fn = '6.png'
+            fn = '1.png'
             fp = osp.join(screenshot_director, fn)
         else:
             fn = str(next(jump_times)) + '.png'
