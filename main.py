@@ -81,8 +81,8 @@ class Otsu(object):
         return int(h * 255.), int(s * 255.), int(v * 255.)
 
     def get_background_hsv(self):
-        # use the (10, 800) as the background color
-        bg_color = self.pixels[10, 800]
+        # use the (10, 0.42h) as the background color
+        bg_color = self.pixels[10, self.h * .42]
         return self.rgb_to_hsv(*bg_color)
 
     def erase_background(self, bg_hsv):
@@ -184,7 +184,7 @@ while True:
 
         if debug:
             # your last failed image name
-            fn = '1.png'
+            fn = '10.png'
             fp = osp.join(screenshot_director, fn)
         else:
             fn = str(next(jump_times)) + '.png'
