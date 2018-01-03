@@ -8,11 +8,11 @@
 
 ## 原理说明
 
-普通版本：
+普通版本（main.py）：
 
 ![普通版本](http://upload-images.jianshu.io/upload_images/576195-ebb3e6782df3c0b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-优化版本：
+优化版本(main_cv.py)：
 
 ![优化版本](http://upload-images.jianshu.io/upload_images/576195-5f5ced00075de3cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
