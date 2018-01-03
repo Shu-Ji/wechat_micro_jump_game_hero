@@ -8,8 +8,9 @@
 
 ## 原理说明
 
-![计算](http://upload-images.jianshu.io/upload_images/576195-fd957e0c51330db5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+![普通版本](http://upload-images.jianshu.io/upload_images/576195-ebb3e6782df3c0b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
+![优化版本](http://upload-images.jianshu.io/upload_images/576195-5f5ced00075de3cd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 调试时，修改 debug 为 True，真实运行时，设置为 False。停顿时间设置为 2s，如果电脑运算速度太快，保险起见可以设置为 2s。
 
