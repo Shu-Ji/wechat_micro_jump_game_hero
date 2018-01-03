@@ -172,9 +172,9 @@ def run_cmd(cmd):
 
 # directory where screenshot image will be saved in.
 # if you use Windows, e.g 'c:/wechat_micro_jump_game_screenshot'
-screenshot_director = '/tmp/wechat_micro_jump_game_screenshot'
-if not osp.exists(screenshot_director):
-    os.makedirs(screenshot_director)
+screenshot_directory = '/tmp/wechat_micro_jump_game_screenshot'
+if not osp.exists(screenshot_directory):
+    os.makedirs(screenshot_directory)
 
 
 jump_times = itertools.count(0)
@@ -185,10 +185,10 @@ while True:
         if debug:
             # your last failed image name
             fn = '10.png'
-            fp = osp.join(screenshot_director, fn)
+            fp = osp.join(screenshot_directory, fn)
         else:
             fn = str(next(jump_times)) + '.png'
-            fp = osp.join(screenshot_director, fn)
+            fp = osp.join(screenshot_directory, fn)
 
             run_cmd('adb shell screencap -p /sdcard/s.png')
             run_cmd('adb pull /sdcard/s.png {}'.format(fp))
