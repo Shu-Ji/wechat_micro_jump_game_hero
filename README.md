@@ -6,6 +6,20 @@
 
 克隆、fork、下载，即代表您遵循此声明。
 
+
+## 目录结构说明
+
+    .
+    ├── game.beautified.js  # 小游戏源码
+    ├── game_js_beautifier.py  # 反混淆 game.js
+    ├── LICENSE
+    ├── main_cv.py  # 自动跳 opencv 版本
+    ├── main.py  # 自动跳 pillow 版本
+    ├── Pipfile
+    ├── Pipfile.lock
+    └── README.md
+
+
 ## 原理说明
 
 普通版本（main.py）：
