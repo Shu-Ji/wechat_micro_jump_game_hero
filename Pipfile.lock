@@ -1,20 +1,20 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d79e82ab35fcc94871320a2882066609cd48737f12d24d438f480b4f25ac70ce"
+            "sha256": "45bb5654be7852c62b6a0a06c058425cfa7080de8766e3db16939ee079e403f6"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
-            "implementation_version": "0",
+            "implementation_version": "3.6.3",
             "os_name": "posix",
             "platform_machine": "x86_64",
             "platform_python_implementation": "CPython",
-            "platform_release": "17.3.0",
-            "platform_system": "Darwin",
-            "platform_version": "Darwin Kernel Version 17.3.0: Thu Nov  9 18:09:22 PST 2017; root:xnu-4570.31.3~1/RELEASE_X86_64",
-            "python_full_version": "2.7.10",
-            "python_version": "2.7",
-            "sys_platform": "darwin"
+            "platform_release": "4.4.0-104-generic",
+            "platform_system": "Linux",
+            "platform_version": "#127~14.04.1-Ubuntu SMP Mon Dec 11 12:44:15 UTC 2017",
+            "python_full_version": "3.6.3",
+            "python_version": "3.6",
+            "sys_platform": "linux"
         },
         "pipfile-spec": 6,
         "requires": {},
@@ -27,6 +27,19 @@
         ]
     },
     "default": {
+        "editorconfig": {
+            "hashes": [
+                "sha256:435d6a52ee18ad5aa5369fa9c5e475f848b863d8a106d59129fda39423da2007",
+                "sha256:8b53c857956194a21043753c9adca5a5b0eaef6cf1db3273a362ddec78f2b8e3"
+            ],
+            "version": "==0.12.1"
+        },
+        "jsbeautifier": {
+            "hashes": [
+                "sha256:78eb1e5c8535484f0d0b588aca38da3fb5e0e34de2d1ab53c077e71c55757473"
+            ],
+            "version": "==1.7.5"
+        },
         "numpy": {
             "hashes": [
                 "sha256:910e7ae5eeee8d322775187692c5c66719cd58d230fbfd57245ea3cf75716910",
@@ -127,6 +140,13 @@
                 "sha256:5cd36804f9f06a914a883fe682df5711d16d7b4f44d43189c5f013e7cd91e149"
             ],
             "version": "==5.0.0"
+        },
+        "six": {
+            "hashes": [
+                "sha256:832dc0e10feb1aa2c68dcc57dbb658f1c7e65b9b61af69048abc87a2db00a0eb",
+                "sha256:70e8a77beed4562e7f14fe23a786b54f6296e34344c23bc42f07b15018ff98e9"
+            ],
+            "version": "==1.11.0"
         }
     },
     "develop": {}
