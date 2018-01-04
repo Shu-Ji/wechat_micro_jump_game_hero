@@ -4,18 +4,18 @@ define("game.js", function(require, module, exports) {
             if (i[n]) return i[n].exports;
             var r = i[n] = {
                 i: n,
-                l: !1,
+                l: false,
                 exports: {}
             };
-            return t[n].call(r.exports, r, r.exports, e), r.l = !0, r.exports
+            return t[n].call(r.exports, r, r.exports, e), r.l = true, r.exports
         }
         var i = {};
         e.m = t, e.c = i, e.i = function(t) {
             return t
         }, e.d = function(t, i, n) {
             e.o(t, i) || Object.defineProperty(t, i, {
-                configurable: !1,
-                enumerable: !0,
+                configurable: false,
+                enumerable: true,
                 get: n
             })
         }, e.n = function(t) {
@@ -33,7 +33,7 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         }), e.REPORTERTIMEOUT = e.numberMaterial = e.grayMaterial = e.shadow = e.desk_shadow = e.cylinder_shadow = e.loader = e.FRUSTUMSIZE = e.BLOCK = e.AUDIO = e.CAMERA = e.WAVE = e.GAME = e.PARTICLE = e.BOTTLE = e.COLORS = void 0;
         var n = function(t) {
                 if (t && t.__esModule) return t;
@@ -85,7 +85,7 @@ define("game.js", function(require, module, exports) {
                 rightBound: 90,
                 HEIGHT: window.innerHeight > window.innerWidth ? window.innerHeight : window.innerWidth,
                 WIDTH: window.innerHeight < window.innerWidth ? window.innerHeight : window.innerWidth,
-                canShadow: !0
+                canShadow: true
             }, e.WAVE = {
                 innerRadius: 2.2,
                 outerRadius: 3,
@@ -130,15 +130,15 @@ define("game.js", function(require, module, exports) {
             }, e.FRUSTUMSIZE = window.innerHeight / window.innerWidth / 736 * 414 * 60, e.loader = new n.TextureLoader);
         e.cylinder_shadow = new n.MeshBasicMaterial({
             map: a.load("res/cylinder_shadow.png"),
-            transparent: !0,
+            transparent: true,
             alphaTest: .01
         }), e.desk_shadow = new n.MeshBasicMaterial({
             map: a.load("res/desk_shadow.png"),
-            transparent: !0,
+            transparent: true,
             alphaTest: .01
         }), e.shadow = new n.MeshBasicMaterial({
             map: a.load("res/shadow.png"),
-            transparent: !0,
+            transparent: true,
             alphaTest: .01
         }), e.grayMaterial = new n.MeshLambertMaterial({
             map: a.load("res/gray.png")
@@ -155,13 +155,13 @@ define("game.js", function(require, module, exports) {
             }
         }
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var r = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -209,10 +209,10 @@ define("game.js", function(require, module, exports) {
                     value: function(t) {
                         t || (t = function() {}), wx.login({
                             success: function(e) {
-                                e.code ? (a.default.setLoginState(e.code), t(!0)) : t(!1)
+                                e.code ? (a.default.setLoginState(e.code), t(true)) : t(false)
                             },
                             fail: function(e) {
-                                t(!1)
+                                t(false)
                             }
                         })
                     }
@@ -233,13 +233,13 @@ define("game.js", function(require, module, exports) {
                                     method: "POST",
                                     data: e,
                                     success: function(e) {
-                                        200 === e.statusCode && 0 === e.data.base_resp.errcode ? t(!0, e.data) : t && t(!1)
+                                        200 === e.statusCode && 0 === e.data.base_resp.errcode ? t(true, e.data) : t && t(false)
                                     },
                                     fail: function(e) {
-                                        t(!1, !1)
+                                        t(false, false)
                                     }
                                 })
-                            } else t(!1)
+                            } else t(false)
                     }
                 }, {
                     key: "requestSettlement",
@@ -266,13 +266,13 @@ define("game.js", function(require, module, exports) {
                                 method: "POST",
                                 data: o,
                                 success: function(t) {
-                                    i(200 === t.statusCode ? 0 === t.data.base_resp.errcode ? !0 : !1 : !1)
+                                    i(200 === t.statusCode ? 0 === t.data.base_resp.errcode ? true : false : false)
                                 },
                                 fail: function(t) {
-                                    i(!1)
+                                    i(false)
                                 }
                             })
-                        } else i(!1)
+                        } else i(false)
                     }
                 }, {
                     key: "requestCreateGame",
@@ -291,20 +291,20 @@ define("game.js", function(require, module, exports) {
                                 method: "POST",
                                 data: e,
                                 success: function(e) {
-                                    200 === e.statusCode && 0 === e.data.base_resp.errcode ? t(!0, e) : t(!1)
+                                    200 === e.statusCode && 0 === e.data.base_resp.errcode ? t(true, e) : t(false)
                                 },
                                 fail: function(e) {
-                                    t(!1)
+                                    t(false)
                                 }
                             })
-                        } else t(!1, "当前围观人数过多，请稍后再试")
+                        } else t(false, "当前围观人数过多，请稍后再试")
                     }
                 }, {
                     key: "reGetSessionId",
                     value: function(t, e) {
                         var i = this;
                         o.default.clearSessionId(), this.requestLogin(function(n) {
-                            n ? e ? i[t](e) : i[t]() : e && e(!1)
+                            n ? e ? i[t](e) : i[t]() : e && e(false)
                         })
                     }
                 }, {
@@ -355,13 +355,13 @@ define("game.js", function(require, module, exports) {
                                 method: "POST",
                                 data: e,
                                 success: function(e) {
-                                    200 === e.statusCode && 0 === e.data.base_resp.errcode ? t(!0, e) : t(!1)
+                                    200 === e.statusCode && 0 === e.data.base_resp.errcode ? t(true, e) : t(false)
                                 },
                                 fail: function(e) {
-                                    t(!1)
+                                    t(false)
                                 }
                             })
-                        } else t(!1)
+                        } else t(false)
                     }
                 }, {
                     key: "createPK",
@@ -413,13 +413,13 @@ define("game.js", function(require, module, exports) {
                                 method: "POST",
                                 data: i,
                                 success: function(e) {
-                                    200 === e.statusCode && 0 === e.data.base_resp.errcode ? t(!0, e) : t(!1)
+                                    200 === e.statusCode && 0 === e.data.base_resp.errcode ? t(true, e) : t(false)
                                 },
                                 fail: function(e) {
-                                    t(!1)
+                                    t(false)
                                 }
                             })
-                        } else t(!1)
+                        } else t(false)
                     }
                 }, {
                     key: "updatepkinfo",
@@ -441,13 +441,13 @@ define("game.js", function(require, module, exports) {
                                 method: "POST",
                                 data: n,
                                 success: function(e) {
-                                    200 === e.statusCode && 0 === e.data.base_resp.errcode ? t(!0, e) : t(!1)
+                                    200 === e.statusCode && 0 === e.data.base_resp.errcode ? t(true, e) : t(false)
                                 },
                                 fail: function(e) {
-                                    t(!1)
+                                    t(false)
                                 }
                             })
-                        } else t(!1)
+                        } else t(false)
                     }
                 }, {
                     key: "quitGame",
@@ -466,13 +466,13 @@ define("game.js", function(require, module, exports) {
                                 method: "POST",
                                 data: e,
                                 success: function(e) {
-                                    200 === e.statusCode && 0 === e.data.base_resp.errcode ? t(!0, e) : t(!1)
+                                    200 === e.statusCode && 0 === e.data.base_resp.errcode ? t(true, e) : t(false)
                                 },
                                 fail: function(e) {
-                                    t(!1)
+                                    t(false)
                                 }
                             })
-                        } else t(!1)
+                        } else t(false)
                     }
                 }, {
                     key: "syncop",
@@ -491,13 +491,13 @@ define("game.js", function(require, module, exports) {
                                 method: "POST",
                                 data: e,
                                 success: function(e) {
-                                    200 === e.statusCode && 0 === e.data.base_resp.errcode ? t(!0, e) : t(!1)
+                                    200 === e.statusCode && 0 === e.data.base_resp.errcode ? t(true, e) : t(false)
                                 },
                                 fail: function(e) {
-                                    t(!1)
+                                    t(false)
                                 }
                             })
-                        } else callback(!1)
+                        } else callback(false)
                     }
                 }, {
                     key: "sendReport",
@@ -566,7 +566,7 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         }), e.TweenAnimation = e.customAnimation = void 0;
         var n = function(t) {
                 return t && t.__esModule ? t : {
@@ -638,7 +638,7 @@ define("game.js", function(require, module, exports) {
                             g = s > g ? s : g + 1
                         }
                         var l = y(g, t, e - t, v);
-                        g <= v && h > a ? (p.callback(l), requestAnimationFrame(i)) : g > v && h > a && p.callback(e, !0)
+                        g <= v && h > a ? (p.callback(l), requestAnimationFrame(i)) : g > v && h > a && p.callback(e, true)
                     }
                 }()
             } else console.error('没有找到名为"' + p.easing + '"的动画算法')
@@ -649,13 +649,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -712,18 +712,18 @@ define("game.js", function(require, module, exports) {
                     key: "getHeighestScore",
                     value: function() {
                         try {
-                            return wx.getStorageSync("my_heighest_score") || !1
+                            return wx.getStorageSync("my_heighest_score") || false
                         } catch (t) {
-                            return !1
+                            return false
                         }
                     }
                 }, {
                     key: "getMyUserInfo",
                     value: function() {
                         try {
-                            return wx.getStorageSync("my_user_info") || !1
+                            return wx.getStorageSync("my_user_info") || false
                         } catch (t) {
-                            return !1
+                            return false
                         }
                     }
                 }, {
@@ -796,9 +796,9 @@ define("game.js", function(require, module, exports) {
                     key: "getHistoryTimes",
                     value: function() {
                         try {
-                            return wx.getStorageSync("history_Times2") || !1
+                            return wx.getStorageSync("history_Times2") || false
                         } catch (t) {
-                            return !1
+                            return false
                         }
                     }
                 }, {
@@ -829,9 +829,9 @@ define("game.js", function(require, module, exports) {
                     key: "getActionData",
                     value: function() {
                         try {
-                            return wx.getStorageSync("action_data0") || !1
+                            return wx.getStorageSync("action_data0") || false
                         } catch (t) {
-                            return !1
+                            return false
                         }
                     }
                 }, {
@@ -860,13 +860,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -951,30 +951,30 @@ define("game.js", function(require, module, exports) {
             }
         }
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         }), e.shareGroupRank = function() {
             var t = arguments.length > 0 && void 0 !== arguments[0] ? arguments[0] : function() {};
             wx.getNetworkType({
                 success: function(e) {
                     "none" !== e.networkType ? wx.updateShareMenu({
-                        withShareTicket: !0,
+                        withShareTicket: true,
                         success: function() {
                             wx.shareAppMessage({
                                 title: "群雄逐鹿，看看你第几",
                                 query: "mode=groupShare",
                                 imageUrl: "http://mmbiz.qpic.cn/mmbiz_png/icTdbqWNOwNQ0ia79enzYJBrAavqMRykpovYxSA9RRTwIjde6a68ZCczLMBBd8eSoOyTRyp2Codc5IObdeqZVFyw/0?wx_fmt=png",
                                 success: function(e) {
-                                    t(!0, 1)
+                                    t(true, 1)
                                 },
                                 fail: function(e) {
-                                    t(!1)
+                                    t(false)
                                 }
                             })
                         }
-                    }) : (t(!1), wx.showModal({
+                    }) : (t(false), wx.showModal({
                         title: "提示",
                         content: "网络状态异常",
-                        showCancel: !1
+                        showCancel: false
                     }))
                 }
             })
@@ -991,22 +991,22 @@ define("game.js", function(require, module, exports) {
                     console.log("shareBattle: ", t)
                 }
                 t && wx.updateShareMenu({
-                    withShareTicket: !0,
+                    withShareTicket: true,
                     success: function() {
                         wx.shareAppMessage({
                             title: "小试牛刀，不服来战",
                             query: "mode=battle&pkId=" + t,
                             imageUrl: n,
                             success: function(e) {
-                                i(!0, 1), console.log("mode=battle&pkId=" + t)
+                                i(true, 1), console.log("mode=battle&pkId=" + t)
                             },
                             fail: function() {
-                                i(!1)
+                                i(false)
                             }
                         })
                     },
                     fail: function(t) {
-                        i(!1)
+                        i(false)
                     }
                 })
             })
@@ -1017,22 +1017,22 @@ define("game.js", function(require, module, exports) {
                 nickname: "",
                 headimg: ""
             }), console.log("query: ", "gameId=" + r.default.gameId + "&mode=observe&nickName=" + e.nickname + "&headimg=" + e.headimg), wx.updateShareMenu({
-                withShareTicket: !0,
+                withShareTicket: true,
                 success: function() {
                     wx.shareAppMessage({
                         title: "即刻起跳，速来围观",
                         query: "gameId=" + r.default.gameId + "&mode=observe&nickName=" + e.nickname + "&headimg=" + e.headimg,
                         imageUrl: "http://mmbiz.qpic.cn/mmbiz_png/icTdbqWNOwNQ0ia79enzYJBiaBtXsYrvBsYBdBdDtKE7y638J84JKPckcOtFMp4QunIWFGc7pibQLm13s9fKZ9ic9ew/0?wx_fmt=png",
                         success: function(e) {
-                            t(!0, 1)
+                            t(true, 1)
                         },
                         fail: function(e) {
-                            t(!1)
+                            t(false)
                         }
                     })
                 },
                 fail: function() {
-                    t(!1)
+                    t(false)
                 }
             })
         }, e.pureShare = function(t, e) {
@@ -1061,13 +1061,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -1092,7 +1092,7 @@ define("game.js", function(require, module, exports) {
                             if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function")
                         }(this, t), this.material = new r.MeshBasicMaterial({
                             color: i.fillStyle || 16777215,
-                            transparent: !0
+                            transparent: true
                         }), i.opacity && (this.material.opacity = i.opacity), this.options = i || {}, this.obj = new r.Object3D, this.obj.name = "text", i.chinese) {
                         var n = new r.Mesh(new r.TextGeometry(e, {
                             font: a.default,
@@ -1113,7 +1113,7 @@ define("game.js", function(require, module, exports) {
                                     height: .1
                                 }), c = 0; c < o; ++c) {
                                 var u = new r.Mesh(l, this.material);
-                                u.using = !1, h.push(u)
+                                u.using = false, h.push(u)
                             }
                             this.scores.push(h)
                         }
@@ -1128,11 +1128,11 @@ define("game.js", function(require, module, exports) {
                             n = "center" == this.options.textAlign ? -e / 2 : 0;
                         this.options.plusScore && (n = -(e + 2.5) / 2, this.plus.position.x = n, this.obj.add(this.plus), n += 2.5);
                         for (var r = 0, a = this.scores.length; r < a; ++r)
-                            for (s = 0; s < i; ++s) this.scores[r][s].using && (this.obj.remove(this.scores[r][s]), this.scores[r][s].using = !1);
+                            for (s = 0; s < i; ++s) this.scores[r][s].using && (this.obj.remove(this.scores[r][s]), this.scores[r][s].using = false);
                         for (var r = 0, a = t.length; r < a; ++r) {
                             for (var o = this.scores[t[r]], s = 0; s < i; ++s)
                                 if (!o[s].using) {
-                                    o[s].position.x = n, o[s].using = !0, this.obj.add(o[s]);
+                                    o[s].position.x = n, o[s].using = true, this.obj.add(o[s]);
                                     break
                                 }
                             n += 2.5
@@ -1149,7 +1149,7 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = void 0,
             r = function() {
@@ -1176,13 +1176,13 @@ define("game.js", function(require, module, exports) {
             }
         }
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var r = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -1278,7 +1278,7 @@ define("game.js", function(require, module, exports) {
                     key: "shareObservCard",
                     value: function() {
                         this.gamePage.hideLookersShare(), this.model.setStage("loading"), wx.showLoading();
-                        this.model.getSessionId() ? this.afterLogin(!0) : this.netWorkCtrl.netWorkLogin(this.afterLogin.bind(this))
+                        this.model.getSessionId() ? this.afterLogin(true) : this.netWorkCtrl.netWorkLogin(this.afterLogin.bind(this))
                     }
                 }, {
                     key: "afterLogin",
@@ -1340,13 +1340,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -1367,7 +1367,7 @@ define("game.js", function(require, module, exports) {
                 return n(t, [{
                     key: "onTouchStart",
                     value: function() {
-                        this._startPosition = this._position, this._lastChangePos = this._startPosition, this._startPosition > 0 ? this._startPosition /= .5 : this._startPosition < -this._extent && (this._startPosition = (this._startPosition + this._extent) / .5 - this._extent), this._animation && (this._animation.cancel(), this._scrolling = !1), this.updatePosition()
+                        this._startPosition = this._position, this._lastChangePos = this._startPosition, this._startPosition > 0 ? this._startPosition /= .5 : this._startPosition < -this._extent && (this._startPosition = (this._startPosition + this._extent) / .5 - this._extent), this._animation && (this._animation.cancel(), this._scrolling = false), this.updatePosition()
                     }
                 }, {
                     key: "onTouchMove",
@@ -1379,18 +1379,18 @@ define("game.js", function(require, module, exports) {
                     key: "onTouchEnd",
                     value: function(t, e, i) {
                         var n = this;
-                        this._scroll.set(this._position, i.y), this._scrolling = !0, this._lastChangePos = this._position, this._animation = this.animation(this._scroll, function() {
+                        this._scroll.set(this._position, i.y), this._scrolling = true, this._lastChangePos = this._position, this._animation = this.animation(this._scroll, function() {
                             var t = (Date.now() - n._scroll._startTime) / 1e3,
                                 e = n._scroll.x(t);
                             n._position = e, n.updatePosition()
                         }, function() {
-                            n._scrolling = !1
+                            n._scrolling = false
                         })
                     }
                 }, {
                     key: "scrollTo",
                     value: function(t) {
-                        this._animation && (this._animation.cancel(), this._scrolling = !1), "number" == typeof t && (this._position = -t), this._position < -this._extent ? this._position = -this._extent : this._position > 0 && (this._position = 0), this.updatePosition()
+                        this._animation && (this._animation.cancel(), this._scrolling = false), "number" == typeof t && (this._position = -t), this._position < -this._extent ? this._position = -this._extent : this._position > 0 && (this._position = 0), this.updatePosition()
                     }
                 }, {
                     key: "updatePosition",
@@ -1409,11 +1409,11 @@ define("game.js", function(require, module, exports) {
                         }
                         var r = {
                             id: 0,
-                            cancelled: !1
+                            cancelled: false
                         };
                         return n(r, t, e, i), {
                             cancel: function(t) {
-                                t && t.id && cancelAnimationFrame(t.id), t && (t.cancelled = !0)
+                                t && t.id && cancelAnimationFrame(t.id), t && (t.cancelled = true)
                             }.bind(null, r),
                             model: t
                         }
@@ -1424,13 +1424,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -1473,7 +1473,7 @@ define("game.js", function(require, module, exports) {
                             color: h.green
                         }), this.whiteMaterial = new r.MeshLambertMaterial({
                             color: h.white
-                        }), this.shadowWidth = 11, 2 == e || 7 == e ? (this.shadow = new r.Mesh(u, a.desk_shadow), this.shadow.position.set(0, -a.BLOCK.height / 2 - .001 * e, -4.5), this.shadow.scale.y = 1.2) : 3 == e || 21 == e || 27 == e || 28 == e || 29 == e || 31 == e ? (this.shadow = new r.Mesh(u, a.cylinder_shadow), this.shadow.position.set(-.1, -a.BLOCK.height / 2 - .001 * e, -2.8), this.shadow.scale.y = 1.4, this.shadow.scale.x = 1) : (this.shadow = new r.Mesh(u, a.shadow), this.shadow.position.set(-.74, -a.BLOCK.height / 2 - .001 * e, -2.73), this.shadow.scale.y = 1.4), this.shadow.rotation.x = -Math.PI / 2, this.order = e, this.radiusSegments = 4, this.height = a.BLOCK.height, this.canChange = !0, 0 == e) {
+                        }), this.shadowWidth = 11, 2 == e || 7 == e ? (this.shadow = new r.Mesh(u, a.desk_shadow), this.shadow.position.set(0, -a.BLOCK.height / 2 - .001 * e, -4.5), this.shadow.scale.y = 1.2) : 3 == e || 21 == e || 27 == e || 28 == e || 29 == e || 31 == e ? (this.shadow = new r.Mesh(u, a.cylinder_shadow), this.shadow.position.set(-.1, -a.BLOCK.height / 2 - .001 * e, -2.8), this.shadow.scale.y = 1.4, this.shadow.scale.x = 1) : (this.shadow = new r.Mesh(u, a.shadow), this.shadow.position.set(-.74, -a.BLOCK.height / 2 - .001 * e, -2.73), this.shadow.scale.y = 1.4), this.shadow.rotation.x = -Math.PI / 2, this.order = e, this.radiusSegments = 4, this.height = a.BLOCK.height, this.canChange = true, 0 == e) {
                         var o = [this.greenMaterial, this.whiteMaterial],
                             s = new r.Geometry,
                             f = 3,
@@ -1668,7 +1668,7 @@ define("game.js", function(require, module, exports) {
                                 color: 15563832
                             }), C = new r.MeshBasicMaterial({
                                 map: a.loader.load("res/game.png"),
-                                transparent: !0
+                                transparent: true
                             })],
                             s = new r.Geometry,
                             v = c;
@@ -1686,7 +1686,7 @@ define("game.js", function(require, module, exports) {
                                 color: 16508510
                             }), C = new r.MeshBasicMaterial({
                                 map: a.loader.load("res/emotion.png"),
-                                transparent: !0
+                                transparent: true
                             })],
                             s = new r.Geometry,
                             v = c,
@@ -1722,7 +1722,7 @@ define("game.js", function(require, module, exports) {
                             }),
                             C = new r.MeshBasicMaterial({
                                 map: a.loader.load("res/green_face.png"),
-                                transparent: !0
+                                transparent: true
                             }),
                             T = new r.PlaneGeometry(6, 3),
                             o = [E, C],
@@ -1825,7 +1825,7 @@ define("game.js", function(require, module, exports) {
                         var L = new r.BoxGeometry(2 * a.BLOCK.radius, this.height, 2 * a.BLOCK.radius),
                             o = [k, A],
                             s = new r.Geometry;
-                        this.mapUv(198, 198, v, 1, 0, 0, 148, 50), this.mapUv(198, 198, v, 2, 0, 50, 148, 198), this.mapUv(198, 198, v, 4, 148, 50, 198, 198), this.mapUv(444, 50, L, 4, 148, 0, 296, 50, !0), this.mapUv(444, 50, L, 1, 0, 0, 148, 50), this.mapUv(444, 50, L, 2, 0, 0, 1, 1), this.mapUv(444, 50, L, 0, 296, 50, 444, 0), this.merge(s, v, 0, [{
+                        this.mapUv(198, 198, v, 1, 0, 0, 148, 50), this.mapUv(198, 198, v, 2, 0, 50, 148, 198), this.mapUv(198, 198, v, 4, 148, 50, 198, 198), this.mapUv(444, 50, L, 4, 148, 0, 296, 50, true), this.mapUv(444, 50, L, 1, 0, 0, 148, 50), this.mapUv(444, 50, L, 2, 0, 0, 1, 1), this.mapUv(444, 50, L, 0, 296, 50, 444, 0), this.merge(s, v, 0, [{
                             x: 0,
                             y: 0,
                             z: 0
@@ -1850,7 +1850,7 @@ define("game.js", function(require, module, exports) {
                         this.geometry = v;
                         var P = new r.MeshLambertMaterial({
                                 color: 16777215,
-                                transparent: !0,
+                                transparent: true,
                                 opacity: .3
                             }),
                             b = new r.BoxGeometry(2.05 * a.BLOCK.radius, a.BLOCK.height / 21 * 17, 2.05 * a.BLOCK.radius),
@@ -1877,11 +1877,11 @@ define("game.js", function(require, module, exports) {
                         T = new r.PlaneGeometry(2, 2);
                         this.musicIcon = new r.Mesh(T, new r.MeshBasicMaterial({
                             map: a.loader.load("res/music_icon.png"),
-                            transparent: !0
-                        })), this.musicIcon.position.set(0, 0, 0), this.musicIcon.rotation.y = -Math.PI / 4, this.musicIcon.rotation.x = -Math.PI / 5, this.musicIcon.rotation.z = -Math.PI / 5, this.musicIcon.visible = !1, this.secondMusicIcon = new r.Mesh(T, new r.MeshBasicMaterial({
+                            transparent: true
+                        })), this.musicIcon.position.set(0, 0, 0), this.musicIcon.rotation.y = -Math.PI / 4, this.musicIcon.rotation.x = -Math.PI / 5, this.musicIcon.rotation.z = -Math.PI / 5, this.musicIcon.visible = false, this.secondMusicIcon = new r.Mesh(T, new r.MeshBasicMaterial({
                             map: a.loader.load("res/music_icon_two.png"),
-                            transparent: !0
-                        })), this.secondMusicIcon.rotation.y = -Math.PI / 4, this.secondMusicIcon.rotation.x = -Math.PI / 5, this.secondMusicIcon.rotation.z = -Math.PI / 5, this.secondMusicIcon.visible = !1, this.icons = [], this.icons.push(this.musicIcon, this.secondMusicIcon);
+                            transparent: true
+                        })), this.secondMusicIcon.rotation.y = -Math.PI / 4, this.secondMusicIcon.rotation.x = -Math.PI / 5, this.secondMusicIcon.rotation.z = -Math.PI / 5, this.secondMusicIcon.visible = false, this.icons = [], this.icons.push(this.musicIcon, this.secondMusicIcon);
                         for (N = 0; N < 2; ++N) this.body.add(this.icons[N])
                     } else if (20 == e) {
                         v = new r.BoxGeometry(2 * a.BLOCK.radius, this.height, 2 * a.BLOCK.radius / 38 * 48);
@@ -1891,7 +1891,7 @@ define("game.js", function(require, module, exports) {
                             }),
                             O = new r.MeshBasicMaterial({
                                 map: a.loader.load("res/disk_dark.png"),
-                                transparent: !0
+                                transparent: true
                             }),
                             T = new r.PlaneGeometry(3, 3),
                             o = [O, P],
@@ -1906,8 +1906,8 @@ define("game.js", function(require, module, exports) {
                             z: a.BLOCK.radius / 38 * 48 + .01
                         }]), this.hitObj = new r.Mesh(s, o), this.plane = new r.Mesh(T, new r.MeshBasicMaterial({
                             map: a.loader.load("res/disk_light.png"),
-                            transparent: !0
-                        })), this.plane.position.set(3.5, .5, a.BLOCK.radius / 38 * 48 + .03), this.plane.updateMatrix(), this.plane.matrixAutoUpdate = !1, this.body.add(this.plane), this.timer = setInterval(function() {
+                            transparent: true
+                        })), this.plane.position.set(3.5, .5, a.BLOCK.radius / 38 * 48 + .03), this.plane.updateMatrix(), this.plane.matrixAutoUpdate = false, this.body.add(this.plane), this.timer = setInterval(function() {
                             n.plane.visible = !n.plane.visible
                         }, 1e3)
                     } else if (21 == e) {
@@ -1952,7 +1952,7 @@ define("game.js", function(require, module, exports) {
                             A = new r.MeshLambertMaterial({
                                 color: 11637749
                             });
-                        this.mapUv(300, 370, v, 1, 0, 0, 300, 70), this.mapUv(300, 370, v, 2, 0, 70, 300, 370), this.mapUv(300, 370, v, 4, 0, 0, 300, 70, !0);
+                        this.mapUv(300, 370, v, 1, 0, 0, 300, 70), this.mapUv(300, 370, v, 2, 0, 70, 300, 370), this.mapUv(300, 370, v, 4, 0, 0, 300, 70, true);
                         var o = [P, A],
                             s = new r.Geometry;
                         this.merge(s, v, 0, [{
@@ -1976,7 +1976,7 @@ define("game.js", function(require, module, exports) {
                         });
                         this.hitObj = new r.Mesh(v, P), this.shadow = new r.Mesh(new r.PlaneGeometry(this.shadowWidth, this.shadowWidth), new r.MeshBasicMaterial({
                             map: a.loader.load("res/stool_shadow.png"),
-                            transparent: !0,
+                            transparent: true,
                             alphaTest: .01
                         })), this.shadow.position.set(-.76, -a.BLOCK.height / 2 - .001 * e, -3.6), this.shadow.scale.y = 1.4, this.shadow.scale.x = .9, this.shadow.rotation.x = -Math.PI / 2
                     } else if (24 == e) {
@@ -1989,10 +1989,10 @@ define("game.js", function(require, module, exports) {
                                 map: a.loader.load("res/store_top.png")
                             }), A = new r.MeshBasicMaterial({
                                 map: a.loader.load("res/store_bottom.png"),
-                                transparent: !0
+                                transparent: true
                             }), C = new r.MeshBasicMaterial({
                                 map: a.loader.load("res/indoor.png"),
-                                transparent: !0
+                                transparent: true
                             })],
                             T = new r.PlaneGeometry(3.1, 3.1),
                             s = new r.Geometry;
@@ -2000,7 +2000,7 @@ define("game.js", function(require, module, exports) {
                             x: 0,
                             y: 0,
                             z: 0
-                        }]), this.mapUv(434, 164, b, 1, 0, 0, 217, 164), this.mapUv(434, 164, b, 4, 217, 0, 434, 164, !0), this.merge(s, b, 1, [{
+                        }]), this.mapUv(434, 164, b, 1, 0, 0, 217, 164), this.mapUv(434, 164, b, 4, 217, 0, 434, 164, true), this.merge(s, b, 1, [{
                             x: 0,
                             y: -a.BLOCK.height / 21 * 10.5,
                             z: 0
@@ -2012,10 +2012,10 @@ define("game.js", function(require, module, exports) {
                         var U = new r.PlaneGeometry(1.55, 3.1);
                         this.door = new r.Mesh(U, new r.MeshBasicMaterial({
                             map: a.loader.load("res/door.png"),
-                            transparent: !0
+                            transparent: true
                         })), this.door.rotation.y = -Math.PI / 2, this.door.position.set(-a.BLOCK.radius / 38 * 40 - .02, -3.3, -3.3), this.body.add(this.door), this.secondDoor = new r.Mesh(U, new r.MeshBasicMaterial({
                             map: a.loader.load("res/second_door.png"),
-                            transparent: !0
+                            transparent: true
                         })), this.secondDoor.rotation.y = -Math.PI / 2, this.secondDoor.position.set(-a.BLOCK.radius / 38 * 40 - .02, -3.3, -1.7), this.body.add(this.secondDoor)
                     } else if (25 == e) {
                         v = new r.BoxGeometry(2 * a.BLOCK.radius, this.height, 2 * a.BLOCK.radius);
@@ -2023,7 +2023,7 @@ define("game.js", function(require, module, exports) {
                         P = new r.MeshLambertMaterial({
                             map: a.loader.load("res/clock.png")
                         });
-                        this.mapUv(320, 200, v, 1, 0, 0, 5, 5), this.mapUv(320, 200, v, 2, 0, 0, 5, 5), this.mapUv(320, 200, v, 4, 0, 200, 320, 0, !0);
+                        this.mapUv(320, 200, v, 1, 0, 0, 5, 5), this.mapUv(320, 200, v, 2, 0, 0, 5, 5), this.mapUv(320, 200, v, 4, 0, 200, 320, 0, true);
                         var D = new r.MeshBasicMaterial({
                                 map: a.loader.load("res/stripe.png")
                             }),
@@ -2040,7 +2040,7 @@ define("game.js", function(require, module, exports) {
                             z: 0
                         }]), this.hitObj = new r.Mesh(s, o), this.plane = new r.Mesh(new r.PlaneGeometry(3, 3), new r.MeshBasicMaterial({
                             map: a.loader.load("res/point.png"),
-                            transparent: !0
+                            transparent: true
                         })), this.plane.position.set(0, 0, a.BLOCK.radius + .04), this.body.add(this.plane), this.timer = setInterval(function() {
                             n.plane.visible = !n.plane.visible
                         }, 1e3), this.numbers = [];
@@ -2050,20 +2050,20 @@ define("game.js", function(require, module, exports) {
                                     alphaTest: .5
                                 }), G = [], H = 0; H < 4; ++H) {
                                 var V = new r.Mesh(j, F);
-                                V.position.z = a.BLOCK.radius + .01, V.visible = !1, G.push(V), this.body.add(V)
+                                V.position.z = a.BLOCK.radius + .01, V.visible = false, G.push(V), this.body.add(V)
                             }
                             this.numbers.push(G)
                         }
                         var W = new Date,
                             q = ("0" + W.getHours()).slice(-2),
                             X = ("0" + W.getMinutes()).slice(-2);
-                        this.numbers[q[0]][0].position.x = -3.2 * this.radiusScale, this.numbers[q[0]][0].visible = !0, this.numbers[q[1]][1].position.x = -1.3 * this.radiusScale, this.numbers[q[1]][1].visible = !0, this.numbers[X[0]][2].position.x = 1.3 * this.radiusScale, this.numbers[X[0]][2].visible = !0, this.numbers[X[1]][3].position.x = 3.2 * this.radiusScale, this.numbers[X[1]][3].visible = !0
+                        this.numbers[q[0]][0].position.x = -3.2 * this.radiusScale, this.numbers[q[0]][0].visible = true, this.numbers[q[1]][1].position.x = -1.3 * this.radiusScale, this.numbers[q[1]][1].visible = true, this.numbers[X[0]][2].position.x = 1.3 * this.radiusScale, this.numbers[X[0]][2].visible = true, this.numbers[X[1]][3].position.x = 3.2 * this.radiusScale, this.numbers[X[1]][3].visible = true
                     } else if (26 == e) {
                         var v = new r.BoxGeometry(2 * a.BLOCK.radius, this.height, 2 * a.BLOCK.radius),
                             P = new r.MeshLambertMaterial({
                                 map: a.loader.load("res/well.png")
                             });
-                        this.mapUv(280, 428, v, 1, 0, 0, 280, 148), this.mapUv(280, 428, v, 2, 0, 148, 280, 428), this.mapUv(280, 428, v, 4, 0, 0, 280, 148, !0), this.hitObj = new r.Mesh(v, P)
+                        this.mapUv(280, 428, v, 1, 0, 0, 280, 148), this.mapUv(280, 428, v, 2, 0, 148, 280, 428), this.mapUv(280, 428, v, 4, 0, 0, 280, 148, true), this.hitObj = new r.Mesh(v, P)
                     } else if (27 == e) {
                         this.radiusSegments = 50;
                         v = new r.CylinderGeometry(2 * a.BLOCK.radius / 38 * 25, 2 * a.BLOCK.radius / 38 * 25, this.height, 50);
@@ -2148,19 +2148,19 @@ define("game.js", function(require, module, exports) {
                             v = l,
                             P = new r.MeshLambertMaterial({
                                 color: K[i],
-                                transparent: !0
+                                transparent: true
                             });
                         this.hitObj = new r.Mesh(v, P);
                         var Y = new r.BoxGeometry(2 * a.BLOCK.radius, a.BLOCK.height, 2 * a.BLOCK.radius);
                         this.mapUv(100, 88, Y, 2, 0, 0, 5, 5);
                         var Z = new r.Mesh(Y, a.grayMaterial);
-                        0 == i && (Z.receiveShadow = !0), this.body.add(Z);
+                        0 == i && (Z.receiveShadow = true), this.body.add(Z);
                         var J, Q, $, tt, T = new r.PlaneGeometry(4, 8);
                         $ = (J = i % 4 * 64) + 64, tt = (Q = 128 * parseInt(i / 4)) + 128, this.mapUv(256, 256, T, 0, J, tt, $, Q);
                         var et = new r.Mesh(T, a.numberMaterial);
                         et.rotation.x = -Math.PI / 2, et.rotation.z = -Math.PI / 2, et.position.y = a.BLOCK.height / 2 + .05, this.body.add(et), this.obj.scale.set(.7, 1, .7)
                     }
-                    this.shadow.initZ = this.shadow.position.z, this.hitObj.receiveShadow = !0, this.hitObj.name = "hitObj", this.body.add(this.hitObj), this.hitObj.matrixAutoUpdate = !1, this.shadow.initScale = this.shadow.scale.y, this.body.position.y = a.BLOCK.height / 2 - this.height / 2, this.obj.add(this.shadow), this.obj.add(this.body)
+                    this.shadow.initZ = this.shadow.position.z, this.hitObj.receiveShadow = true, this.hitObj.name = "hitObj", this.body.add(this.hitObj), this.hitObj.matrixAutoUpdate = false, this.shadow.initScale = this.shadow.scale.y, this.body.position.y = a.BLOCK.height / 2 - this.height / 2, this.obj.add(this.shadow), this.obj.add(this.body)
                 }
                 return n(t, [{
                     key: "merge",
@@ -2220,7 +2220,7 @@ define("game.js", function(require, module, exports) {
                     value: function() {
                         for (var t = this, e = 0; e < 2; ++e) setTimeout(function(t) {
                             return function() {
-                                t.visible = !0, t.position.set(0, 0, 0), t.material.opacity = 1, o.customAnimation.to(t.position, 2, {
+                                t.visible = true, t.position.set(0, 0, 0), t.material.opacity = 1, o.customAnimation.to(t.position, 2, {
                                     x: 5 * (1 - 2 * Math.random()),
                                     y: 15,
                                     z: 5 * (1 - 2 * Math.random())
@@ -2291,7 +2291,7 @@ define("game.js", function(require, module, exports) {
                     key: "showup",
                     value: function(t) {
                         var e = this.shadow.position.z;
-                        this.body.position.set(0, 20, 0), this.shadow.position.z = -15, this.obj.visible = !0, 3 == t || 4 == t || 6 == t ? this.obj.position.set(7.5 * (6 == t ? 5 : 3), 0, 3.8 * (3 == t || 6 == t ? -1 : 1)) : 5 == t ? this.obj.position.set(30, 0, 0) : this.obj.position.set(7.5 * t, 0, 0), (0, o.TweenAnimation)(this.body.position.y, a.BLOCK.height / 2 - this.height / 2, 500, "Bounce.easeOut", function(t, e) {
+                        this.body.position.set(0, 20, 0), this.shadow.position.z = -15, this.obj.visible = true, 3 == t || 4 == t || 6 == t ? this.obj.position.set(7.5 * (6 == t ? 5 : 3), 0, 3.8 * (3 == t || 6 == t ? -1 : 1)) : 5 == t ? this.obj.position.set(30, 0, 0) : this.obj.position.set(7.5 * t, 0, 0), (0, o.TweenAnimation)(this.body.position.y, a.BLOCK.height / 2 - this.height / 2, 500, "Bounce.easeOut", function(t, e) {
                             this.body.position.y = t
                         }.bind(this)), (0, o.TweenAnimation)(this.shadow.position.z, e, 500, "Bounce.easeOut", function(t, e) {
                             this.shadow.position.z = t
@@ -2308,14 +2308,14 @@ define("game.js", function(require, module, exports) {
                         if (15 == this.order) this.hideGlow();
                         else if (25 == this.order) {
                             for (var t = 0; t < 10; ++t)
-                                for (var e = 0; e < 4; ++e) this.numbers[t][e].visible = !1;
+                                for (var e = 0; e < 4; ++e) this.numbers[t][e].visible = false;
                             var i = new Date,
                                 n = ("0" + i.getHours()).slice(-2),
                                 r = ("0" + i.getMinutes()).slice(-2);
-                            this.numbers[n[0]][0].position.x = -3.1 * this.radiusScale, this.numbers[n[0]][0].visible = !0, this.numbers[n[1]][1].position.x = -1.2 * this.radiusScale, this.numbers[n[1]][1].visible = !0, this.numbers[r[0]][2].position.x = 1.2 * this.radiusScale, this.numbers[r[0]][2].visible = !0, this.numbers[r[1]][3].position.x = 3.1 * this.radiusScale, this.numbers[r[1]][3].visible = !0
+                            this.numbers[n[0]][0].position.x = -3.1 * this.radiusScale, this.numbers[n[0]][0].visible = true, this.numbers[n[1]][1].position.x = -1.2 * this.radiusScale, this.numbers[n[1]][1].visible = true, this.numbers[r[0]][2].position.x = 1.2 * this.radiusScale, this.numbers[r[0]][2].visible = true, this.numbers[r[1]][3].position.x = 3.1 * this.radiusScale, this.numbers[r[1]][3].visible = true
                         } else 17 == this.order && (this.middle.rotation.y = 0);
                         var s = this.shadow.position.z;
-                        this.body.position.y = 20, this.shadow.position.z = -15, this.obj.visible = !0, this.boundingBox = null, o.customAnimation.to(this.body.position, .5, {
+                        this.body.position.y = 20, this.shadow.position.z = -15, this.obj.visible = true, this.boundingBox = null, o.customAnimation.to(this.body.position, .5, {
                             y: a.BLOCK.height / 2 - this.height / 2,
                             ease: "Bounce.easeOut"
                         }), o.customAnimation.to(this.shadow.position, .5, {
@@ -2356,13 +2356,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -2391,9 +2391,9 @@ define("game.js", function(require, module, exports) {
                     var e = new r.MeshBasicMaterial({
                         map: o.loader.load("res/head.png")
                     });
-                    this.human = new r.Object3D, this.head = new r.Mesh(new r.SphereGeometry(2.1 * .45, 20, 20), e), this.head.castShadow = !0, this.bottom = new r.Mesh(new r.CylinderGeometry(.8316, 1.20015, 2.1 * .45 * 2.68, 20), new r.MeshBasicMaterial({
+                    this.human = new r.Object3D, this.head = new r.Mesh(new r.SphereGeometry(2.1 * .45, 20, 20), e), this.head.castShadow = true, this.bottom = new r.Mesh(new r.CylinderGeometry(.8316, 1.20015, 2.1 * .45 * 2.68, 20), new r.MeshBasicMaterial({
                         map: o.loader.load("res/bottom.png")
-                    })), this.bottom.rotation.y = 4.7, this.bottom.castShadow = !0;
+                    })), this.bottom.rotation.y = 4.7, this.bottom.castShadow = true;
                     var i = new r.CylinderGeometry(2.1 * .45, .8316, 2.1 * .45 * 1.2, 20),
                         n = [new r.MeshBasicMaterial({
                             map: o.loader.load("res/top.png")
@@ -2409,7 +2409,7 @@ define("game.js", function(require, module, exports) {
                         x: 0,
                         y: this.bottom.position.y + 2.4003,
                         z: 0
-                    }]), this.middle = new r.Mesh(a, n), this.middle.castShadow = !0, this.body = new r.Object3D, this.body.add(this.bottom), this.body.add(this.middle), this.human.add(this.body), this.head.position.y = 4.725, this.human.add(this.head), this.bottle.add(this.human), this.bottle.position.y = o.BOTTLE.bodyHeight / 2 - .25, this.obj.add(this.bottle), this.status = "stop", this.scale = 1, this.double = 1, this.velocity = {}, this.flyingTime = 0, this.direction = "straight", this.jumpStatus = "init", this.particles = [];
+                    }]), this.middle = new r.Mesh(a, n), this.middle.castShadow = true, this.body = new r.Object3D, this.body.add(this.bottom), this.body.add(this.middle), this.human.add(this.body), this.head.position.y = 4.725, this.human.add(this.head), this.bottle.add(this.human), this.bottle.position.y = o.BOTTLE.bodyHeight / 2 - .25, this.obj.add(this.bottle), this.status = "stop", this.scale = 1, this.double = 1, this.velocity = {}, this.flyingTime = 0, this.direction = "straight", this.jumpStatus = "init", this.particles = [];
                     for (var l = new r.MeshBasicMaterial({
                             map: o.loader.load("res/white.png"),
                             alphaTest: .5
@@ -2426,8 +2426,8 @@ define("game.js", function(require, module, exports) {
                     this.scoreText = new s.default("0", {
                         fillStyle: 2434341,
                         textAlign: "center",
-                        plusScore: !0
-                    }), this.scoreText.obj.visible = !1, this.scoreText.obj.rotation.y = -Math.PI / 4, this.scoreText.obj.scale.set(.5, .5, .5), this.obj.add(this.scoreText.obj)
+                        plusScore: true
+                    }), this.scoreText.obj.visible = false, this.scoreText.obj.rotation.y = -Math.PI / 4, this.scoreText.obj.scale.set(.5, .5, .5), this.obj.add(this.scoreText.obj)
                 }
                 return n(t, [{
                     key: "merge",
@@ -2438,10 +2438,10 @@ define("game.js", function(require, module, exports) {
                 }, {
                     key: "showAddScore",
                     value: function(t, e, i) {
-                        e ? 1 === this.double ? this.double = 2 : this.double += 2 : this.double = 1, i && this.double <= 2 && (this.double *= 2), this.double = Math.min(32, this.double), t *= this.double, this.scoreText.setScore(t.toString()), this.scoreText.obj.visible = !0, this.scoreText.obj.position.y = 3, this.scoreText.material.opacity = 1, (0, a.TweenAnimation)(this.scoreText.obj.position.y, o.BOTTLE.bodyHeight + 6, 700, function(t) {
+                        e ? 1 === this.double ? this.double = 2 : this.double += 2 : this.double = 1, i && this.double <= 2 && (this.double *= 2), this.double = Math.min(32, this.double), t *= this.double, this.scoreText.setScore(t.toString()), this.scoreText.obj.visible = true, this.scoreText.obj.position.y = 3, this.scoreText.material.opacity = 1, (0, a.TweenAnimation)(this.scoreText.obj.position.y, o.BOTTLE.bodyHeight + 6, 700, function(t) {
                             this.scoreText.obj.position.y = t
                         }.bind(this)), (0, a.TweenAnimation)(this.scoreText.material.opacity, 0, 700, function(t, e) {
-                            this.scoreText.material.opacity = t, e && (this.scoreText.obj.visible = !1)
+                            this.scoreText.material.opacity = t, e && (this.scoreText.obj.visible = false)
                         }.bind(this))
                     }
                 }, {
@@ -2453,12 +2453,12 @@ define("game.js", function(require, module, exports) {
                     key: "resetParticles",
                     value: function() {
                         this.gatherTimer && clearTimeout(this.gatherTimer), this.gatherTimer = null;
-                        for (var t = 0, e = this.particles.length; t < e; ++t) this.particles[t].gathering = !1, this.particles[t].visible = !1, this.particles[t].scattering = !1
+                        for (var t = 0, e = this.particles.length; t < e; ++t) this.particles[t].gathering = false, this.particles[t].visible = false, this.particles[t].scattering = false
                     }
                 }, {
                     key: "scatterParticles",
                     value: function() {
-                        for (var t = 0; t < 10; ++t) this.particles[t].scattering = !0, this.particles[t].gathering = !1, this._scatterParticles(this.particles[t])
+                        for (var t = 0; t < 10; ++t) this.particles[t].scattering = true, this.particles[t].gathering = false, this._scatterParticles(this.particles[t])
                     }
                 }, {
                     key: "_scatterParticles",
@@ -2466,10 +2466,10 @@ define("game.js", function(require, module, exports) {
                         var e = o.BOTTLE.bodyWidth / 2,
                             i = (e + Math.random() * (2 - e)) * (1 - 2 * Math.random()),
                             n = (e + Math.random() * (2 - e)) * (1 - 2 * Math.random());
-                        t.scale.set(1, 1, 1), t.visible = !1, t.position.x = i, t.position.y = -.5, t.position.z = n, setTimeout(function(t) {
+                        t.scale.set(1, 1, 1), t.visible = false, t.position.x = i, t.position.y = -.5, t.position.z = n, setTimeout(function(t) {
                             return function() {
                                 if (t.scattering) {
-                                    t.visible = !0;
+                                    t.visible = true;
                                     var e = .3 + .2 * Math.random();
                                     a.customAnimation.to(t.scale, e, {
                                         x: .2,
@@ -2480,7 +2480,7 @@ define("game.js", function(require, module, exports) {
                                         y: 2.5 * Math.random() + 2,
                                         z: 2 * n,
                                         onComplete: function() {
-                                            t.scattering = !1, t.visible = !1
+                                            t.scattering = false, t.visible = false
                                         }
                                     })
                                 }
@@ -2490,22 +2490,22 @@ define("game.js", function(require, module, exports) {
                 }, {
                     key: "gatherParticles",
                     value: function() {
-                        for (var t = this, e = 10; e < 20; ++e) this.particles[e].gathering = !0, this.particles[e].scattering = !1, this._gatherParticles(this.particles[e]);
+                        for (var t = this, e = 10; e < 20; ++e) this.particles[e].gathering = true, this.particles[e].scattering = false, this._gatherParticles(this.particles[e]);
                         this.gatherTimer = setTimeout(function() {
-                            for (var e = 0; e < 10; ++e) t.particles[e].gathering = !0, t.particles[e].scattering = !1, t._gatherParticles(t.particles[e])
+                            for (var e = 0; e < 10; ++e) t.particles[e].gathering = true, t.particles[e].scattering = false, t._gatherParticles(t.particles[e])
                         }, 500 + 1e3 * Math.random())
                     }
                 }, {
                     key: "_gatherParticles",
                     value: function(t) {
                         var e = this;
-                        t.scale.set(1, 1, 1), t.visible = !1;
+                        t.scale.set(1, 1, 1), t.visible = false;
                         var i = Math.random() > .5 ? 1 : -1,
                             n = Math.random() > .5 ? 1 : -1;
                         t.position.x = (1 + 7 * Math.random()) * i, t.position.y = 1 + 7 * Math.random(), t.position.z = (1 + 7 * Math.random()) * n, setTimeout(function(t) {
                             return function() {
                                 if (t.gathering) {
-                                    t.visible = !0;
+                                    t.visible = true;
                                     var r = .5 + .4 * Math.random();
                                     (0, a.TweenAnimation)(t.scale.x, .8 + Math.random(), 1e3 * r, function(e) {
                                         t.scale.x = e
@@ -2751,7 +2751,7 @@ define("game.js", function(require, module, exports) {
                 }, {
                     key: "reset",
                     value: function() {
-                        this.stop(), this.obj.position.y = o.BLOCK.height / 2, this.obj.position.x = this.obj.position.z = 0, this.obj.rotation.z = 0, this.obj.rotation.y = 0, this.obj.rotation.x = 0, this.bottle.rotation.y = 0, this.bottle.rotation.z = 0, this.bottle.rotation.x = 0, this.body && this.head && (this.body.scale.set(1, 1, 1), this.body.rotation.z = 0, this.body.rotation.x = 0, this.head.position.y = 4.725, this.head.position.x = 0, this.human.rotation.z = this.human.rotation.x = 0), this.direction = "straight", this.jumpStatus = "init", this.double = 1, this.resetParticles(), this.scoreText.obj.visible = !1
+                        this.stop(), this.obj.position.y = o.BLOCK.height / 2, this.obj.position.x = this.obj.position.z = 0, this.obj.rotation.z = 0, this.obj.rotation.y = 0, this.obj.rotation.x = 0, this.bottle.rotation.y = 0, this.bottle.rotation.z = 0, this.bottle.rotation.x = 0, this.body && this.head && (this.body.scale.set(1, 1, 1), this.body.rotation.z = 0, this.body.rotation.x = 0, this.head.position.y = 4.725, this.head.position.x = 0, this.human.rotation.z = this.human.rotation.x = 0), this.direction = "straight", this.jumpStatus = "init", this.double = 1, this.resetParticles(), this.scoreText.obj.visible = false
                     }
                 }]), t
             }();
@@ -2759,13 +2759,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -2776,7 +2776,7 @@ define("game.js", function(require, module, exports) {
                 function t(e) {
                     ! function(t, e) {
                         if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function")
-                    }(this, t), this.game = e, this.commandList = [], this.isRunning = !1, this.icTimeout = null, this.cmdHandler = function() {}, this.gameId = 0, this.seq = 0
+                    }(this, t), this.game = e, this.commandList = [], this.isRunning = false, this.icTimeout = null, this.cmdHandler = function() {}, this.gameId = 0, this.seq = 0
                 }
                 return n(t, [{
                     key: "onReceiveCommand",
@@ -2785,7 +2785,7 @@ define("game.js", function(require, module, exports) {
                         var i = e - this.seq;
                         if (1 != i) {
                             var n;
-                            i > 1 && (n = 0), i < 1 && (n = 1), this.game.sendServerError(n), this.game.socketFirstSync = !0
+                            i > 1 && (n = 0), i < 1 && (n = 1), this.game.sendServerError(n), this.game.socketFirstSync = true
                         }
                         this.seq = e, this.commandList.push(t), this.checkRunningState()
                     }
@@ -2798,7 +2798,7 @@ define("game.js", function(require, module, exports) {
                     key: "runCommand",
                     value: function() {
                         var t = this.commandList.pop();
-                        this.isRunning = !0, this.cmdHandler(t)
+                        this.isRunning = true, this.cmdHandler(t)
                     }
                 }, {
                     key: "bindCmdHandler",
@@ -2808,12 +2808,12 @@ define("game.js", function(require, module, exports) {
                 }, {
                     key: "onCmdComplete",
                     value: function() {
-                        this.commandList.length ? this.runCommand() : this.isRunning = !1
+                        this.commandList.length ? this.runCommand() : this.isRunning = false
                     }
                 }, {
                     key: "destroy",
                     value: function() {
-                        this.commandList = [], this.gameId = 0, this.seq = 0, this.icTimeout && clearTimeout(this.icTimeout), this.icTimeout = null, this.isRunning = !1
+                        this.commandList = [], this.gameId = 0, this.seq = 0, this.icTimeout && clearTimeout(this.icTimeout), this.icTimeout = null, this.isRunning = false
                     }
                 }]), t
             }();
@@ -2827,13 +2827,13 @@ define("game.js", function(require, module, exports) {
             }
         }
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var r = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -2984,7 +2984,7 @@ define("game.js", function(require, module, exports) {
                 }, {
                     key: "socketJoinSuccess",
                     value: function(t) {
-                        this.modeCtrl.socketJoinSuccess(t), "observe" == this.model.mode ? t && (this.game.socketFirstSync = !0, this.reporter.joinAudienceReportStart()) : this.reporter.joinAudienceReport(), "player" == this.model.mode && this.reporter.playAudienceReportStart()
+                        this.modeCtrl.socketJoinSuccess(t), "observe" == this.model.mode ? t && (this.game.socketFirstSync = true, this.reporter.joinAudienceReportStart()) : this.reporter.joinAudienceReport(), "player" == this.model.mode && this.reporter.playAudienceReportStart()
                     }
                 }, {
                     key: "afterShareObserveCard",
@@ -3009,7 +3009,7 @@ define("game.js", function(require, module, exports) {
                 }, {
                     key: "onViewerStart",
                     value: function() {
-                        this.game.audioManager.scale_intro.stop(), this.game.deadTimeout && (clearTimeout(this.game.deadTimeout), this.game.deadTimeout = null), this.game.pendingReset = !1, this.modeCtrl.onViewerStart(), this.reporter.joinAudienceReport()
+                        this.game.audioManager.scale_intro.stop(), this.game.deadTimeout && (clearTimeout(this.game.deadTimeout), this.game.deadTimeout = null), this.game.pendingReset = false, this.modeCtrl.onViewerStart(), this.reporter.joinAudienceReport()
                     }
                 }, {
                     key: "wxOnShow",
@@ -3054,13 +3054,13 @@ define("game.js", function(require, module, exports) {
             }
         }
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var r = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -3073,7 +3073,7 @@ define("game.js", function(require, module, exports) {
                 function t(e) {
                     ! function(t, e) {
                         if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function")
-                    }(this, t), this.game = e, this.mode = "", this.stage = "", this.is_from_wn = 0, this.firstBlood = !1, this.currentScore = 0, this.highestScore = 0, this.observeInfo = {}, this.friendsScore = [], this.weekBestScore = 0, this.startTime = Math.floor(Date.now() / 1e3)
+                    }(this, t), this.game = e, this.mode = "", this.stage = "", this.is_from_wn = 0, this.firstBlood = false, this.currentScore = 0, this.highestScore = 0, this.observeInfo = {}, this.friendsScore = [], this.weekBestScore = 0, this.startTime = Math.floor(Date.now() / 1e3)
                 }
                 return r(t, [{
                     key: "setMode",
@@ -3089,7 +3089,7 @@ define("game.js", function(require, module, exports) {
                     key: "init",
                     value: function() {
                         o.default.init();
-                        a.default.getFirstBlood() || (this.setFirstBlood(!0), a.default.saveFirstBlood()), this.highestScore = a.default.getHeighestScore() || 0, o.default.setServerConfig(a.default.getServerConfig()), this.weekBestScore = a.default.getWeekBestScore() || 0, this.friendsScore = a.default.getFriendsScore()
+                        a.default.getFirstBlood() || (this.setFirstBlood(true), a.default.saveFirstBlood()), this.highestScore = a.default.getHeighestScore() || 0, o.default.setServerConfig(a.default.getServerConfig()), this.weekBestScore = a.default.getWeekBestScore() || 0, this.friendsScore = a.default.getFriendsScore()
                     }
                 }, {
                     key: "getServerConfig",
@@ -3231,13 +3231,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -3301,7 +3301,7 @@ define("game.js", function(require, module, exports) {
                         wx.showModal({
                             title: "提示",
                             content: t,
-                            showCancel: !1
+                            showCancel: false
                         })
                     }
                 }, {
@@ -3328,13 +3328,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -3373,19 +3373,19 @@ define("game.js", function(require, module, exports) {
                         return function() {
                             o.generateLaserBodyCanvas(n[t][0], n[t][1]);
                             var e = new r.Texture(o.canvas);
-                            e.needsUpdate = !0;
+                            e.needsUpdate = true;
                             var a = new r.MeshBasicMaterial({
                                 map: e,
                                 opacity: 1,
-                                transparent: !0
+                                transparent: true
                             });
                             o.materials.push(a);
                             var s = new r.Mesh(i, a);
-                            s.position.z = .1 * -(t + 1), s.name = t, s.updateMatrix(), s.matrixAutoUpdate = !1, o.obj.add(s)
+                            s.position.z = .1 * -(t + 1), s.name = t, s.updateMatrix(), s.matrixAutoUpdate = false, o.obj.add(s)
                         }
                     }(l), 1e3 * l);
                     setTimeout(function() {
-                        for (var t = 1; t < 7; ++t) e.obj.children[t].visible = !1
+                        for (var t = 1; t < 7; ++t) e.obj.children[t].visible = false
                     }, 8e3), this.current = 0
                 }
                 return n(t, [{
@@ -3404,9 +3404,9 @@ define("game.js", function(require, module, exports) {
                         o.customAnimation.to(this.materials[this.current], 5, {
                             opacity: 0,
                             onComplete: function() {
-                                t.obj.children[i].visible = !1
+                                t.obj.children[i].visible = false
                             }
-                        }), this.obj.children[e].visible = !0, o.customAnimation.to(this.materials[e], 4, {
+                        }), this.obj.children[e].visible = true, o.customAnimation.to(this.materials[e], 4, {
                             opacity: 1
                         }), this.current = e
                     }
@@ -3416,13 +3416,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -3651,13 +3651,13 @@ define("game.js", function(require, module, exports) {
             }
         }
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var r = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -3671,10 +3671,10 @@ define("game.js", function(require, module, exports) {
                     var i = this;
                     ! function(t, e) {
                         if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function")
-                    }(this, t), this.alive = !1, this.noErr = !1, this.game = e, this.handlers = {}, this.handleSocketErr = "", this.heartBeat = [], this.cmdPool = {}, wx.onSocketOpen(function(t) {
+                    }(this, t), this.alive = false, this.noErr = false, this.game = e, this.handlers = {}, this.handleSocketErr = "", this.heartBeat = [], this.cmdPool = {}, wx.onSocketOpen(function(t) {
                         i.joinGame()
                     }), wx.onSocketClose(function(t) {
-                        "player" != i.game.mode || i.noErr || (o.default.quitGame(), i.game.gameCtrl.onSocketCloseErr()), "observe" != i.game.mode || i.noErr || i.game.gameCtrl.onSocketCloseErr(), i.alive = !1
+                        "player" != i.game.mode || i.noErr || (o.default.quitGame(), i.game.gameCtrl.onSocketCloseErr()), "observe" != i.game.mode || i.noErr || i.game.gameCtrl.onSocketCloseErr(), i.alive = false
                     }), wx.onSocketError(function(t) {}), wx.onSocketMessage(function(t) {
                         i.cleanHeartBeat();
                         var e;
@@ -3701,16 +3701,16 @@ define("game.js", function(require, module, exports) {
                 }, {
                     key: "handleSocketOpen",
                     value: function() {
-                        this.joinGame(), this.alive = !0
+                        this.joinGame(), this.alive = true
                     }
                 }, {
                     key: "connectSocket",
                     value: function() {
                         var t = this;
-                        this.alive = !0, wx.connectSocket({
+                        this.alive = true, wx.connectSocket({
                             url: "wss://wxagame.weixin.qq.com",
                             fail: function() {
-                                t.alive = !1
+                                t.alive = false
                             }
                         })
                     }
@@ -3821,11 +3821,11 @@ define("game.js", function(require, module, exports) {
                         if ("observe" == this.game.mode) switch (t.ret) {
                             case 0:
                             case 2:
-                                this.joinSuccess(!0);
+                                this.joinSuccess(true);
                                 break;
                             default:
-                                this.joinSuccess(!1)
-                        } else 0 != t.ret ? this.joinSuccess(!1) : this.joinSuccess(!0)
+                                this.joinSuccess(false)
+                        } else 0 != t.ret ? this.joinSuccess(false) : this.joinSuccess(true)
                     }
                 }, {
                     key: "sendHeartBeat",
@@ -3859,7 +3859,7 @@ define("game.js", function(require, module, exports) {
                     key: "close",
                     value: function() {
                         var t = this;
-                        this.alive && (this.alive = !1, this.noErr = !0, wx.closeSocket(), a.default.clearShareTicket(), a.default.clearGameId(), setTimeout(function() {
+                        this.alive && (this.alive = false, this.noErr = true, wx.closeSocket(), a.default.clearShareTicket(), a.default.clearGameId(), setTimeout(function() {
                             t.reset()
                         }, 1e3))
                     }
@@ -3871,7 +3871,7 @@ define("game.js", function(require, module, exports) {
                 }, {
                     key: "reset",
                     value: function() {
-                        this.alive = !1, this.noErr = !1
+                        this.alive = false, this.noErr = false
                     }
                 }, {
                     key: "handlePlayerOut",
@@ -3890,13 +3890,13 @@ define("game.js", function(require, module, exports) {
             }
         }
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var r = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -3933,7 +3933,7 @@ define("game.js", function(require, module, exports) {
             },
             v = o.FRUSTUMSIZE,
             y = p / f * v,
-            b = !1,
+            b = false,
             x = wx.loadFont("res/num.ttf"),
             _ = function() {
                 function t(e) {
@@ -3953,12 +3953,12 @@ define("game.js", function(require, module, exports) {
                 return r(t, [{
                     key: "showFriendRankList",
                     value: function(t) {
-                        this.showState = !0, t = t || {}, this.canvasType = g.friendRank, this.myUserInfo = h.default.getMyUserInfo() || {}, this.myUserInfo.week_best_score = t.week_best_score || 0, this._createPlane(), this._updateClip(), this._drawRankListBg(), this.renderRankList(h.default.getFriendsScore())
+                        this.showState = true, t = t || {}, this.canvasType = g.friendRank, this.myUserInfo = h.default.getMyUserInfo() || {}, this.myUserInfo.week_best_score = t.week_best_score || 0, this._createPlane(), this._updateClip(), this._drawRankListBg(), this.renderRankList(h.default.getFriendsScore())
                     }
                 }, {
                     key: "showGroupRankList",
                     value: function(t, e) {
-                        this.showState = !0, this.canvasType = g.groupRank, this.myUserInfo = e || {
+                        this.showState = true, this.canvasType = g.groupRank, this.myUserInfo = e || {
                             headimg: "",
                             nickname: "",
                             week_best_score: 0,
@@ -3968,7 +3968,7 @@ define("game.js", function(require, module, exports) {
                 }, {
                     key: "showGameOverPage",
                     value: function(t) {
-                        this.showState = !0, t = t || {}, this.opt = t || this.opt, this._createPlane(), this.myUserInfo = h.default.getMyUserInfo() || {
+                        this.showState = true, t = t || {}, this.opt = t || this.opt, this._createPlane(), this.myUserInfo = h.default.getMyUserInfo() || {
                             headimg: "",
                             nickname: "",
                             week_best_score: 0,
@@ -3997,29 +3997,29 @@ define("game.js", function(require, module, exports) {
                 }, {
                     key: "showStartPage",
                     value: function(t) {
-                        b || (this.showState = !0, this.canvasType = g.start, this._createPlane(), this._drawStart(t))
+                        b || (this.showState = true, this.canvasType = g.start, this._createPlane(), this._drawStart(t))
                     }
                 }, {
                     key: "showPkPage",
                     value: function(t) {
-                        this.showState = !0, t = t || {}, this.data = t.data, this.canvasType = g.pk, this._createPlane(), this._updateClip(), this.myidx = this.data.pkListInfo.findIndex(this._findPartner) + 1, this.myUserInfo = this.data.pkListInfo[this.myidx - 1] || h.default.getMyUserInfo(), this.renderRankList(this.data.pkListInfo), this._drawPKListBg()
+                        this.showState = true, t = t || {}, this.data = t.data, this.canvasType = g.pk, this._createPlane(), this._updateClip(), this.myidx = this.data.pkListInfo.findIndex(this._findPartner) + 1, this.myUserInfo = this.data.pkListInfo[this.myidx - 1] || h.default.getMyUserInfo(), this.renderRankList(this.data.pkListInfo), this._drawPKListBg()
                     }
                 }, {
                     key: "showLookersPage",
                     value: function(t) {
-                        this.showState = !0, this.canvasType = g.lookers, this._createPlane(), this._drawLookers(t)
+                        this.showState = true, this.canvasType = g.lookers, this._createPlane(), this._drawLookers(t)
                     }
                 }, {
                     key: "showBeginnerPage",
                     value: function() {
-                        this.showState = !0, this.canvasType = g.beginner, this._createPlane(), this._drawBeginner()
+                        this.showState = true, this.canvasType = g.beginner, this._createPlane(), this._drawBeginner()
                     }
                 }, {
                     key: "hide2D",
                     value: function() {
                         if (!b) {
-                            this.showState = !1;
-                            for (var t = 0; t < m.length; t++) this.obj[m[t]] && (this.obj[m[t]].visible = !1, this.options.camera.remove(this.obj[m[t]]))
+                            this.showState = false;
+                            for (var t = 0; t < m.length; t++) this.obj[m[t]] && (this.obj[m[t]].visible = false, this.options.camera.remove(this.obj[m[t]]))
                         }
                     }
                 }, {
@@ -4030,7 +4030,7 @@ define("game.js", function(require, module, exports) {
                                 opacity: 0,
                                 onComplete: function(e) {
                                     return function() {
-                                        t.material[m[e]].opacity = 1, t.obj[m[e]].visible = !1, t.showState = !1, t.options.camera.remove(t.obj[m[e]])
+                                        t.material[m[e]].opacity = 1, t.obj[m[e]].visible = false, t.showState = false, t.options.camera.remove(t.obj[m[e]])
                                     }
                                 }(e)
                             })
@@ -4077,12 +4077,12 @@ define("game.js", function(require, module, exports) {
                     value: function(t) {
                         var e = t.changedTouches[0].pageX,
                             i = t.changedTouches[0].pageY,
-                            n = !0;
-                        if (this.canvasType != g.friendRank && this.canvasType != g.groupRank && this.canvasType != g.pk && this.canvasType != g.gameOver || !(Math.abs(e - this.startX) > 5 || Math.abs(i - this.startY) > 5) || (n = !1), e = this._cxp(e), i = this._cyp(i), n) {
+                            n = true;
+                        if (this.canvasType != g.friendRank && this.canvasType != g.groupRank && this.canvasType != g.pk && this.canvasType != g.gameOver || !(Math.abs(e - this.startX) > 5 || Math.abs(i - this.startY) > 5) || (n = false), e = this._cxp(e), i = this._cyp(i), n) {
                             if (this.canvasType == g.groupRank && e > 134 && e < 283 && i > 640 && i < 727) return this.hide2D(), void(!!this.options.groupPlayGame && this.options.groupPlayGame());
                             if (this.canvasType == g.friendRank) {
                                 if (e > 120 && e < 300 && i > 640 && i < 720) return void(!!this.options.onGroupShare && this.options.onGroupShare());
-                                if (e > 330 && e < 408 && i > 100 && i < 200) return void(this.opt ? (this.hide2D(), this.showState = !0, this.canvasType = g.gameOver, this._drawGameOver()) : !!this.options.friendRankReturn && this.options.friendRankReturn(""))
+                                if (e > 330 && e < 408 && i > 100 && i < 200) return void(this.opt ? (this.hide2D(), this.showState = true, this.canvasType = g.gameOver, this._drawGameOver()) : !!this.options.friendRankReturn && this.options.friendRankReturn(""))
                             }
                             if (this.canvasType == g.gameOver) return void("beginner" != this.opt.type && "tired" != this.opt.type && e > 25 && e < 385 && i > 290 && i < 500 ? !!this.options.onClickRank && this.options.onClickRank() : e > 150 && e < 260 && i > 199 && i < 260 ? !!this.options.onClickShare && this.options.onClickShare() : (!this.noplay_time || this.noplay_time < 0) && e > 117 && e < 297 && i > 540 && i < 660 ? !!this.options.onClickReplay && this.options.onClickReplay() : (!this.noplay_time || this.noplay_time < 0) && this._drawGameOverBtnClickRevert());
                             if (this.canvasType == g.gameOverHighest && (e > 340 && e < 407 && i > 76 && i < 138 ? (this.canvasType = g.gameOver, this._drawGameOver()) : e > 111 && e < 380 && i > 540 && i < 660 ? !!this.options.onClickReplay && this.options.onClickReplay() : this.changlleList.length > 0 && e > 170 && e < 230 && i > 330 && i < 390 ? !!this.options.onClickPureShare && this.options.onClickPureShare(this.opt.type) : 0 == this.changlleList.length && e > 170 && e < 230 && i > 410 && i < 470 ? !!this.options.onClickPureShare && this.options.onClickPureShare(this.opt.type) : this.changlleList.length > 7 && e > 55 && e < 115 && i > 437 && i < 497 ? this._reDrawChangeAva(-1) : this.changlleList.length > 7 && e > 297 && e < 357 && i > 437 && i < 497 && this._reDrawChangeAva(1)), this.canvasType == g.start) return void(e > 100 && e < 320 && i > 515 && i < 645 ? !!this.options.onClickStart && this.options.onClickStart() : e > 110 && e < 290 && i > 645 && i < 705 ? !!this.options.onShowFriendRank && this.options.onShowFriendRank() : this._drawStartClickRevert());
@@ -4148,14 +4148,14 @@ define("game.js", function(require, module, exports) {
                                         n[s].grade;
                                         if (i._drawImageRound(n[s].headimg, i._cx(107), a, i._cwh(34), i._cwh(34), e, function() {
                                                 o._drawImageCenter("res/ava_rank.png", o._cx(107), a, o._cwh(47), o._cwh(47), e, null, o.imgid[e])
-                                            }, i.imgid[e], !0), i.canvasType == g.pk) {
+                                            }, i.imgid[e], true), i.canvasType == g.pk) {
                                             r.textAlign = "left", n[s].nickname = n[s].nickname || "";
                                             var l = n[s].nickname.substring(0, 12);
-                                            n[s].nickname.length > 12 && (l += "..."), r.fillStyle = "#000", r.font = "bold " + i._cf(17), r.fillText(l, i._cx(144), a - i._cwh(10)), n[s].score_info[0].score > i.data.organizerInfo.score_info[0].score ? (r.font = i._cf(12), r.fillStyle = "#FC4814", r.fillText("挑战成功", i._cx(144), a + i._cwh(12)), r.fillStyle = "#000") : (r.font = i._cf(12), r.fillStyle = "#888", r.fillText("挑战失败", i._cx(144), a + i._cwh(12))), r.textAlign = "right", r.font = i._cf(22, !0), r.fillText(n[s].score_info[0].score || 0, i._cx(364), a)
+                                            n[s].nickname.length > 12 && (l += "..."), r.fillStyle = "#000", r.font = "bold " + i._cf(17), r.fillText(l, i._cx(144), a - i._cwh(10)), n[s].score_info[0].score > i.data.organizerInfo.score_info[0].score ? (r.font = i._cf(12), r.fillStyle = "#FC4814", r.fillText("挑战成功", i._cx(144), a + i._cwh(12)), r.fillStyle = "#000") : (r.font = i._cf(12), r.fillStyle = "#888", r.fillText("挑战失败", i._cx(144), a + i._cwh(12))), r.textAlign = "right", r.font = i._cf(22, true), r.fillText(n[s].score_info[0].score || 0, i._cx(364), a)
                                         } else {
                                             r.textAlign = "left", r.fillStyle = "#fff", r.font = i._cf(17), n[s].nickname = n[s].nickname || "";
                                             var c = n[s].nickname.substring(0, 12);
-                                            n[s].nickname.length > 12 && (c += "..."), r.fillText(c, i._cx(144), a), r.textAlign = "right", r.font = i._cf(22, !0), r.fillText(n[s].week_best_score || 0, i._cx(364), a)
+                                            n[s].nickname.length > 12 && (c += "..."), r.fillText(c, i._cx(144), a), r.textAlign = "right", r.font = i._cf(22, true), r.fillText(n[s].week_best_score || 0, i._cx(364), a)
                                         }
                                     }, s = 0; s < a; s++) {
                                     var h;
@@ -4210,7 +4210,7 @@ define("game.js", function(require, module, exports) {
                         var t = this.context.bg;
                         t.clearRect(0, 0, p, f), t.fillStyle = "rgba(0,0,0, 0.8)", t.fillRect(0, 0, (p - this._cwh(354)) / 2, f), t.fillRect(this._cx(384), 0, (p - this._cwh(354)) / 2, f), t.fillRect(this._cx(30), 0, this._cwh(354), this._cy(110)), t.fillRect(this._cx(30), this._cy(632), this._cwh(354), this._cy(144)), t.fillStyle = "rgb(250,250,250)", t.fillRect(this._cx(31), this._cy(103), this._cwh(354), this._cwh(335)), t.lineWidth = 2 * c, t.strokeStyle = "#fff", this._roundedRectR(this._cx(30), this._cy(102), this._cwh(354), this._cwh(530), 1 * c, "bg"), t.textBaseline = "middle";
                         s = this;
-                        if (void 0 == this.data.gg_score) this._drawImageCenter(this.data.organizerInfo.headimg, this._cx(207), this._cy(158), this._cwh(50), this._cwh(50), "bg", null, this.imgid.bg), t.textAlign = "center", t.fillStyle = "rgba(0,0,0,0.8)", t.font = this._cf(14), t.fillText(this.data.organizerInfo.nickname, this._cx(207), this._cy(195)), t.fillText("擂主得分", this._cx(207), this._cy(242)), t.lineWidth = .5 * c, t.strokeStyle = "rgba(0,0,0,0.06)", t.beginPath(), t.moveTo(this._cx(160), this._cy(217)), t.lineTo(this._cx(254), this._cy(217)), t.closePath(), t.stroke(), t.fillStyle = "rgba(0,0,0,0.2)", t.fillRect(this._cx(162), this._cy(239), this._cwh(9), this._cwh(3)), t.fillRect(this._cx(162), this._cy(244), this._cwh(9), this._cwh(3)), t.fillRect(this._cx(241), this._cy(239), this._cwh(9), this._cwh(3)), t.fillRect(this._cx(241), this._cy(244), this._cwh(9), this._cwh(3)), t.fillStyle = "#000", t.font = this._cf(66, !0), t.fillText(this.data.organizerInfo.score_info[0].score, this._cx(207), this._cy(298));
+                        if (void 0 == this.data.gg_score) this._drawImageCenter(this.data.organizerInfo.headimg, this._cx(207), this._cy(158), this._cwh(50), this._cwh(50), "bg", null, this.imgid.bg), t.textAlign = "center", t.fillStyle = "rgba(0,0,0,0.8)", t.font = this._cf(14), t.fillText(this.data.organizerInfo.nickname, this._cx(207), this._cy(195)), t.fillText("擂主得分", this._cx(207), this._cy(242)), t.lineWidth = .5 * c, t.strokeStyle = "rgba(0,0,0,0.06)", t.beginPath(), t.moveTo(this._cx(160), this._cy(217)), t.lineTo(this._cx(254), this._cy(217)), t.closePath(), t.stroke(), t.fillStyle = "rgba(0,0,0,0.2)", t.fillRect(this._cx(162), this._cy(239), this._cwh(9), this._cwh(3)), t.fillRect(this._cx(162), this._cy(244), this._cwh(9), this._cwh(3)), t.fillRect(this._cx(241), this._cy(239), this._cwh(9), this._cwh(3)), t.fillRect(this._cx(241), this._cy(244), this._cwh(9), this._cwh(3)), t.fillStyle = "#000", t.font = this._cf(66, true), t.fillText(this.data.organizerInfo.score_info[0].score, this._cx(207), this._cy(298));
                         else {
                             var e = void 0,
                                 i = void 0,
@@ -4218,7 +4218,7 @@ define("game.js", function(require, module, exports) {
                                 r = void 0;
                             this.data.gg_score > this.data.organizerInfo.score_info[0].score ? (e = "res/suc.png", i = "挑战成功", n = "rgba(0,0,0,1)", r = "rgba(0,0,0,0.3)", this._drawImageCenter("res/flower_small.png", this._cx(207), this._cy(175), this._cwh(140), this._cwh(53), "bg", null, this.imgid.bg)) : (e = "res/fail.png", i = "挑战失败", n = "rgba(0,0,0,0.3)", r = "rgba(0,0,0,1)"), this._drawImageCenter(e, this._cx(207), this._cy(135), this._cwh(20), this._cwh(15), "bg", null, this.imgid.bg), t.textAlign = "center", t.fillStyle = "#000", t.font = "bold " + this._cf(30), t.fillText(i, this._cx(207), this._cy(178)), this._drawImageCenter(this.myUserInfo.headimg, this._cx(158), this._cy(289), this._cwh(26), this._cwh(26), "bg", null, this.imgid.bg), this._drawImageCenter(this.data.organizerInfo.headimg, this._cx(260), this._cy(289), this._cwh(26), this._cwh(26), "bg", null, this.imgid.bg), t.textAlign = "center", t.fillStyle = "rgba(0,0,0,0.8)", t.font = this._cf(11);
                             var a = this.myUserInfo.nickname;
-                            a.length > 9 && (a = a.substring(0, 9) + "..."), t.fillText(a, this._cx(158), this._cy(318)), (a = this.data.organizerInfo.nickname).length > 9 && (a = a.substring(0, 9) + "..."), t.fillText(this.data.organizerInfo.nickname, this._cx(260), this._cy(318)), t.fillStyle = n, t.font = this._cf(44, !0), this.data.gg_score > 9999 ? (t.textAlign = "right", t.fillText(this.data.gg_score, this._cx(190), this._cy(253))) : (t.textAlign = "center", t.fillText(this.data.gg_score, this._cx(158), this._cy(253))), t.textAlign = "center", t.fillStyle = "rgba(0,0,0,0.3)", t.fillRect(this._cx(202), this._cy(242), this._cwh(10), this._cwh(4)), t.fillStyle = r, t.font = this._cf(44, !0), this.data.organizerInfo.score_info[0].score > 999 ? (t.textAlign = "left", t.fillText(this.data.organizerInfo.score_info[0].score, this._cx(231), this._cy(253))) : (t.textAlign = "center", t.fillText(this.data.organizerInfo.score_info[0].score, this._cx(260), this._cy(253)))
+                            a.length > 9 && (a = a.substring(0, 9) + "..."), t.fillText(a, this._cx(158), this._cy(318)), (a = this.data.organizerInfo.nickname).length > 9 && (a = a.substring(0, 9) + "..."), t.fillText(this.data.organizerInfo.nickname, this._cx(260), this._cy(318)), t.fillStyle = n, t.font = this._cf(44, true), this.data.gg_score > 9999 ? (t.textAlign = "right", t.fillText(this.data.gg_score, this._cx(190), this._cy(253))) : (t.textAlign = "center", t.fillText(this.data.gg_score, this._cx(158), this._cy(253))), t.textAlign = "center", t.fillStyle = "rgba(0,0,0,0.3)", t.fillRect(this._cx(202), this._cy(242), this._cwh(10), this._cwh(4)), t.fillStyle = r, t.font = this._cf(44, true), this.data.organizerInfo.score_info[0].score > 999 ? (t.textAlign = "left", t.fillText(this.data.organizerInfo.score_info[0].score, this._cx(231), this._cy(253))) : (t.textAlign = "center", t.fillText(this.data.organizerInfo.score_info[0].score, this._cx(260), this._cy(253)))
                         }
                         t.strokeStyle = "rgba(0,0,0,0.06)", t.lineWidth = 1, t.beginPath(), t.moveTo(this._cx(30), this._cy(437)), t.lineTo(this._cx(384), this._cy(437)), t.stroke(), t.closePath();
                         var o = "挑战",
@@ -4266,9 +4266,9 @@ define("game.js", function(require, module, exports) {
                         e.score = e.score || 0, e.highest_score = e.highest_score || 0;
                         var i = this,
                             n = this.context.bg;
-                        n.clearRect(0, 0, p, f), n.fillStyle = "rgba(0,0,0, 0.8)", n.fillRect(0, 0, p, f), n.textBaseline = "middle", n.textAlign = "center", n.fillStyle = "#fff", n.font = this._cf(14), n.fillText("本次得分", this._cx(207), this._cy(84)), n.fillStyle = "#fff", n.font = this._cf(88, !0), n.fillText(e.score, this._cx(212), this._cy(150)), n.fillStyle = "rgba(255,255,255,0.2)", n.fillRect(this._cx(162), this._cy(78), this._cwh(9), this._cwh(3)), n.fillRect(this._cx(162), this._cy(84), this._cwh(9), this._cwh(3)), n.fillRect(this._cx(241), this._cy(78), this._cwh(9), this._cwh(3)), n.fillRect(this._cx(241), this._cy(84), this._cwh(9), this._cwh(3)), this._drawImageCenter("res/btn.png", this._cx(207), this._cy(214), this._cwh(86), this._cwh(32), "bg", null, this.imgid.bg), n.font = this._cf(13), n.fillStyle = "#fff", n.fillText("发起挑战", this._cx(207), this._cy(214));
-                        var r = !1;
-                        if ((e.game_cnt > 5 || e.score > 5) && e.score < e.highest_score && 1 != this.myidx && !this._has_show_tired && +new Date / 1e3 - e.start_time > 1800 && (r = !0, this._has_show_tired = !0), r) n.lineWidth = 4 * c, n.strokeStyle = "#fff", n.fillStyle = "#fff", this._roundedRectR(this._cx(31), this._cy(298), this._cwh(354), this._cwh(210), 1 * c, "bg"), n.fill(), n.fillStyle = "black", n.font = this._cf(17), n.textAlign = "left", n.fillText("玩了这么久", this._cx(80), this._cy(370)), n.fillText("休息一下吧", this._cx(80), this._cy(410)), this._drawImageCenter("res/tired.png", this._cx(297), this._cy(397), this._cwh(179), this._cwh(185), "bg", null, i.imgid.bg), this.opt.type = "tired";
+                        n.clearRect(0, 0, p, f), n.fillStyle = "rgba(0,0,0, 0.8)", n.fillRect(0, 0, p, f), n.textBaseline = "middle", n.textAlign = "center", n.fillStyle = "#fff", n.font = this._cf(14), n.fillText("本次得分", this._cx(207), this._cy(84)), n.fillStyle = "#fff", n.font = this._cf(88, true), n.fillText(e.score, this._cx(212), this._cy(150)), n.fillStyle = "rgba(255,255,255,0.2)", n.fillRect(this._cx(162), this._cy(78), this._cwh(9), this._cwh(3)), n.fillRect(this._cx(162), this._cy(84), this._cwh(9), this._cwh(3)), n.fillRect(this._cx(241), this._cy(78), this._cwh(9), this._cwh(3)), n.fillRect(this._cx(241), this._cy(84), this._cwh(9), this._cwh(3)), this._drawImageCenter("res/btn.png", this._cx(207), this._cy(214), this._cwh(86), this._cwh(32), "bg", null, this.imgid.bg), n.font = this._cf(13), n.fillStyle = "#fff", n.fillText("发起挑战", this._cx(207), this._cy(214));
+                        var r = false;
+                        if ((e.game_cnt > 5 || e.score > 5) && e.score < e.highest_score && 1 != this.myidx && !this._has_show_tired && +new Date / 1e3 - e.start_time > 1800 && (r = true, this._has_show_tired = true), r) n.lineWidth = 4 * c, n.strokeStyle = "#fff", n.fillStyle = "#fff", this._roundedRectR(this._cx(31), this._cy(298), this._cwh(354), this._cwh(210), 1 * c, "bg"), n.fill(), n.fillStyle = "black", n.font = this._cf(17), n.textAlign = "left", n.fillText("玩了这么久", this._cx(80), this._cy(370)), n.fillText("休息一下吧", this._cx(80), this._cy(410)), this._drawImageCenter("res/tired.png", this._cx(297), this._cy(397), this._cwh(179), this._cwh(185), "bg", null, i.imgid.bg), this.opt.type = "tired";
                         else {
                             n.lineWidth = .5 * c, n.fillStyle = "rgba(0,0,0,0.3)", n.strokeStyle = "rgba(255,255,255,0.3)", this._roundedRectR(this._cx(30), this._cy(297), this._cwh(354), this._cwh(192), 4 * c, "bg"), n.fill(), n.fillStyle = "rgba(255,255,255,0.06)", n.fillRect(this._cx(150), this._cy(336), this._cwh(115), this._cwh(153)), n.beginPath(), n.lineWidth = .5 * c, n.strokeStyle = "rgba(255,255,255,0.4)", n.moveTo(this._cx(30), this._cy(336)), n.lineTo(this._cx(384), this._cy(336)), n.stroke(), n.closePath(), n.font = this._cf(12), n.textAlign = "left", n.fillStyle = "rgba(255,255,255,0.6)", n.fillText("排行榜 · 每周一凌晨刷新", this._cx(46), this._cy(316)), n.fillStyle = "#fff", n.fillText("查看全部排行", this._cx(291), this._cy(316)), this._drawImageCenter("res/r_arr.png", this._cx(371), this._cy(315), this._cwh(6.6), this._cwh(10), "bg", null, this.imgid.bg);
                             var a = this.myidx - 2,
@@ -4277,11 +4277,11 @@ define("game.js", function(require, module, exports) {
                             for (var s = 0; s < 3; s++)
                                 if (n.font = "italic bold " + this._cf(16), n.textAlign = "center", 1 == this.myidx && 0 == s && a++, (this.myidx != this.sotedRankList.length || 2 != s) && (this.myidx == a + 1 + s ? n.fillStyle = "#41bf8c" : n.fillStyle = "#888", this.sotedRankList[a + s])) {
                                     ! function() {
-                                        n.fillText(a + 1 + s, t._cx(90 + 118 * (s + o)), t._cy(356)), n.font = t._cf(14), t.sotedRankList[a + s].nickname.length > 12 && (t.sotedRankList[a + s].nickname = t.sotedRankList[a + s].nickname.substring(0, 12) + "..."), n.fillStyle = "#888", n.fillText(t.sotedRankList[a + s].nickname, t._cx(90 + 118 * (s + o)), t._cy(435)), n.font = t._cf(22, !0), n.fillStyle = "#fff", n.fillText(t.sotedRankList[a + s].week_best_score || 0, t._cx(90 + 118 * (s + o)), t._cy(463)), i = t;
+                                        n.fillText(a + 1 + s, t._cx(90 + 118 * (s + o)), t._cy(356)), n.font = t._cf(14), t.sotedRankList[a + s].nickname.length > 12 && (t.sotedRankList[a + s].nickname = t.sotedRankList[a + s].nickname.substring(0, 12) + "..."), n.fillStyle = "#888", n.fillText(t.sotedRankList[a + s].nickname, t._cx(90 + 118 * (s + o)), t._cy(435)), n.font = t._cf(22, true), n.fillStyle = "#fff", n.fillText(t.sotedRankList[a + s].week_best_score || 0, t._cx(90 + 118 * (s + o)), t._cy(463)), i = t;
                                         var e = t._cx(90 + 118 * (s + o));
                                         t._drawImageRound(t.sotedRankList[a + s].headimg, e, t._cy(393), t._cwh(42), t._cwh(42), "bg", function() {
                                             i._drawImageCenter("res/ava_rank.png", e, i._cy(393), i._cwh(58), i._cwh(58), "bg", null, i.imgid.bg)
-                                        }, t.imgid.bg, !0)
+                                        }, t.imgid.bg, true)
                                     }()
                                 }
                         }
@@ -4316,11 +4316,11 @@ define("game.js", function(require, module, exports) {
                             r = t.nickname || "";
                         e.textAlign = "center", e.textBaseline = "middle", "in" == t.type ? (this._drawImageRound(t.headimg, this._cx(207), this._cy(91), this._cx(50), this._cx(50), "bg", function() {
                             i._drawImageCenter("res/ava_lookers.png", i._cx(207), i._cy(91), i._cx(53), i._cx(53), "bg", null, i.imgid.bg)
-                        }, this.imgid.bg, !0), e.font = this._cf(17), e.fillStyle = "black", e.fillText(r + " 正在游戏中", this._cx(207), this._cy(144))) : "gg" == t.type ? (e.fillStyle = "rgba(0,0,0, 0.4)", e.fillRect(0, 0, p, f), this._drawImageRound(t.headimg, this._cx(207), this._cy(91), this._cwh(50), this._cwh(50), "bg", function() {
+                        }, this.imgid.bg, true), e.font = this._cf(17), e.fillStyle = "black", e.fillText(r + " 正在游戏中", this._cx(207), this._cy(144))) : "gg" == t.type ? (e.fillStyle = "rgba(0,0,0, 0.4)", e.fillRect(0, 0, p, f), this._drawImageRound(t.headimg, this._cx(207), this._cy(91), this._cwh(50), this._cwh(50), "bg", function() {
                             i._drawImageCenter("res/ava_lookers.png", i._cx(207), i._cy(91), i._cwh(53), i._cwh(53), "bg", null, i.imgid.bg)
-                        }, this.imgid.bg, !0), e.fillStyle = "#fff", e.strokeStyle = "white", e.font = this._cf(17), e.fillText(r + " 游戏已结束", this._cx(207), this._cy(144)), e.lineWidth = .5 * c, e.strokeStyle = "rgba(255,255,255,0.5)", e.beginPath(), e.moveTo(this._cx(157), this._cy(176)), e.lineTo(this._cx(257), this._cy(176)), e.closePath(), e.stroke(), e.font = this._cf(14), e.fillText("游戏得分", this._cx(207), this._cy(207)), e.fillStyle = "rgba(255,255,255,0.2)", e.fillRect(this._cx(156), this._cy(203), this._cwh(9), this._cwh(3)), e.fillRect(this._cx(156), this._cy(209), this._cwh(9), this._cwh(3)), e.fillRect(this._cx(243), this._cy(203), this._cwh(9), this._cwh(3)), e.fillRect(this._cx(243), this._cy(209), this._cwh(9), this._cwh(3)), e.fillStyle = "#fff", e.font = this._cf(80, !0), e.fillText(n || 0, this._cx(212), this._cy(267))) : "out" == t.type && (e.fillStyle = "rgba(0,0,0, 0.4)", e.fillRect(0, 0, p, f), this._drawImageRound(t.headimg, this._cx(207), this._cy(221), this._cwh(50), this._cwh(50), "bg", function() {
+                        }, this.imgid.bg, true), e.fillStyle = "#fff", e.strokeStyle = "white", e.font = this._cf(17), e.fillText(r + " 游戏已结束", this._cx(207), this._cy(144)), e.lineWidth = .5 * c, e.strokeStyle = "rgba(255,255,255,0.5)", e.beginPath(), e.moveTo(this._cx(157), this._cy(176)), e.lineTo(this._cx(257), this._cy(176)), e.closePath(), e.stroke(), e.font = this._cf(14), e.fillText("游戏得分", this._cx(207), this._cy(207)), e.fillStyle = "rgba(255,255,255,0.2)", e.fillRect(this._cx(156), this._cy(203), this._cwh(9), this._cwh(3)), e.fillRect(this._cx(156), this._cy(209), this._cwh(9), this._cwh(3)), e.fillRect(this._cx(243), this._cy(203), this._cwh(9), this._cwh(3)), e.fillRect(this._cx(243), this._cy(209), this._cwh(9), this._cwh(3)), e.fillStyle = "#fff", e.font = this._cf(80, true), e.fillText(n || 0, this._cx(212), this._cy(267))) : "out" == t.type && (e.fillStyle = "rgba(0,0,0, 0.4)", e.fillRect(0, 0, p, f), this._drawImageRound(t.headimg, this._cx(207), this._cy(221), this._cwh(50), this._cwh(50), "bg", function() {
                             i._drawImageCenter("res/ava_lookers.png", i._cx(207), i._cy(221), i._cwh(53), i._cwh(53), "bg", null, i.imgid.bg)
-                        }, this.imgid.bg, !0), e.fillStyle = "#fff", e.font = this._cf(17), e.fillText(r + " 游戏已结束", this._cx(207), this._cy(278)));
+                        }, this.imgid.bg, true), e.fillStyle = "#fff", e.font = this._cf(17), e.fillText(r + " 游戏已结束", this._cx(207), this._cy(278)));
                         i = this;
                         this._drawImageCenter("res/btn_iplay.png", this._cx(207), this._cy(663), this._cwh(131), this._cwh(54), "bg", null, this.imgid.bg), this._updatePlane("bg")
                     }
@@ -4335,14 +4335,14 @@ define("game.js", function(require, module, exports) {
                             0 == this.changlleList.length ? (i.lineWidth = 2 * c, i.strokeStyle = "rgba(255,255,255,0.06)", i.fillStyle = "rgba(0,0,0,0.6)", this._roundedRectR(this._cx(30), this._cy(104), this._cwh(354), this._cwh(371), 4 * c, "bg"), i.fill(), this._drawImageCenter("res/pure_share.png", this._cx(207), this._cy(440), this._cwh(18), this._cwh(24), "bg", null, this.imgid.bg)) : (i.lineWidth = 2 * c, i.strokeStyle = "rgba(255,255,255,0.06)", i.fillStyle = "rgba(0,0,0,0.6)", this._roundedRectR(this._cx(30), this._cy(104), this._cwh(354), this._cwh(401), 4 * c, "bg"), i.fill(), i.lineWidth = .5 * c, i.strokeStyle = "rgba(255,255,255,0.2)", i.beginPath(), i.moveTo(this._cx(127), this._cy(406)), i.lineTo(this._cx(287), this._cy(406)), i.stroke(), i.closePath(), i.font = this._cf(14), i.fillStyle = "#fff", i.fillText("排名新超越" + this.changlleList.length + "位好友", this._cx(207), this._cy(429)), this.changlleListStart = 0, this._reDrawChangeAva(0), this._drawImageCenter("res/pure_share.png", this._cx(207), this._cy(368), this._cwh(18), this._cwh(24), "bg", null, this.imgid.bg));
                             var n = "",
                                 r = "";
-                            "历史最高分" == this.opt.msg && (this.opt.highest_score < 100 && this.opt.score >= 100 && (n = "初窥门径", r = "#509FC9"), this.opt.highest_score < 500 && this.opt.score >= 500 && (n = "耐得寂寞", r = "#E67600"), this.opt.highest_score < 1e3 && this.opt.score >= 1e3 && (n = "登堂入室", r = "#009D5E"), this.opt.highest_score < 2e3 && this.opt.score >= 2e3 && (n = "无聊大师", r = "#7A0096"), this.opt.highest_score < 3e3 && this.opt.score >= 3e3 && (n = "一指禅", r = "#555555"), this.opt.highest_score < 5e3 && this.opt.score >= 5e3 && (n = "立地成佛", r = "#AC8742")), n ? (i.fillStyle = r, i.strokeStyle = r, i.lineWidth = 1 * c, this._roundedRectR(this._cx(167), this._cy(154), this._cwh(80), this._cwh(26), 2 * c, "bg"), i.fill(), i.fillStyle = "white", i.textAlign = "center", i.textBaseline = "middle", i.font = "bold " + this._cf(14), i.fillText(n, this._cx(207), this._cy(167))) : this._drawImageCenter("res/new.png", this._cx(207), this._cy(167), this._cwh(58), this._cwh(26), "bg", null, this.imgid.bg), i.font = this._cf(14), i.textAlign = "center", i.fillStyle = "#fff", i.textBaseline = "middle", i.fillText(this.opt.msg || "本周最高分", this._cx(207), this._cy(224)), i.font = this._cf(86, !0), i.fillStyle = "#00c777", i.fillText(t.score, this._cx(207), this._cy(292.5))
+                            "历史最高分" == this.opt.msg && (this.opt.highest_score < 100 && this.opt.score >= 100 && (n = "初窥门径", r = "#509FC9"), this.opt.highest_score < 500 && this.opt.score >= 500 && (n = "耐得寂寞", r = "#E67600"), this.opt.highest_score < 1e3 && this.opt.score >= 1e3 && (n = "登堂入室", r = "#009D5E"), this.opt.highest_score < 2e3 && this.opt.score >= 2e3 && (n = "无聊大师", r = "#7A0096"), this.opt.highest_score < 3e3 && this.opt.score >= 3e3 && (n = "一指禅", r = "#555555"), this.opt.highest_score < 5e3 && this.opt.score >= 5e3 && (n = "立地成佛", r = "#AC8742")), n ? (i.fillStyle = r, i.strokeStyle = r, i.lineWidth = 1 * c, this._roundedRectR(this._cx(167), this._cy(154), this._cwh(80), this._cwh(26), 2 * c, "bg"), i.fill(), i.fillStyle = "white", i.textAlign = "center", i.textBaseline = "middle", i.font = "bold " + this._cf(14), i.fillText(n, this._cx(207), this._cy(167))) : this._drawImageCenter("res/new.png", this._cx(207), this._cy(167), this._cwh(58), this._cwh(26), "bg", null, this.imgid.bg), i.font = this._cf(14), i.textAlign = "center", i.fillStyle = "#fff", i.textBaseline = "middle", i.fillText(this.opt.msg || "本周最高分", this._cx(207), this._cy(224)), i.font = this._cf(86, true), i.fillStyle = "#00c777", i.fillText(t.score, this._cx(207), this._cy(292.5))
                         }
                         if ("rank" == e) {
                             this._drawImageCenter("res/new.png", this._cx(207), this._cy(167), this._cwh(58), this._cwh(26), "bg", null, this.imgid.bg), i.lineWidth = 2 * c, i.strokeStyle = "rgba(255,255,255,0.06)", i.fillStyle = "rgba(0,0,0,0.6)", this._roundedRectR(this._cx(30), this._cy(104), this._cwh(354), this._cwh(371), 4 * c, "bg"), i.fill();
                             var a = this;
                             this._drawImageRound(this.myUserInfo.headimg, this._cx(207), this._cy(291), this._cwh(56), this._cwh(56), "bg", function() {
                                 a._drawImageCenter("res/gold.png", a._cx(207), a._cy(253), a._cwh(40), a._cwh(40), "bg", null, a.imgid.bg)
-                            }, this.imgid.bg), i.font = this._cf(14), i.textAlign = "center", i.fillStyle = "#fff", i.textBaseline = "middle", i.fillText("排行榜冠军", this._cx(207), this._cy(224)), i.font = this._cf(40, !0), i.fillStyle = "#00c777", i.fillText(t.score, this._cx(207), this._cy(349)), this._drawImageCenter("res/pure_share.png", this._cx(207), this._cy(415), this._cwh(18), this._cwh(24), "bg", null, this.imgid.bg)
+                            }, this.imgid.bg), i.font = this._cf(14), i.textAlign = "center", i.fillStyle = "#fff", i.textBaseline = "middle", i.fillText("排行榜冠军", this._cx(207), this._cy(224)), i.font = this._cf(40, true), i.fillStyle = "#00c777", i.fillText(t.score, this._cx(207), this._cy(349)), this._drawImageCenter("res/pure_share.png", this._cx(207), this._cy(415), this._cwh(18), this._cwh(24), "bg", null, this.imgid.bg)
                         }
                         i.fillStyle = "rgba(255,255,255,0.2)", i.fillRect(this._cx(155), this._cy(218.5), this._cwh(9), this._cwh(3)), i.fillRect(this._cx(155), this._cy(224.5), this._cwh(9), this._cwh(3)), i.fillRect(this._cx(248), this._cy(218.5), this._cwh(9), this._cwh(3)), i.fillRect(this._cx(248), this._cy(224.5), this._cwh(9), this._cwh(3)), this._drawImageCenter("res/close.png", this._cx(375), this._cy(112), this._cwh(43), this._cwh(43), "bg", null, this.imgid.bg);
                         var o;
@@ -4363,7 +4363,7 @@ define("game.js", function(require, module, exports) {
                                     var t = e._cx(a + 16 + 42 * s);
                                     h = e, e._drawImageRound(i[s].headimg, t, e._cy(469), e._cwh(r), e._cwh(r), "btn", function() {
                                         h._drawImageCenter("res/ava_rank.png", t, h._cy(469), h._cwh(46), h._cwh(46), "btn", null, h.imgid.btn)
-                                    }, e.imgid.btn, !0)
+                                    }, e.imgid.btn, true)
                                 }, s = 0; s < n; s++) {
                                 var h;
                                 o()
@@ -4383,14 +4383,14 @@ define("game.js", function(require, module, exports) {
                         if (!this.canvas.bg) {
                             for (var t = 0; t < m.length; t++) this.canvas[m[t]] = document.createElement("canvas"), this.context[m[t]] = this.canvas[m[t]].getContext("2d"), this.canvas[m[t]].width = p, "list1" == m[t] || "list2" == m[t] ? this.canvas[m[t]].height = 10 * this._cwh(60) : this.canvas[m[t]].height = f, this.texture[m[t]] = new a.Texture(this.canvas[m[t]]), this.material[m[t]] = new a.MeshBasicMaterial({
                                 map: this.texture[m[t]],
-                                transparent: !0
+                                transparent: true
                             }), "list1" == m[t] || "list2" == m[t] ? this.geometry[m[t]] = new a.PlaneGeometry(y, 10 * this._cwh(60) / f * v) : this.geometry[m[t]] = new a.PlaneGeometry(y, v), this.obj[m[t]] = new a.Mesh(this.geometry[m[t]], this.material[m[t]]), this.material[m[t]].map.minFilter = a.LinearFilter, this.obj[m[t]].position.y = 0, this.obj[m[t]].position.x = 0, this.obj[m[t]].position.z = 9 - .001 * t
                         }
                     }
                 }, {
                     key: "_updatePlane",
                     value: function(t) {
-                        this.showState && (this.canvasType == g.gameOver && "bg" != t && "btn" != t && "sample" != t || this.canvasType == g.start && "bg" != t && "btn" != t && "sample" != t || (this.texture[t].needsUpdate = !0, this.obj[t].visible = !0, this.options.camera.add(this.obj[t])))
+                        this.showState && (this.canvasType == g.gameOver && "bg" != t && "btn" != t && "sample" != t || this.canvasType == g.start && "bg" != t && "btn" != t && "sample" != t || (this.texture[t].needsUpdate = true, this.obj[t].visible = true, this.options.camera.add(this.obj[t])))
                     }
                 }, {
                     key: "_updateClip",
@@ -4411,7 +4411,7 @@ define("game.js", function(require, module, exports) {
                         var c = (s = new a.Triangle(r, n)).plane();
                         this._negatePlane(c, t.clone());
                         var u = (s = new a.Triangle(e, r)).plane();
-                        this._negatePlane(u, t.clone()), this.material.list1.clippingPlanes = [h, l, c, u], this.material.list1.needsUpdate = !0, this.material.list2.clippingPlanes = [h, l, c, u], this.material.list2.needsUpdate = !0
+                        this._negatePlane(u, t.clone()), this.material.list1.clippingPlanes = [h, l, c, u], this.material.list1.needsUpdate = true, this.material.list2.clippingPlanes = [h, l, c, u], this.material.list2.needsUpdate = true
                     }
                 }, {
                     key: "_cwh",
@@ -4510,7 +4510,7 @@ define("game.js", function(require, module, exports) {
                             this.materials = [];
                             for (var r = new a.PlaneGeometry(.4, .4), o = 0; o < n.length; ++o) this.materials.push(new a.MeshBasicMaterial({
                                 color: n[o],
-                                transparent: !0
+                                transparent: true
                             }));
                             this.particles[i] = [];
                             for (o = 0; o < 25; ++o) {
@@ -4550,13 +4550,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -4609,13 +4609,13 @@ define("game.js", function(require, module, exports) {
             return t.moveTo(e, i + a), t.lineTo(e, i + r - a), t.quadraticCurveTo(e, i + r, e + a, i + r), t.lineTo(e + n - a, i + r), t.quadraticCurveTo(e + n, i + r, e + n, i + r - a), t.lineTo(e + n, i + a), t.quadraticCurveTo(e + n, i, e + n - a, i), t.lineTo(e + a, i), t.quadraticCurveTo(e, i, e, i + a), t
         }
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var r = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -4643,11 +4643,11 @@ define("game.js", function(require, module, exports) {
                         if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function")
                     }(this, t), this.game = e, this.seed = 0, this.startDist = 0, this.hitPoint = {
                         uuid: "",
-                        ready: !1,
+                        ready: false,
                         texture: null
                     }, this.loader = new a.TextureLoader, this.text = new o.default("超越！", {
                         fillStyle: 2434341,
-                        chinese: !0,
+                        chinese: true,
                         textAlign: "center"
                     });
                     var i = new a.Shape;
@@ -4669,20 +4669,20 @@ define("game.js", function(require, module, exports) {
                                 c = t.vertices[o[s].c];
                             t.faceVertexUvs[0].push([new a.Vector2((h.x + n.x) / r.x, (h.y + n.y) / r.y), new a.Vector2((l.x + n.x) / r.x, (l.y + n.y) / r.y), new a.Vector2((c.x + n.x) / r.x, (c.y + n.y) / r.y)])
                         }
-                        t.uvsNeedUpdate = !0
+                        t.uvsNeedUpdate = true
                     }(s), this.avatorFrame = new a.Mesh(s, new a.MeshBasicMaterial({
-                        transparent: !0,
+                        transparent: true,
                         opacity: 1
                     })), this.avatorOuter = new a.Mesh(new a.ShapeGeometry(i), new a.MeshBasicMaterial({
                         color: 16777215,
-                        transparent: !0,
+                        transparent: true,
                         opacity: 1
-                    })), this.text.obj.scale.set(.8, .8, .8), this.text.obj.position.set(0, 2.2, .1), this.avatorFrame.position.set(0, 0, .1), this.avatorFrame.material.opacity = 0, this.avatorOuter.position.set(0, 0, 0), this.avatorOuter.material.opacity = 0, this.text.material.opacity = 0, this.obj = new a.Object3D, this.text.obj.visible = !1, this.obj.add(this.avatorOuter), this.obj.add(this.avatorFrame), this.obj.add(this.text.obj), this.obj.rotateY(-Math.PI / 4), this.obj.rotateX(-Math.PI / 16 * 3), this.game.scene.add(this.obj), this.obj.visible = !1
+                    })), this.text.obj.scale.set(.8, .8, .8), this.text.obj.position.set(0, 2.2, .1), this.avatorFrame.position.set(0, 0, .1), this.avatorFrame.material.opacity = 0, this.avatorOuter.position.set(0, 0, 0), this.avatorOuter.material.opacity = 0, this.text.material.opacity = 0, this.obj = new a.Object3D, this.text.obj.visible = false, this.obj.add(this.avatorOuter), this.obj.add(this.avatorFrame), this.obj.add(this.text.obj), this.obj.rotateY(-Math.PI / 4), this.obj.rotateX(-Math.PI / 16 * 3), this.game.scene.add(this.obj), this.obj.visible = false
                 }
                 return r(t, [{
                     key: "update",
                     value: function() {
-                        this.game.gameModel.friendsScore && this.game.gameModel.friendsScore.length && (this.seed++, this.hitPoint.uuid == this.game.currentBlock.obj.uuid && this.hitPoint.ready && this.hitPoint.texture && (this.startDist < 2 && (this.startDist++, this.text.obj.visible = !0), this.playAnimate(), this.seed = 0), this.seed >= 5 && this.checkScore())
+                        this.game.gameModel.friendsScore && this.game.gameModel.friendsScore.length && (this.seed++, this.hitPoint.uuid == this.game.currentBlock.obj.uuid && this.hitPoint.ready && this.hitPoint.texture && (this.startDist < 2 && (this.startDist++, this.text.obj.visible = true), this.playAnimate(), this.seed = 0), this.seed >= 5 && this.checkScore())
                     }
                 }, {
                     key: "checkScore",
@@ -4692,7 +4692,7 @@ define("game.js", function(require, module, exports) {
                         try {
                             for (var i = 0; i < e.length; i++)
                                 if (e[i].week_best_score == t) {
-                                    this.hitPoint.uuid = this.game.nextBlock.obj.uuid, this.hitPoint.ready = !1, this.animateAvator(e[i]);
+                                    this.hitPoint.uuid = this.game.nextBlock.obj.uuid, this.hitPoint.ready = false, this.animateAvator(e[i]);
                                     break
                                 }
                         } catch (t) {
@@ -4704,7 +4704,7 @@ define("game.js", function(require, module, exports) {
                     value: function(t) {
                         var e = this;
                         this.loader.load(t.headimg, function(t) {
-                            e.hitPoint.uuid == e.game.nextBlock.obj.uuid && (e.hitPoint.ready = !0, t.minFilter = a.LinearFilter, e.hitPoint.texture = t)
+                            e.hitPoint.uuid == e.game.nextBlock.obj.uuid && (e.hitPoint.ready = true, t.minFilter = a.LinearFilter, e.hitPoint.texture = t)
                         })
                     }
                 }, {
@@ -4715,7 +4715,7 @@ define("game.js", function(require, module, exports) {
                         var e = this.game.bottle.obj.position.clone(),
                             i = e.x,
                             n = e.z;
-                        this.obj.position.set(i, 10, n), this.avatorFrame.material.map = this.hitPoint.texture, this.obj.visible = !0, s.customAnimation.to(this.obj.position, .4, {
+                        this.obj.position.set(i, 10, n), this.avatorFrame.material.map = this.hitPoint.texture, this.obj.visible = true, s.customAnimation.to(this.obj.position, .4, {
                             y: 13
                         }), s.customAnimation.to(this.text.material, .4, {
                             opacity: 1
@@ -4735,21 +4735,21 @@ define("game.js", function(require, module, exports) {
                         }), s.customAnimation.to(this.avatorFrame.material, .4, {
                             opacity: 0,
                             delay: .6
-                        }), this.hitPoint.uuid = "", this.hitPoint.ready = !1, this.hitPoint.texture = null
+                        }), this.hitPoint.uuid = "", this.hitPoint.ready = false, this.hitPoint.texture = null
                     }
                 }, {
                     key: "resetAvator",
                     value: function() {
-                        this.obj.visible = !1, this.text.obj.visible = !1, this.avatorFrame.material.opacity = 0, this.avatorFrame.material.map = "", this.avatorOuter.material.opacity = 0, this.text.material.opacity = 0
+                        this.obj.visible = false, this.text.obj.visible = false, this.avatorFrame.material.opacity = 0, this.avatorFrame.material.map = "", this.avatorOuter.material.opacity = 0, this.text.material.opacity = 0
                     }
                 }, {
                     key: "reset",
                     value: function() {
                         this.seed = 0, this.seed = 0, this.startDist = 0, this.startDist = 0, this.hitPoint = {
                             uuid: "",
-                            ready: !1,
+                            ready: false,
                             texture: null
-                        }, this.obj.visible = !1
+                        }, this.obj.visible = false
                     }
                 }]), t
             }();
@@ -4763,13 +4763,13 @@ define("game.js", function(require, module, exports) {
             }
         }
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var r = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -4830,13 +4830,13 @@ define("game.js", function(require, module, exports) {
             if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function")
         }
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var r = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -4868,7 +4868,7 @@ define("game.js", function(require, module, exports) {
                         this.geometry = new a.PlaneGeometry(t, e), this.material = new a.MeshBasicMaterial({
                             color: 16777215,
                             side: a.DoubleSide,
-                            transparent: !0,
+                            transparent: true,
                             opacity: .3
                         });
                         for (var i = 0; i < 20; i++) {
@@ -4920,7 +4920,7 @@ define("game.js", function(require, module, exports) {
                     value: function(t, e) {
                         var i = arguments.length > 2 && void 0 !== arguments[2] ? arguments[2] : 1,
                             n = this.getMesh();
-                        this.tailsUsingPool.push(n), n.mesh.position.set(e.x, e.y, e.z), n.mesh.scale.y = i, n.mesh.lookAt(t), n.mesh.rotateY(Math.PI / 2), n.mesh.visible = !0
+                        this.tailsUsingPool.push(n), n.mesh.position.set(e.x, e.y, e.z), n.mesh.scale.y = i, n.mesh.lookAt(t), n.mesh.rotateY(Math.PI / 2), n.mesh.visible = true
                     }
                 }, {
                     key: "getMesh",
@@ -4940,25 +4940,25 @@ define("game.js", function(require, module, exports) {
         e.default = s;
         var h = function() {
             function t(e, i) {
-                n(this, t), this.tickTime = 0, this.mesh = new a.Mesh(e, i), this.mesh.visible = !1, this.mesh.name = "tail"
+                n(this, t), this.tickTime = 0, this.mesh = new a.Mesh(e, i), this.mesh.visible = false, this.mesh.name = "tail"
             }
             return r(t, [{
                 key: "reset",
                 value: function() {
-                    this.tickTime = 0, this.mesh.scale.set(1, 1, 1), this.mesh.visible = !1
+                    this.tickTime = 0, this.mesh.scale.set(1, 1, 1), this.mesh.visible = false
                 }
             }]), t
         }()
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -4988,24 +4988,24 @@ define("game.js", function(require, module, exports) {
                     this.game = s, this.full2D = n, this.scene = e, this.camera = i, this.score = 0, this.double = 1;
                     new r.PlaneGeometry(a.FRUSTUMSIZE * h * .034, a.FRUSTUMSIZE * h * .034 / 42 * 48), new r.MeshBasicMaterial({
                         map: a.loader.load("res/observShare.png"),
-                        transparent: !0
+                        transparent: true
                     });
                     this.scoreText = new o.default("0", {
                         fillStyle: 2434341,
-                        sumScore: !0,
+                        sumScore: true,
                         opacity: .8
-                    }), this.scoreText.obj.position.set(0, 21, -10), this.scoreText.obj.updateMatrix(), this.scoreText.obj.matrixAutoUpdate = !1, this.camera.add(this.scoreText.obj), this.quickText = new o.default("好快！", {
+                    }), this.scoreText.obj.position.set(0, 21, -10), this.scoreText.obj.updateMatrix(), this.scoreText.obj.matrixAutoUpdate = false, this.camera.add(this.scoreText.obj), this.quickText = new o.default("好快！", {
                         fillStyle: 2434341,
-                        chinese: !0
-                    }), this.quickText.obj.position.set(-13, 18, -10), this.quickText.obj.updateMatrix(), this.quickText.obj.matrixAutoUpdate = !1, this.quickText.obj.visible = !1, this.perfectText = new o.default("很好！", {
+                        chinese: true
+                    }), this.quickText.obj.position.set(-13, 18, -10), this.quickText.obj.updateMatrix(), this.quickText.obj.matrixAutoUpdate = false, this.quickText.obj.visible = false, this.perfectText = new o.default("很好！", {
                         fillStyle: 2434341,
-                        chinese: !0
-                    }), this.perfectText.obj.position.set(-13, 16, -10), this.perfectText.obj.updateMatrix(), this.perfectText.obj.matrixAutoUpdate = !1, this.perfectText.obj.visible = !1, this.camera.add(this.quickText.obj), this.camera.add(this.perfectText.obj)
+                        chinese: true
+                    }), this.perfectText.obj.position.set(-13, 16, -10), this.perfectText.obj.updateMatrix(), this.perfectText.obj.matrixAutoUpdate = false, this.perfectText.obj.visible = false, this.camera.add(this.quickText.obj), this.camera.add(this.perfectText.obj)
                 }
                 return n(t, [{
                     key: "reset",
                     value: function() {
-                        this.scoreText.setScore(0), this.score = 0, this.double = 1, this.perfectText.obj.visible = !1, this.quickText.obj.visible = !1
+                        this.scoreText.setScore(0), this.score = 0, this.double = 1, this.perfectText.obj.visible = false, this.quickText.obj.visible = false
                     }
                 }, {
                     key: "update",
@@ -5013,12 +5013,12 @@ define("game.js", function(require, module, exports) {
                 }, {
                     key: "hideScore",
                     value: function() {
-                        this.scoreText.obj.visible = !1
+                        this.scoreText.obj.visible = false
                     }
                 }, {
                     key: "showScore",
                     value: function() {
-                        this.scoreText.obj.visible = !0
+                        this.scoreText.obj.visible = true
                     }
                 }, {
                     key: "addScore",
@@ -5036,13 +5036,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -5057,7 +5057,7 @@ define("game.js", function(require, module, exports) {
                         if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function")
                     }(this, t), this.musicPool = ["success", "combo1", "combo2", "combo3", "combo4", "combo5", "combo6", "combo7", "combo8", "scale_intro", "scale_loop", "restart", "fall", "fall_2", "pop", "icon", "sing", "store", "water"], this.musicPool.forEach(function(t) {
                         e[t] = wx.createInnerAudioContext(), e[t].src = r.AUDIO[t]
-                    }), this.scale_loop.loop = !0, this.store.onPlay(function() {
+                    }), this.scale_loop.loop = true, this.store.onPlay(function() {
                         e.store.before && e.store.before()
                     }), this.store.onEnded(function() {
                         e.store.after && e.store.after(), e.timer = setTimeout(function() {
@@ -5105,13 +5105,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -5135,7 +5135,7 @@ define("game.js", function(require, module, exports) {
                         if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function")
                     }(this, t), this.num = 0, this.list = [], this.imgPlanes = [], this.camera = e, this.lookers = new r.default({
                         camera: e
-                    }), this.isOpen = !1
+                    }), this.isOpen = false
                 }
                 return n(t, [{
                     key: "peopleCome",
@@ -5158,27 +5158,27 @@ define("game.js", function(require, module, exports) {
                         if (this.num > 0) {
                             for (var t = [], e = 1; e < 4; e++) this.list.length - e >= 0 && t.unshift(this.list[this.list.length - e].audience_headimg);
                             this.lookers.showLookers({
-                                avaImg: !0,
-                                icon: !0,
-                                wording: !1,
+                                avaImg: true,
+                                icon: true,
+                                wording: false,
                                 num: this.num,
                                 avatar: t
                             })
                         } else this.lookers.showLookers({
-                            avaImg: !1,
-                            icon: !0,
-                            wording: !1
+                            avaImg: false,
+                            icon: true,
+                            wording: false
                         })
                     }
                 }, {
                     key: "open",
                     value: function() {
-                        this.isOpen = !0, this.showAvatar()
+                        this.isOpen = true, this.showAvatar()
                     }
                 }, {
                     key: "close",
                     value: function() {
-                        this.isOpen = !1, this.hideAll()
+                        this.isOpen = false, this.hideAll()
                     }
                 }, {
                     key: "reset",
@@ -5196,13 +5196,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -5220,7 +5220,7 @@ define("game.js", function(require, module, exports) {
             o = new r.RingGeometry(a.WAVE.innerRadius, a.WAVE.outerRadius, a.WAVE.thetaSeg),
             s = new r.MeshBasicMaterial({
                 color: a.COLORS.pureWhite,
-                transparent: !0
+                transparent: true
             }),
             h = function() {
                 function t() {
@@ -5231,7 +5231,7 @@ define("game.js", function(require, module, exports) {
                 return n(t, [{
                     key: "reset",
                     value: function() {
-                        this.obj.scale.set(1, 1, 1), this.obj.material.opacity = 1, this.obj.visible = !1
+                        this.obj.scale.set(1, 1, 1), this.obj.material.opacity = 1, this.obj.visible = false
                     }
                 }]), t
             }();
@@ -5249,9 +5249,9 @@ define("game.js", function(require, module, exports) {
                 var r = i[n] = {
                     exports: {},
                     id: n,
-                    loaded: !1
+                    loaded: false
                 };
-                return t[n].call(r.exports, r, r.exports, e), r.loaded = !0, r.exports
+                return t[n].call(r.exports, r, r.exports, e), r.loaded = true, r.exports
             }
             var i = {};
             e.m = t, e.c = i, e.p = "", e(0)
@@ -5264,7 +5264,7 @@ define("game.js", function(require, module, exports) {
                     return e.default = t, e
                 }(i(1)),
                 r = GameGlobal;
-            GameGlobal.__isAdapterInjected || (GameGlobal.__isAdapterInjected = !0, function() {
+            GameGlobal.__isAdapterInjected || (GameGlobal.__isAdapterInjected = true, function() {
                 n.addEventListener = n.canvas.addEventListener = function(t, e) {
                     n.document.addEventListener(t, e)
                 }, n.removeEventListener = n.canvas.removeEventListener = function(t, e) {
@@ -5274,13 +5274,13 @@ define("game.js", function(require, module, exports) {
                 if ("undefined" == typeof __devtoolssubcontext && "devtools" === t) {
                     for (var e in n) {
                         var i = Object.getOwnPropertyDescriptor(r, e);
-                        i && !0 !== i.configurable || Object.defineProperty(window, e, {
+                        i && true !== i.configurable || Object.defineProperty(window, e, {
                             value: n[e]
                         })
                     }
                     for (var a in n.document) {
                         var o = Object.getOwnPropertyDescriptor(r.document, a);
-                        o && !0 !== o.configurable || Object.defineProperty(r.document, a, {
+                        o && true !== o.configurable || Object.defineProperty(r.document, a, {
                             value: n.document[a]
                         })
                     }
@@ -5297,12 +5297,12 @@ define("game.js", function(require, module, exports) {
                 }
             }
             Object.defineProperty(e, "__esModule", {
-                value: !0
+                value: true
             }), e.cancelAnimationFrame = e.requestAnimationFrame = e.clearInterval = e.clearTimeout = e.setInterval = e.setTimeout = e.canvas = e.location = e.localStorage = e.HTMLElement = e.FileReader = e.Audio = e.Image = e.WebSocket = e.XMLHttpRequest = e.navigator = e.document = void 0;
             var r = i(2);
             Object.keys(r).forEach(function(t) {
                 "default" !== t && "__esModule" !== t && Object.defineProperty(e, t, {
-                    enumerable: !0,
+                    enumerable: true,
                     get: function() {
                         return r[t]
                     }
@@ -5311,7 +5311,7 @@ define("game.js", function(require, module, exports) {
             var a = i(3);
             Object.keys(a).forEach(function(t) {
                 "default" !== t && "__esModule" !== t && Object.defineProperty(e, t, {
-                    enumerable: !0,
+                    enumerable: true,
                     get: function() {
                         return a[t]
                     }
@@ -5333,7 +5333,7 @@ define("game.js", function(require, module, exports) {
             e.canvas = v, e.setTimeout = setTimeout, e.setInterval = setInterval, e.clearTimeout = clearTimeout, e.clearInterval = clearInterval, e.requestAnimationFrame = requestAnimationFrame, e.cancelAnimationFrame = cancelAnimationFrame
         }, function(t, e) {
             Object.defineProperty(e, "__esModule", {
-                value: !0
+                value: true
             });
             var i = wx.getSystemInfoSync(),
                 n = i.screenWidth,
@@ -5365,14 +5365,14 @@ define("game.js", function(require, module, exports) {
                 t.prototype = Object.create(e && e.prototype, {
                     constructor: {
                         value: t,
-                        enumerable: !1,
-                        writable: !0,
-                        configurable: !0
+                        enumerable: false,
+                        writable: true,
+                        configurable: true
                     }
                 }), e && (Object.setPrototypeOf ? Object.setPrototypeOf(t, e) : t.__proto__ = e)
             }
             Object.defineProperty(e, "__esModule", {
-                value: !0
+                value: true
             }), e.HTMLCanvasElement = e.HTMLImageElement = void 0;
             var s = function(t) {
                 return t && t.__esModule ? t : {
@@ -5392,13 +5392,13 @@ define("game.js", function(require, module, exports) {
             }()
         }, function(t, e, i) {
             Object.defineProperty(e, "__esModule", {
-                value: !0
+                value: true
             });
             var r = function() {
                     function t(t, e) {
                         for (var i = 0; i < e.length; i++) {
                             var n = e[i];
-                            n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                            n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                         }
                     }
                     return function(e, i, n) {
@@ -5432,9 +5432,9 @@ define("game.js", function(require, module, exports) {
                         t.prototype = Object.create(e && e.prototype, {
                             constructor: {
                                 value: t,
-                                enumerable: !1,
-                                writable: !0,
-                                configurable: !0
+                                enumerable: false,
+                                writable: true,
+                                configurable: true
                             }
                         }), e && (Object.setPrototypeOf ? Object.setPrototypeOf(t, e) : t.__proto__ = e)
                     }(e, a.default), r(e, [{
@@ -5477,7 +5477,7 @@ define("game.js", function(require, module, exports) {
             e.default = h
         }, function(t, e, i) {
             Object.defineProperty(e, "__esModule", {
-                value: !0
+                value: true
             });
             var r = function(t) {
                     return t && t.__esModule ? t : {
@@ -5500,9 +5500,9 @@ define("game.js", function(require, module, exports) {
                         t.prototype = Object.create(e && e.prototype, {
                             constructor: {
                                 value: t,
-                                enumerable: !1,
-                                writable: !0,
-                                configurable: !0
+                                enumerable: false,
+                                writable: true,
+                                configurable: true
                             }
                         }), e && (Object.setPrototypeOf ? Object.setPrototypeOf(t, e) : t.__proto__ = e)
                     }(e, r.default), e
@@ -5510,13 +5510,13 @@ define("game.js", function(require, module, exports) {
             e.default = a
         }, function(t, e, i) {
             Object.defineProperty(e, "__esModule", {
-                value: !0
+                value: true
             });
             var r = function() {
                     function t(t, e) {
                         for (var i = 0; i < e.length; i++) {
                             var n = e[i];
-                            n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                            n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                         }
                     }
                     return function(e, i, n) {
@@ -5544,9 +5544,9 @@ define("game.js", function(require, module, exports) {
                         t.prototype = Object.create(e && e.prototype, {
                             constructor: {
                                 value: t,
-                                enumerable: !1,
-                                writable: !0,
-                                configurable: !0
+                                enumerable: false,
+                                writable: true,
+                                configurable: true
                             }
                         }), e && (Object.setPrototypeOf ? Object.setPrototypeOf(t, e) : t.__proto__ = e)
                     }(e, a.default), r(e, [{
@@ -5574,13 +5574,13 @@ define("game.js", function(require, module, exports) {
             e.default = o
         }, function(t, e) {
             Object.defineProperty(e, "__esModule", {
-                value: !0
+                value: true
             });
             var i = function() {
                     function t(t, e) {
                         for (var i = 0; i < e.length; i++) {
                             var n = e[i];
-                            n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                            n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                         }
                     }
                     return function(e, i, n) {
@@ -5625,7 +5625,7 @@ define("game.js", function(require, module, exports) {
             e.default = r
         }, function(t, e) {
             Object.defineProperty(e, "__esModule", {
-                value: !0
+                value: true
             }), e.noop = function() {}
         }, function(t, e, i) {
             function n(t) {
@@ -5634,7 +5634,7 @@ define("game.js", function(require, module, exports) {
                 }
             }
             Object.defineProperty(e, "__esModule", {
-                value: !0
+                value: true
             }), e.default = function() {
                 var t = wx.createCanvas();
                 return t.type = "canvas", t.__proto__.__proto__ = new r.default("canvas"), t.getContext, t.getBoundingClientRect = function() {
@@ -5656,7 +5656,7 @@ define("game.js", function(require, module, exports) {
                 }
             }
             Object.defineProperty(e, "__esModule", {
-                value: !0
+                value: true
             });
             var r = function(t) {
                     if (t && t.__esModule) return t;
@@ -5675,7 +5675,7 @@ define("game.js", function(require, module, exports) {
                     readyState: "complete",
                     visibilityState: "visible",
                     documentElement: r,
-                    hidden: !1,
+                    hidden: false,
                     style: {},
                     location: r.location,
                     ontouchstart: null,
@@ -5719,19 +5719,19 @@ define("game.js", function(require, module, exports) {
             e.default = c
         }, function(t, e) {
             Object.defineProperty(e, "__esModule", {
-                value: !0
+                value: true
             }), e.default = function() {
                 return wx.createImage()
             }
         }, function(t, e, i) {
             Object.defineProperty(e, "__esModule", {
-                value: !0
+                value: true
             });
             var r = function() {
                     function t(t, e) {
                         for (var i = 0; i < e.length; i++) {
                             var n = e[i];
-                            n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                            n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                         }
                     }
                     return function(e, i, n) {
@@ -5796,9 +5796,9 @@ define("game.js", function(require, module, exports) {
                         t.prototype = Object.create(e && e.prototype, {
                             constructor: {
                                 value: t,
-                                enumerable: !1,
-                                writable: !0,
-                                configurable: !0
+                                enumerable: false,
+                                writable: true,
+                                configurable: true
                             }
                         }), e && (Object.setPrototypeOf ? Object.setPrototypeOf(t, e) : t.__proto__ = e)
                     }(e, a.default), r(e, [{
@@ -5870,7 +5870,7 @@ define("game.js", function(require, module, exports) {
             e.default = f
         }, function(t, e, i) {
             Object.defineProperty(e, "__esModule", {
-                value: !0
+                value: true
             });
             var r = function(t) {
                     return t && t.__esModule ? t : {
@@ -5892,9 +5892,9 @@ define("game.js", function(require, module, exports) {
                         t.prototype = Object.create(e && e.prototype, {
                             constructor: {
                                 value: t,
-                                enumerable: !1,
-                                writable: !0,
-                                configurable: !0
+                                enumerable: false,
+                                writable: true,
+                                configurable: true
                             }
                         }), e && (Object.setPrototypeOf ? Object.setPrototypeOf(t, e) : t.__proto__ = e)
                     }(e, r.default), e
@@ -5902,13 +5902,13 @@ define("game.js", function(require, module, exports) {
             e.default = a
         }, function(t, e, i) {
             Object.defineProperty(e, "__esModule", {
-                value: !0
+                value: true
             });
             var r = function() {
                     function t(t, e) {
                         for (var i = 0; i < e.length; i++) {
                             var n = e[i];
-                            n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                            n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                         }
                     }
                     return function(e, i, n) {
@@ -5935,9 +5935,9 @@ define("game.js", function(require, module, exports) {
                         t.prototype = Object.create(e && e.prototype, {
                             constructor: {
                                 value: t,
-                                enumerable: !1,
-                                writable: !0,
-                                configurable: !0
+                                enumerable: false,
+                                writable: true,
+                                configurable: true
                             }
                         }), e && (Object.setPrototypeOf ? Object.setPrototypeOf(t, e) : t.__proto__ = e)
                     }(e, a.default), r(e, [{
@@ -5991,7 +5991,7 @@ define("game.js", function(require, module, exports) {
             wx.onTouchStart(n("touchstart")), wx.onTouchMove(n("touchmove")), wx.onTouchEnd(n("touchend")), wx.onTouchCancel(n("touchcancel"))
         }, function(t, e, i) {
             Object.defineProperty(e, "__esModule", {
-                value: !0
+                value: true
             });
             var n = i(8),
                 r = {
@@ -5999,7 +5999,7 @@ define("game.js", function(require, module, exports) {
                     language: "zh-cn",
                     appVersion: "5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1",
                     userAgent: "Mozilla/5.0 (iPhone; CPU iPhone OS 10_3_1 like Mac OS X) AppleWebKit/603.1.30 (KHTML, like Gecko) Mobile/14E8301 MicroMessenger/6.6.0 MiniGame NetType/WIFI Language/zh_CN",
-                    onLine: !0,
+                    onLine: true,
                     geolocation: {
                         getCurrentPosition: n.noop,
                         watchPosition: n.noop,
@@ -6019,13 +6019,13 @@ define("game.js", function(require, module, exports) {
                 this.readyState = t, i.call(this, "readystatechange")
             }
             Object.defineProperty(e, "__esModule", {
-                value: !0
+                value: true
             });
             var r = function() {
                     function t(t, e) {
                         for (var i = 0; i < e.length; i++) {
                             var n = e[i];
-                            n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                            n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                         }
                     }
                     return function(e, i, n) {
@@ -6041,7 +6041,7 @@ define("game.js", function(require, module, exports) {
                     function t() {
                         ! function(t, e) {
                             if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function")
-                        }(this, t), this.onabort = null, this.onerror = null, this.onload = null, this.onloadstart = null, this.onprogress = null, this.ontimeout = null, this.onloadend = null, this.onreadystatechange = null, this.readyState = 0, this.response = null, this.responseText = null, this.responseType = "", this.responseXML = null, this.status = 0, this.statusText = "", this.upload = {}, this.withCredentials = !1, s.set(this, {
+                        }(this, t), this.onabort = null, this.onerror = null, this.onload = null, this.onloadstart = null, this.onprogress = null, this.ontimeout = null, this.onloadend = null, this.onreadystatechange = null, this.readyState = 0, this.response = null, this.responseText = null, this.responseType = "", this.responseXML = null, this.status = 0, this.statusText = "", this.upload = {}, this.withCredentials = false, s.set(this, {
                             "content-type": "application/x-www-form-urlencoded"
                         }), h.set(this, {})
                     }
@@ -6115,13 +6115,13 @@ define("game.js", function(require, module, exports) {
             c.UNSEND = 0, c.OPENED = 1, c.HEADERS_RECEIVED = 2, c.LOADING = 3, c.DONE = 4, e.default = c
         }, function(t, e) {
             Object.defineProperty(e, "__esModule", {
-                value: !0
+                value: true
             });
             var i = function() {
                     function t(t, e) {
                         for (var i = 0; i < e.length; i++) {
                             var n = e[i];
-                            n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                            n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                         }
                     }
                     return function(e, i, n) {
@@ -6173,7 +6173,7 @@ define("game.js", function(require, module, exports) {
             r.CONNECTING = 0, r.OPEN = 1, r.CLOSING = 2, r.CLOSED = 3, e.default = r
         }, function(t, e) {
             Object.defineProperty(e, "__esModule", {
-                value: !0
+                value: true
             });
             e.default = function t() {
                 ! function(e, i) {
@@ -6182,7 +6182,7 @@ define("game.js", function(require, module, exports) {
             }
         }, function(t, e) {
             Object.defineProperty(e, "__esModule", {
-                value: !0
+                value: true
             });
             var i = {
                 get length() {
@@ -6207,7 +6207,7 @@ define("game.js", function(require, module, exports) {
             e.default = i
         }, function(t, e) {
             Object.defineProperty(e, "__esModule", {
-                value: !0
+                value: true
             });
             e.default = {
                 href: "game.js",
@@ -6216,7 +6216,7 @@ define("game.js", function(require, module, exports) {
         }])
     }, function(t, e) {
         t.exports = function(t, e) {
-            for (var i = t[0], n = t[1], r = !1, a = 0, o = e.length - 1; a < e.length; o = a++) {
+            for (var i = t[0], n = t[1], r = false, a = 0, o = e.length - 1; a < e.length; o = a++) {
                 var s = e[a][0],
                     h = e[a][1],
                     l = e[o][0],
@@ -6234,13 +6234,13 @@ define("game.js", function(require, module, exports) {
             }
         }
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var r = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -6260,7 +6260,7 @@ define("game.js", function(require, module, exports) {
                     key: "init",
                     value: function(t) {
                         var e = this.model.getSessionId();
-                        this.shareTicket = t.shareTicket, this.pkId = t.query.pkId, wx.showLoading(), e ? this.afterLogin(!0) : this.netWorkCtrl.netWorkLogin(this.afterLogin.bind(this))
+                        this.shareTicket = t.shareTicket, this.pkId = t.query.pkId, wx.showLoading(), e ? this.afterLogin(true) : this.netWorkCtrl.netWorkLogin(this.afterLogin.bind(this))
                     }
                 }, {
                     key: "afterLogin",
@@ -6373,13 +6373,13 @@ define("game.js", function(require, module, exports) {
             }
         }
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var r = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -6400,7 +6400,7 @@ define("game.js", function(require, module, exports) {
                         var e = this.model.getServerConfig();
                         if (e && !e.group_score_switch) return this.view.showServeConfigForbiddenGroupShare(), void this.modeCtrl.changeMode("singleCtrl");
                         var i = this.model.getSessionId();
-                        this.shareTicket = t.shareTicket, wx.showLoading(), i ? this.afterLogin(!0) : this.netWorkCtrl.netWorkLogin(this.afterLogin.bind(this))
+                        this.shareTicket = t.shareTicket, wx.showLoading(), i ? this.afterLogin(true) : this.netWorkCtrl.netWorkLogin(this.afterLogin.bind(this))
                     }
                 }, {
                     key: "afterLogin",
@@ -6473,13 +6473,13 @@ define("game.js", function(require, module, exports) {
             }
         }
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var r = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -6628,13 +6628,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -6723,13 +6723,13 @@ define("game.js", function(require, module, exports) {
             }
         }
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var r = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -6755,7 +6755,7 @@ define("game.js", function(require, module, exports) {
                         this.gameId = t.query.gameId, this.model.setObserveInfo({
                             headimg: t.query.headimg,
                             nickName: t.query.nickName
-                        }), this.model.setGameId(this.gameId), wx.showLoading(), i ? this.afterLogin(!0) : this.netWorkCtrl.netWorkLogin(this.afterLogin.bind(this))
+                        }), this.model.setGameId(this.gameId), wx.showLoading(), i ? this.afterLogin(true) : this.netWorkCtrl.netWorkLogin(this.afterLogin.bind(this))
                     }
                 }, {
                     key: "afterLogin",
@@ -6860,13 +6860,13 @@ define("game.js", function(require, module, exports) {
             }
         }
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var r = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -6904,9 +6904,9 @@ define("game.js", function(require, module, exports) {
                     t.prototype = Object.create(e && e.prototype, {
                         constructor: {
                             value: t,
-                            enumerable: !1,
-                            writable: !0,
-                            configurable: !0
+                            enumerable: false,
+                            writable: true,
+                            configurable: true
                         }
                     }), e && (Object.setPrototypeOf ? Object.setPrototypeOf(t, e) : t.__proto__ = e)
                 }(e, o.default), r(e, [{
@@ -6981,13 +6981,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -7023,7 +7023,7 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n;
         (new(function(t) {
@@ -7226,13 +7226,13 @@ define("game.js", function(require, module, exports) {
         function r() {
             var t = Date.now(),
                 e = t - j;
-            j = t, requestAnimationFrame(r, !0), e > 100 || z.update(e / 1e3)
+            j = t, requestAnimationFrame(r, true), e > 100 || z.update(e / 1e3)
         }
         var a = function() {
             function t(t, e) {
                 for (var i = 0; i < e.length; i++) {
                     var n = e[i];
-                    n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                    n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                 }
             }
             return function(e, i, n) {
@@ -7281,8 +7281,8 @@ define("game.js", function(require, module, exports) {
                 function t(e) {
                     ! function(t, e) {
                         if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function")
-                    }(this, t), this.options = e, this.is_from_wn = 0, this.firstInit = !0, this.distance = 0, this.heightestScore = 0, this.stage = "", this.succeedTime = 0, this.lastAddBonus = -2, this.lastStage = "", this.deadTimeout = null, this.currentScore = 0, this.seq = 0, this.thirdBlock = null, this.straight = !0, this.firstBlood = !1, this.lastHardLevel = 200, this.guider = !1, this.hardDistances = [], this.duration = [], this.quickArr = [], this.socketFirstSync = !1, this.init(), this.randomSeed = Date.now(), (0, A.setRandomSeed)(this.randomSeed), this.actionList = [], this.musicList = [], this.blocks = [], this.liveTime = 0, wx.setKeepScreenOn && wx.setKeepScreenOn({
-                        keepScreenOn: !0
+                    }(this, t), this.options = e, this.is_from_wn = 0, this.firstInit = true, this.distance = 0, this.heightestScore = 0, this.stage = "", this.succeedTime = 0, this.lastAddBonus = -2, this.lastStage = "", this.deadTimeout = null, this.currentScore = 0, this.seq = 0, this.thirdBlock = null, this.straight = true, this.firstBlood = false, this.lastHardLevel = 200, this.guider = false, this.hardDistances = [], this.duration = [], this.quickArr = [], this.socketFirstSync = false, this.init(), this.randomSeed = Date.now(), (0, A.setRandomSeed)(this.randomSeed), this.actionList = [], this.musicList = [], this.blocks = [], this.liveTime = 0, wx.setKeepScreenOn && wx.setKeepScreenOn({
+                        keepScreenOn: true
                     })
                 }
                 return a(t, [{
@@ -7321,17 +7321,17 @@ define("game.js", function(require, module, exports) {
                         if (this.bottle.obj.position.y <= d.BLOCK.height / 2 + .1 && "jump" === this.bottle.status && this.bottle.flyingTime > .3 && !this.pendingReset) {
                             if (1 === this.hit || 7 === this.hit) {
                                 if (this.bottle.stop(), this.succeed(), this.animating) return;
-                                1 === this.hit ? (this.audioManager["combo" + Math.min(this.doubleHit + 1, 8)].seek(0), this.audioManager["combo" + Math.min(this.doubleHit + 1, 8)].play(), ++this.doubleHit, this.addWave(Math.min(this.doubleHit, 4)), this.bottle.showAddScore(1, !0, this.quick), this.UI.addScore(1, !0, this.quick), this.currentScore = this.UI.score, "observe" != this.mode && this.showCombo()) : (this.doubleHit = 0, this.UI.addScore(1, !1, this.quick), this.currentScore = this.UI.score, this.bottle.showAddScore(1, !1, this.quick)), this.audioManager.success.seek(0), this.audioManager.success.play(), "observe" != this.mode && this.rankSystem.update()
+                                1 === this.hit ? (this.audioManager["combo" + Math.min(this.doubleHit + 1, 8)].seek(0), this.audioManager["combo" + Math.min(this.doubleHit + 1, 8)].play(), ++this.doubleHit, this.addWave(Math.min(this.doubleHit, 4)), this.bottle.showAddScore(1, true, this.quick), this.UI.addScore(1, true, this.quick), this.currentScore = this.UI.score, "observe" != this.mode && this.showCombo()) : (this.doubleHit = 0, this.UI.addScore(1, false, this.quick), this.currentScore = this.UI.score, this.bottle.showAddScore(1, false, this.quick)), this.audioManager.success.seek(0), this.audioManager.success.play(), "observe" != this.mode && this.rankSystem.update()
                             } else 2 === this.hit ? (this.bottle.stop(), this.bottle.obj.position.y = d.BLOCK.height / 2, this.bottle.obj.position.x = this.bottle.destination[0], this.bottle.obj.position.z = this.bottle.destination[1]) : 3 === this.hit ? (this.bottle.hypsokinesis(), this.audioManager.fall_2.play(), this.bottle.obj.position.y = d.BLOCK.height / 2) : 4 === this.hit || 5 === this.hit ? (this.bottle.forerake(), this.audioManager.fall_2.play(), this.bottle.obj.position.y = d.BLOCK.height / 2) : 0 === this.hit ? (this.bottle.fall(), this.audioManager.fall.play(), this.bottle.obj.position.y = d.BLOCK.height / 2) : 6 === this.hit ? (this.bottle.stop(), this.audioManager.fall.play(), this.bottle.obj.position.y = d.BLOCK.height / 2) : -1 === this.hit && (this.bottle.stop(), this.bottle.obj.position.y = d.BLOCK.height / 2, this.bottle.obj.position.x = 0);
                             if (0 === this.hit || 3 === this.hit || 4 === this.hit || 5 === this.hit || 6 === this.hit) {
                                 if (this.guider)
-                                    if (this.UI.score > 0) this.guider = !1;
+                                    if (this.UI.score > 0) this.guider = false;
                                     else {
                                         if (!(this.liveTime > 3)) return void this.live();
-                                        this.guider = !1, this.full2D.hide2DGradually()
+                                        this.guider = false, this.full2D.hide2DGradually()
                                     }
-                                this.pendingReset = !0, this.currentScore = this.UI.score, this.gameCtrl.gameOver(this.currentScore), this.deadTimeout = setTimeout(function() {
-                                    T.TweenAnimation.killAll(), e.gameCtrl.gameOverShowPage(), e.pendingReset = !1, "observe" == e.mode && e.instructionCtrl.onCmdComplete()
+                                this.pendingReset = true, this.currentScore = this.UI.score, this.gameCtrl.gameOver(this.currentScore), this.deadTimeout = setTimeout(function() {
+                                    T.TweenAnimation.killAll(), e.gameCtrl.gameOverShowPage(), e.pendingReset = false, "observe" == e.mode && e.instructionCtrl.onCmdComplete()
                                 }, 2e3)
                             } else "observe" == this.mode && this.instructionCtrl.onCmdComplete()
                         }
@@ -7341,23 +7341,23 @@ define("game.js", function(require, module, exports) {
                     key: "succeed",
                     value: function() {
                         var t = this;
-                        if (++this.succeedTime, this.musicScore = !1, this.lastSucceedTime = Date.now(), this.succeedTime % 15 == 0 && this.ground.changeColor(), !d.GAME.canShadow)
-                            for (var e = this.blocksInUse.length - 6; e >= 0; --e) this.blocksInUse[e].obj.visible = !1;
+                        if (++this.succeedTime, this.musicScore = false, this.lastSucceedTime = Date.now(), this.succeedTime % 15 == 0 && this.ground.changeColor(), !d.GAME.canShadow)
+                            for (var e = this.blocksInUse.length - 6; e >= 0; --e) this.blocksInUse[e].obj.visible = false;
                         if (this.blocksInUse.length >= 8) {
                             var i = this.blocksInUse.shift();
-                            i.obj.visible = !1, this.blocksPool.push(i)
+                            i.obj.visible = false, this.blocksPool.push(i)
                         }
                         var n = this.nextBlock.obj.position.clone().sub(this.currentBlock.obj.position);
                         this.bottle.obj.position.x = this.bottle.destination[0], this.bottle.obj.position.z = this.bottle.destination[1], this.bottle.squeeze();
                         var r = this.thirdBlock;
                         if (!this.firstAnimating) {
-                            if (this.guider && (this.guider = !1, this.full2D.hide2DGradually()), this.animating);
+                            if (this.guider && (this.guider = false, this.full2D.hide2DGradually()), this.animating);
                             else {
                                 if (15 == this.nextBlock.order) this.nextBlock.glow();
                                 else if (19 == this.nextBlock.order) {
                                     a = this.nextBlock;
                                     this.musicTimer = setTimeout(function() {
-                                        t.audioManager.sing.seek(0), t.audioManager.sing.play(), a.playMusic(), t.musicScore = !0, t.UI.addScore(30, !1, !1), t.bottle.showAddScore(30, !1, !1)
+                                        t.audioManager.sing.seek(0), t.audioManager.sing.play(), a.playMusic(), t.musicScore = true, t.UI.addScore(30, false, false), t.bottle.showAddScore(30, false, false)
                                     }, 2e3)
                                 } else if (24 == this.nextBlock.order) {
                                     a = this.nextBlock;
@@ -7366,15 +7366,15 @@ define("game.js", function(require, module, exports) {
                                     }, function() {
                                         a.closeDoor()
                                     }), this.musicTimer = setTimeout(function() {
-                                        t.audioManager.store.seek(0), t.audioManager.store.play(), t.musicScore = !0, t.UI.addScore(15, !1, !1), t.bottle.showAddScore(15, !1, !1)
+                                        t.audioManager.store.seek(0), t.audioManager.store.play(), t.musicScore = true, t.UI.addScore(15, false, false), t.bottle.showAddScore(15, false, false)
                                     }, 2e3)
                                 } else if (26 == this.nextBlock.order) this.musicTimer = setTimeout(function() {
-                                    t.audioManager.water.seek(0), t.audioManager.water.play(), t.UI.addScore(5, !1, !1), t.musicScore = !0, t.bottle.showAddScore(5, !1, !1)
+                                    t.audioManager.water.seek(0), t.audioManager.water.play(), t.UI.addScore(5, false, false), t.musicScore = true, t.bottle.showAddScore(5, false, false)
                                 }, 2e3);
                                 else if (17 == this.nextBlock.order) {
                                     var a = this.nextBlock;
                                     this.musicTimer = setTimeout(function() {
-                                        a.rotateBox(), t.musicScore = !0, t.UI.addScore(10, !1, !1), t.bottle.showAddScore(10, !1, !1)
+                                        a.rotateBox(), t.musicScore = true, t.UI.addScore(10, false, false), t.bottle.showAddScore(10, false, false)
                                     }, 2e3)
                                 }
                                 var o = this.nextBlock.obj.position.clone(),
@@ -7393,28 +7393,28 @@ define("game.js", function(require, module, exports) {
                 }, {
                     key: "handleWxOnHideEvent",
                     value: function() {
-                        this.show = !1, this.animateTimer && (clearTimeout(this.animateTimer), this.animateTimer = null), this.onshowAnimateTimer && (clearTimeout(this.onshowAnimateTimer), this.onshowAnimateTimer = null), this.gameCtrl.wxOnhide()
+                        this.show = false, this.animateTimer && (clearTimeout(this.animateTimer), this.animateTimer = null), this.onshowAnimateTimer && (clearTimeout(this.onshowAnimateTimer), this.onshowAnimateTimer = null), this.gameCtrl.wxOnhide()
                     }
                 }, {
                     key: "init",
                     value: function() {
                         var t = this;
-                        v.default.getFirstBlood() || this.options.query.mode || (this.guider = !0), this.gameCtrl = new C.default(this), this.gameView = new P.default(this), this.gameModel = new k.default(this), this.instructionCtrl = new L.default(this), this.historyTimes = new S.default(this), this.reporter = new E.default, this.audioManager = new f.default, this.gameSocket = new x.default(this), this.scene = new o.Scene;
+                        v.default.getFirstBlood() || this.options.query.mode || (this.guider = true), this.gameCtrl = new C.default(this), this.gameView = new P.default(this), this.gameModel = new k.default(this), this.instructionCtrl = new L.default(this), this.historyTimes = new S.default(this), this.reporter = new E.default, this.audioManager = new f.default, this.gameSocket = new x.default(this), this.scene = new o.Scene;
                         var e = d.FRUSTUMSIZE,
                             i = O / R;
                         this.camera = new o.OrthographicCamera(e * i / -2, e * i / 2, e / 2, e / -2, -10, 85), this.camera.position.set(-17, 30, 26), this.camera.lookAt(new o.Vector3(13, 0, -4)), this.scene.add(this.camera), this.renderer = new o.WebGLRenderer({
-                            antialias: !0,
+                            antialias: true,
                             canvas: canvas,
-                            preserveDrawingBuffer: !0
-                        }), this.blocksPool = [], this.blocksInUse = [], this.doubleHit = 0, B && (U.indexOf("iPhone 4") >= 0 || U.indexOf("iPhone 5") >= 0 || I.system.indexOf("iOS 9") >= 0 || I.system.indexOf("iOS 8") >= 0 || U.indexOf("iPhone 6") >= 0 && U.indexOf("iPhone 6s") < 0) ? (this.renderer.shadowMap.enabled = !1, d.GAME.canShadow = !1, this.renderer.setPixelRatio(1.5)) : void 0 !== I.benchmarkLevel && I.benchmarkLevel < 5 && -1 != I.benchmarkLevel ? (d.GAME.canShadow = !1, this.renderer.shadowMap.enabled = !1, this.renderer.setPixelRatio(window.devicePixelRatio ? B ? Math.min(window.devicePixelRatio, 2) : window.devicePixelRatio : 1)) : (this.renderer.setPixelRatio(window.devicePixelRatio ? B ? Math.min(window.devicePixelRatio, 2) : window.devicePixelRatio : 1), this.renderer.shadowMap.enabled = !0), this.renderer.setSize(O, R), this.renderer.localClippingEnabled = !0, this.ground = new c.default, this.ground.obj.position.z = -84, this.camera.add(this.ground.obj), this.waves = [];
+                            preserveDrawingBuffer: true
+                        }), this.blocksPool = [], this.blocksInUse = [], this.doubleHit = 0, B && (U.indexOf("iPhone 4") >= 0 || U.indexOf("iPhone 5") >= 0 || I.system.indexOf("iOS 9") >= 0 || I.system.indexOf("iOS 8") >= 0 || U.indexOf("iPhone 6") >= 0 && U.indexOf("iPhone 6s") < 0) ? (this.renderer.shadowMap.enabled = false, d.GAME.canShadow = false, this.renderer.setPixelRatio(1.5)) : void 0 !== I.benchmarkLevel && I.benchmarkLevel < 5 && -1 != I.benchmarkLevel ? (d.GAME.canShadow = false, this.renderer.shadowMap.enabled = false, this.renderer.setPixelRatio(window.devicePixelRatio ? B ? Math.min(window.devicePixelRatio, 2) : window.devicePixelRatio : 1)) : (this.renderer.setPixelRatio(window.devicePixelRatio ? B ? Math.min(window.devicePixelRatio, 2) : window.devicePixelRatio : 1), this.renderer.shadowMap.enabled = true), this.renderer.setSize(O, R), this.renderer.localClippingEnabled = true, this.ground = new c.default, this.ground.obj.position.z = -84, this.camera.add(this.ground.obj), this.waves = [];
                         for (a = 0; a < 4; ++a) {
                             var n = new l.default;
-                            this.waves.push(n), n.obj.visible = !1, this.scene.add(n.obj)
+                            this.waves.push(n), n.obj.visible = false, this.scene.add(n.obj)
                         }
                         var r = new o.MeshBasicMaterial({
                             color: 16119285
                         });
-                        this.combo = new o.Mesh(new o.CircleGeometry(.6, 40), r), this.combo.name = "combo", this.combo.position.x = -50, this.combo.rotation.x = -Math.PI / 2, this.scene.add(this.combo), this.renderer.shadowMap.enabled && (this.shadowTarget = new o.Mesh(new o.PlaneGeometry(.1, .1), r), this.shadowTarget.visible = !1, this.shadowTarget.name = "shadowTarget", this.scene.add(this.shadowTarget)), this.currentBlock = new s.default(0), this.initNextBlock = this.nextBlock = new s.default(1), this.nextBlock.obj.position.x = 20, this.bottle = new u.default, this.bottle.obj.position.set(-10, -d.BLOCK.height / 2, 0), this.scene.add(this.bottle.obj), this.guider && (this.bottle.obj.position.set(-11, 50, 0), this.camera.position.x -= 19, setTimeout(function() {
+                        this.combo = new o.Mesh(new o.CircleGeometry(.6, 40), r), this.combo.name = "combo", this.combo.position.x = -50, this.combo.rotation.x = -Math.PI / 2, this.scene.add(this.combo), this.renderer.shadowMap.enabled && (this.shadowTarget = new o.Mesh(new o.PlaneGeometry(.1, .1), r), this.shadowTarget.visible = false, this.shadowTarget.name = "shadowTarget", this.scene.add(this.shadowTarget)), this.currentBlock = new s.default(0), this.initNextBlock = this.nextBlock = new s.default(1), this.nextBlock.obj.position.x = 20, this.bottle = new u.default, this.bottle.obj.position.set(-10, -d.BLOCK.height / 2, 0), this.scene.add(this.bottle.obj), this.guider && (this.bottle.obj.position.set(-11, 50, 0), this.camera.position.x -= 19, setTimeout(function() {
                             t.bottle.showup()
                         }, 800), this.currentBlock.obj.position.x = -11, this.currentBlock.change(null, "gray", .7), this.scene.add(this.currentBlock.obj), this.guiderTimer = setInterval(function() {
                             t.bottle.velocity.vz = 0, t.bottle.velocity.vy = 150, t.direction = new o.Vector2(1, 0);
@@ -7459,7 +7459,7 @@ define("game.js", function(require, module, exports) {
                     key: "animate",
                     value: function() {
                         var t = this;
-                        this.firstAnimating = !0;
+                        this.firstAnimating = true;
                         for (var e = this, i = 0; i < 7; ++i) setTimeout(function(t) {
                             return function() {
                                 if (("single" == e.mode && ("startPage" == e.stage || "friendRankList" == e.stage) || e.guider) && e.blocks && e.blocks.length < 7) {
@@ -7488,14 +7488,14 @@ define("game.js", function(require, module, exports) {
                                     });
                                     var a = t.currentBlock;
                                     setTimeout(function() {
-                                        a.obj.visible = !1
+                                        a.obj.visible = false
                                     }, 3e3)
                                 }
                                 t.currentBlock = t.blocks[0], setTimeout(function() {
                                     if ("single" == e.mode && ("startPage" == e.stage || "friendRankList" == e.stage) || e.guider) {
                                         e.guider && t.full2D.showBeginnerPage(), t.nextBlock.popup(), t.nextBlock.greenMaterial.color.setHex(6118749), t.nextBlock.whiteMaterial.color.setHex(11184810), t.scene.add(t.nextBlock.obj);
-                                        for (var i = 1, n = t.blocks.length; i < n; ++i) t.blocks[i].obj.visible = !1;
-                                        t.guider && (t.animating = !1), t.firstAnimating = !1
+                                        for (var i = 1, n = t.blocks.length; i < n; ++i) t.blocks[i].obj.visible = false;
+                                        t.guider && (t.animating = false), t.firstAnimating = false
                                     }
                                 }, 3e3), setTimeout(function() {
                                     "single" != e.mode || "startPage" != e.stage && "friendRankList" != e.stage || e.show && t.loopAnimate()
@@ -7508,12 +7508,12 @@ define("game.js", function(require, module, exports) {
                     value: function(t) {
                         var e = this;
                         wx.setKeepScreenOn && wx.setKeepScreenOn({
-                            keepScreenOn: !0
-                        }), this.show = !0, this.reporter.enterReport(t.scene), this.guiderTimer && !this.guider && (clearInterval(this.guiderTimer), this.guiderTimer = null), this.onshowAnimateTimer = setTimeout(function(t) {
+                            keepScreenOn: true
+                        }), this.show = true, this.reporter.enterReport(t.scene), this.guiderTimer && !this.guider && (clearInterval(this.guiderTimer), this.guiderTimer = null), this.onshowAnimateTimer = setTimeout(function(t) {
                             return function() {
-                                "single" == e.mode && "startPage" == e.stage && !e.animateTimer && e.show && (e.blocks && e.blocks.length > 0 && !e.firstAnimating ? e.loopAnimate() : e.animating || !t || e.guider || (e.animating = !0, e.animate()))
+                                "single" == e.mode && "startPage" == e.stage && !e.animateTimer && e.show && (e.blocks && e.blocks.length > 0 && !e.firstAnimating ? e.loopAnimate() : e.animating || !t || e.guider || (e.animating = true, e.animate()))
                             }
-                        }(this.firstInit), 1e3), this.firstInit ? this.firstInit = !1 : this.gameCtrl.wxOnShow(t)
+                        }(this.firstInit), 1e3), this.firstInit ? this.firstInit = false : this.gameCtrl.wxOnShow(t)
                     }
                 }, {
                     key: "showCombo",
@@ -7531,14 +7531,14 @@ define("game.js", function(require, module, exports) {
                 }, {
                     key: "replayGame",
                     value: function(t) {
-                        this.currentScore = 0, this.gameCtrl.onReplayGame(), this.audioManager.restart.seek(0), this.audioManager.restart.play(), this.guider ? (this.guiderTimer && (clearInterval(this.guiderTimer), this.guiderTimer = null), this.animating = !0, this.animate(), this.moveGradually(new o.Vector3(19, 0, 0), 3)) : (this.resetScene(t), this.bottle.showup())
+                        this.currentScore = 0, this.gameCtrl.onReplayGame(), this.audioManager.restart.seek(0), this.audioManager.restart.play(), this.guider ? (this.guiderTimer && (clearInterval(this.guiderTimer), this.guiderTimer = null), this.animating = true, this.animate(), this.moveGradually(new o.Vector3(19, 0, 0), 3)) : (this.resetScene(t), this.bottle.showup())
                     }
                 }, {
                     key: "addWave",
                     value: function(t) {
                         for (var e = this, i = 0; i < t; ++i) setTimeout(function(t) {
                             return function() {
-                                e.waves[t].obj.visible = !0, e.waves[t].obj.position.set(e.bottle.obj.position.x, d.BLOCK.height / 2 + .1 * t + 1, e.bottle.obj.position.z), (0, T.TweenAnimation)(e.waves[t].obj.scale.x, 4, 2 / (t / 2.5 + 2) * 500, "Linear", function(i, n) {
+                                e.waves[t].obj.visible = true, e.waves[t].obj.position.set(e.bottle.obj.position.x, d.BLOCK.height / 2 + .1 * t + 1, e.bottle.obj.position.z), (0, T.TweenAnimation)(e.waves[t].obj.scale.x, 4, 2 / (t / 2.5 + 2) * 500, "Linear", function(i, n) {
                                     e.waves[t].obj.scale.x = i, e.waves[t].obj.scale.y = i, e.waves[t].obj.scale.z = i
                                 }), (0, T.TweenAnimation)(e.waves[t].obj.material.opacity, 0, 2 / (t / 2.5 + 2) * 500, "Linear", function(i, n) {
                                     e.waves[t].obj.material.opacity = i, n && e.waves[t].reset()
@@ -7551,13 +7551,13 @@ define("game.js", function(require, module, exports) {
                     value: function() {
                         var t = new o.AmbientLight(16777215, .8);
                         if (this.shadowLight = new o.DirectionalLight(16777215, .28), this.shadowLight.position.set(0, 15, 10), this.renderer.shadowMap.enabled) {
-                            this.shadowLight.castShadow = !0, this.shadowLight.target = this.shadowTarget, this.shadowLight.shadow.camera.near = 5, this.shadowLight.shadow.camera.far = 30, this.shadowLight.shadow.camera.left = -10, this.shadowLight.shadow.camera.right = 10, this.shadowLight.shadow.camera.top = 10, this.shadowLight.shadow.camera.bottom = -10, this.shadowLight.shadow.mapSize.width = 512, this.shadowLight.shadow.mapSize.height = 512;
+                            this.shadowLight.castShadow = true, this.shadowLight.target = this.shadowTarget, this.shadowLight.shadow.camera.near = 5, this.shadowLight.shadow.camera.far = 30, this.shadowLight.shadow.camera.left = -10, this.shadowLight.shadow.camera.right = 10, this.shadowLight.shadow.camera.top = 10, this.shadowLight.shadow.camera.bottom = -10, this.shadowLight.shadow.mapSize.width = 512, this.shadowLight.shadow.mapSize.height = 512;
                             var e = new o.PlaneGeometry(65, 25);
                             this.shadowGround = new o.Mesh(e, new o.ShadowMaterial({
-                                transparent: !0,
+                                transparent: true,
                                 color: 0,
                                 opacity: .3
-                            })), this.shadowGround.receiveShadow = !0, this.shadowGround.position.x = -25, this.shadowGround.position.y = -18, this.shadowGround.position.z = -15, this.shadowGround.rotation.x = -Math.PI / 2, this.shadowLight.add(this.shadowGround)
+                            })), this.shadowGround.receiveShadow = true, this.shadowGround.position.x = -25, this.shadowGround.position.y = -18, this.shadowGround.position.z = -15, this.shadowGround.rotation.x = -Math.PI / 2, this.shadowLight.add(this.shadowGround)
                         }
                         this.scene.add(this.shadowLight), this.scene.add(t)
                     }
@@ -7605,33 +7605,33 @@ define("game.js", function(require, module, exports) {
                                 break
                             }
                         if (!t) {
-                            for (var r = this.blocksInUse.shift(); r.order >= 13;) r.obj.visible = !1, this.blocksPool.push(r), r = this.blocksInUse.shift();
+                            for (var r = this.blocksInUse.shift(); r.order >= 13;) r.obj.visible = false, this.blocksPool.push(r), r = this.blocksInUse.shift();
                             t = r, this.blocksInUse.push(t)
                         }
-                        return t.obj.visible = !1, t.change(), t
+                        return t.obj.visible = false, t.change(), t
                     }
                 }, {
                     key: "live",
                     value: function() {
                         var t = this;
-                        ++this.liveTime, this.firstAnimating = !1, this.animateTimer && (clearTimeout(this.animateTimer), this.animateTimer = null), T.TweenAnimation.killAll(), this.animating = !1, d.BLOCK.minRadiusScale = .8, d.BLOCK.maxRadiusScale = 1, d.BLOCK.minDistance = 1, d.BLOCK.maxDistance = 17, setTimeout(function() {
+                        ++this.liveTime, this.firstAnimating = false, this.animateTimer && (clearTimeout(this.animateTimer), this.animateTimer = null), T.TweenAnimation.killAll(), this.animating = false, d.BLOCK.minRadiusScale = .8, d.BLOCK.maxRadiusScale = 1, d.BLOCK.minDistance = 1, d.BLOCK.maxDistance = 17, setTimeout(function() {
                             t.bottle.reset(), t.bottle.obj.position.x = 0, t.bottle.showup()
                         }, 2e3), this.actionList = [], this.musicList = [], wx.triggerGC && wx.triggerGC()
                     }
                 }, {
                     key: "resetScene",
                     value: function(t) {
-                        this.firstAnimating = !1;
+                        this.firstAnimating = false;
                         for (var e = 0, i = this.blocks.length; e < i; ++e) this.scene.remove(this.blocks[e].obj);
-                        this.blocks = [], "observe" == this.mode && (this.audioManager.scale_intro.stop(), this.audioManager.scale_loop.stop()), this.randomSeed = t || Date.now(), (0, A.setRandomSeed)(this.randomSeed), this.actionList = [], this.musicList = [], this.animateTimer && (clearTimeout(this.animateTimer), this.animateTimer = null), this.currentBlock && this.currentBlock.reset(), T.TweenAnimation.killAll(), this.animating = !1, d.BLOCK.minRadiusScale = .8, d.BLOCK.maxRadiusScale = 1, d.BLOCK.minDistance = 1, d.BLOCK.maxDistance = 17;
+                        this.blocks = [], "observe" == this.mode && (this.audioManager.scale_intro.stop(), this.audioManager.scale_loop.stop()), this.randomSeed = t || Date.now(), (0, A.setRandomSeed)(this.randomSeed), this.actionList = [], this.musicList = [], this.animateTimer && (clearTimeout(this.animateTimer), this.animateTimer = null), this.currentBlock && this.currentBlock.reset(), T.TweenAnimation.killAll(), this.animating = false, d.BLOCK.minRadiusScale = .8, d.BLOCK.maxRadiusScale = 1, d.BLOCK.minDistance = 1, d.BLOCK.maxDistance = 17;
                         for (var e = 0, i = this.blocksInUse.length; e < i; ++e) {
                             var n = this.blocksInUse.pop();
-                            n.obj.visible = !1, n.reset(), this.blocksPool.push(n)
+                            n.obj.visible = false, n.reset(), this.blocksPool.push(n)
                         }
                         for (var e = 0, i = this.waves.length; e < i; ++e) this.waves[e].reset();
                         this.blocksPool.sort(function(t, e) {
                             return t.order - e.order
-                        }), this.currentBlock = this.blocksPool.shift(), this.currentBlock.obj.visible = !0, this.scene.add(this.currentBlock.obj), this.blocksInUse.push(this.currentBlock), this.shadowTarget && this.shadowTarget.position.set(0, 0, 0), this.nextBlock = this.blocksPool.shift(), this.currentBlock.change(null, null, 1), this.nextBlock.change(null, null, 1), this.nextBlock.obj.position.set(20, 0, 0), this.currentBlock.obj.position.set(0, 0, 0), this.nextBlock.obj.visible = !0, this.scene.add(this.nextBlock.obj), this.blocksInUse.push(this.nextBlock), this.bottle.reset(), this.thirdBlock = null, this.UI.reset(), this.rankSystem.reset(), this.lastAddBonus = -2, this.succeedTime = 0, this.doubleHit = 0, this.camera.position.set(-17, 30, 26), this.shadowLight.position.set(0, 15, 10), wx.triggerGC && wx.triggerGC()
+                        }), this.currentBlock = this.blocksPool.shift(), this.currentBlock.obj.visible = true, this.scene.add(this.currentBlock.obj), this.blocksInUse.push(this.currentBlock), this.shadowTarget && this.shadowTarget.position.set(0, 0, 0), this.nextBlock = this.blocksPool.shift(), this.currentBlock.change(null, null, 1), this.nextBlock.change(null, null, 1), this.nextBlock.obj.position.set(20, 0, 0), this.currentBlock.obj.position.set(0, 0, 0), this.nextBlock.obj.visible = true, this.scene.add(this.nextBlock.obj), this.blocksInUse.push(this.nextBlock), this.bottle.reset(), this.thirdBlock = null, this.UI.reset(), this.rankSystem.reset(), this.lastAddBonus = -2, this.succeedTime = 0, this.doubleHit = 0, this.camera.position.set(-17, 30, 26), this.shadowLight.position.set(0, 15, 10), wx.triggerGC && wx.triggerGC()
                     }
                 }, {
                     key: "generateHardDistances",
@@ -7645,11 +7645,11 @@ define("game.js", function(require, module, exports) {
                         var t = this;
                         t.instructionCtrl.bindCmdHandler(function(e) {
                             if (-1 == e.type) return t.gameCtrl.showPlayerGG(e.s), void t.instructionCtrl.onCmdComplete();
-                            if (0 == e.type) return t.socketFirstSync = !0, t.bottle.reset(), t.UI.scoreText.changeStyle({
+                            if (0 == e.type) return t.socketFirstSync = true, t.bottle.reset(), t.UI.scoreText.changeStyle({
                                 textAlign: "center"
                             }), t.UI.setScore(0), void t.instructionCtrl.onCmdComplete();
                             if (t.gameCtrl.showPlayerWaiting(), e.score != t.UI.score && (t.UI.score = e.score, t.UI.setScore(e.score)), e && e.b && e.b.vy) {
-                                if (t.socketFirstSync && (t.socketFirstSync = !1, t.camera.position.set(e.ca.x, e.ca.y, e.ca.z), t.ground.obj.position.set(e.gd.x, e.gd.y, e.gd.z)), t.currentBlock.order != e.c.order || t.nextBlock.order != e.n.order) {
+                                if (t.socketFirstSync && (t.socketFirstSync = false, t.camera.position.set(e.ca.x, e.ca.y, e.ca.z), t.ground.obj.position.set(e.gd.x, e.gd.y, e.gd.z)), t.currentBlock.order != e.c.order || t.nextBlock.order != e.n.order) {
                                     for (var i = 0, n = t.blocksInUse.length; i < n; ++i) {
                                         var r = t.blocksInUse.pop();
                                         t.scene.remove(r.obj), t.blocksPool.push(r)
@@ -7667,7 +7667,7 @@ define("game.js", function(require, module, exports) {
                                     c = t.blocksPool.splice(s, 1);
                                     t.blocksInUse.push(c[0])
                                 }
-                                t.scene.add(t.currentBlock.obj), t.scene.add(t.nextBlock.obj), t.currentBlock.obj.visible = !0, t.nextBlock.obj.visible = !0, t.currentBlock.obj.position.x = e.c.x, t.currentBlock.obj.position.z = e.c.z, t.currentBlock.change(e.c.r, e.c.type, e.c.rs), t.nextBlock.obj.position.x = e.n.x, t.nextBlock.obj.position.z = e.n.z, t.nextBlock.change(e.n.r, e.n.type, e.n.rs), t.bottle.obj.position.set(e.b.x, d.BLOCK.height / 2, e.b.z), t.bottle.velocity.vz = e.b.vz, t.bottle.velocity.vy = e.b.vy, t.distance = e.di, t.straight = e.s;
+                                t.scene.add(t.currentBlock.obj), t.scene.add(t.nextBlock.obj), t.currentBlock.obj.visible = true, t.nextBlock.obj.visible = true, t.currentBlock.obj.position.x = e.c.x, t.currentBlock.obj.position.z = e.c.z, t.currentBlock.change(e.c.r, e.c.type, e.c.rs), t.nextBlock.obj.position.x = e.n.x, t.nextBlock.obj.position.z = e.n.z, t.nextBlock.change(e.n.r, e.n.type, e.n.rs), t.bottle.obj.position.set(e.b.x, d.BLOCK.height / 2, e.b.z), t.bottle.velocity.vz = e.b.vz, t.bottle.velocity.vy = e.b.vy, t.distance = e.di, t.straight = e.s;
                                 var h = new o.Vector3(t.nextBlock.obj.position.x - t.bottle.obj.position.x, 0, t.nextBlock.obj.position.z - t.bottle.obj.position.z);
                                 if (t.direction = new o.Vector2(t.nextBlock.obj.position.x - t.bottle.obj.position.x, t.nextBlock.obj.position.z - t.bottle.obj.position.z), t.checkHit2(t.bottle, t.currentBlock, t.nextBlock, e.b.y), t.quick = e.q, e.t) {
                                     var l = t.blocksPool.findIndex(function(t) {
@@ -7704,7 +7704,7 @@ define("game.js", function(require, module, exports) {
                         }), t.gameSocket.onPlayerOut(function() {
                             t.gameCtrl.onPlayerOut()
                         }), t.gameSocket.onJoinSuccess(function(e) {
-                            t.gameCtrl.socketJoinSuccess(e), "observe" == t.mode && (t.bottle.obj.position.set(8, -d.BLOCK.height / 2, 0), t.camera.position.set(-17, 30, 26), t.shadowLight.position.set(0, 15, 10), t.currentBlock && (t.currentBlock.obj.visible = !1), t.nextBlock && (t.nextBlock.obj.visible = !1))
+                            t.gameCtrl.socketJoinSuccess(e), "observe" == t.mode && (t.bottle.obj.position.set(8, -d.BLOCK.height / 2, 0), t.camera.position.set(-17, 30, 26), t.shadowLight.position.set(0, 15, 10), t.currentBlock && (t.currentBlock.obj.visible = false), t.nextBlock && (t.nextBlock.obj.visible = false))
                         }), canvas.addEventListener("touchstart", function(e) {
                             if (!("single" != t.mode && "player" != t.mode || "game" != t.stage || t.is_from_wn || t.guider) && e.changedTouches[0].clientX < .13 * O && e.changedTouches[0].clientY > .88 * R) t.gameCtrl.shareObservCard();
                             else if ("friendRankList" != t.stage && "battlePage" != t.stage && "groupRankList" != t.stage && "singleSettlementPgae" != t.stage && "startPage" != t.stage)
@@ -7730,7 +7730,7 @@ define("game.js", function(require, module, exports) {
                                                 var n = new o.Vector3(t.nextBlock.obj.position.x - t.bottle.obj.position.x, 0, t.nextBlock.obj.position.z - t.bottle.obj.position.z);
                                                 if (t.direction = new o.Vector2(t.nextBlock.obj.position.x - t.bottle.obj.position.x, t.nextBlock.obj.position.z - t.bottle.obj.position.z), t.bottle.jump(n.normalize()), t.hideCombo(), t.hit = t.checkHit2(t.bottle, t.currentBlock, t.nextBlock), 15 == t.currentBlock.order && t.currentBlock.hideGlow(), t.distance = d.BLOCK.minDistance + (0, A.random)() * (d.BLOCK.maxDistance - d.BLOCK.minDistance), t.straight = (0, A.random)() > .5 ? 1 : 0, 1 === t.hit || 7 === t.hit) {
                                                     var r = t.generateNextBlock();
-                                                    t.thirdBlock = r, t.quick = Date.now() - t.lastSucceedTime < 800 || !1, t.quickArr.push(t.quick), "player" === t.mode && (++t.seq, t.gameSocket.sendCommand(t.seq, {
+                                                    t.thirdBlock = r, t.quick = Date.now() - t.lastSucceedTime < 800 || false, t.quickArr.push(t.quick), "player" === t.mode && (++t.seq, t.gameSocket.sendCommand(t.seq, {
                                                         type: 1,
                                                         c: {
                                                             x: t.currentBlock.obj.position.x,
@@ -7842,13 +7842,13 @@ define("game.js", function(require, module, exports) {
                         this.rollBackToSingle(), t && wx.showModal({
                             title: "提示",
                             content: e,
-                            showCancel: !1
+                            showCancel: false
                         })
                     }
                 }, {
                     key: "handleSocketFucked",
                     value: function() {
-                        this.gameSocket.close(), "player" == this.mode && (this.shareObservCardFail(), this.updateUI()), "observe" == this.mode && this.handleNetworkFucked(!0)
+                        this.gameSocket.close(), "player" == this.mode && (this.shareObservCardFail(), this.updateUI()), "observe" == this.mode && this.handleNetworkFucked(true)
                     }
                 }, {
                     key: "handleInterrupt",
@@ -7889,7 +7889,7 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = n || function(t, e) {
             var i = {},
@@ -8210,7 +8210,7 @@ define("game.js", function(require, module, exports) {
                     });
                 e.StreamCipher = h.extend({
                     _doFinalize: function() {
-                        return this._process(!0)
+                        return this._process(true)
                     },
                     blockSize: 1
                 });
@@ -8272,8 +8272,8 @@ define("game.js", function(require, module, exports) {
                         var t = this.cfg.padding;
                         if (this._xformMode == this._ENC_XFORM_MODE) {
                             t.pad(this._data, this.blockSize);
-                            var e = this._process(!0)
-                        } else e = this._process(!0), t.unpad(e);
+                            var e = this._process(true)
+                        } else e = this._process(true), t.unpad(e);
                         return e
                     },
                     blockSize: 4
@@ -8397,7 +8397,7 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = {
             Linear: function(t, e, i, n) {
@@ -8521,13 +8521,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -8558,13 +8558,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -8593,13 +8593,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -8634,13 +8634,13 @@ define("game.js", function(require, module, exports) {
             }
         }
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var r = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -8676,18 +8676,18 @@ define("game.js", function(require, module, exports) {
                 return r(t, [{
                     key: "showLookers",
                     value: function(t) {
-                        this.showState = !0, t = t || {}, this._drawLookers(t)
+                        this.showState = true, t = t || {}, this._drawLookers(t)
                     }
                 }, {
                     key: "showLookersShare",
                     value: function(t) {
-                        this.showState = !0, t = t || {}
+                        this.showState = true, t = t || {}
                     }
                 }, {
                     key: "hideLookers",
                     value: function() {
-                        this.showState = !1;
-                        for (var t = 0; t < p.length; t++) this.obj[p[t]].visible = !1, this.options.camera.remove(this.obj[p[t]])
+                        this.showState = false;
+                        for (var t = 0; t < p.length; t++) this.obj[p[t]].visible = false, this.options.camera.remove(this.obj[p[t]])
                     }
                 }, {
                     key: "_drawLookers",
@@ -8712,13 +8712,13 @@ define("game.js", function(require, module, exports) {
                     value: function() {
                         for (var t = 0; t < p.length; t++) this.canvas[p[t]] = document.createElement("canvas"), this.context[p[t]] = this.canvas[p[t]].getContext("2d"), this.canvas[p[t]].width = u, this.canvas[p[t]].height = this.cheight * s, this.texture[p[t]] = new a.Texture(this.canvas[p[t]]), this.material[p[t]] = new a.MeshBasicMaterial({
                             map: this.texture[p[t]],
-                            transparent: !0
+                            transparent: true
                         }), this.geometry[p[t]] = new a.PlaneGeometry(f, this.cheight / l * d), this.obj[p[t]] = new a.Mesh(this.geometry[p[t]], this.material[p[t]]), this.material[p[t]].map.minFilter = a.LinearFilter, this.obj[p[t]].position.y = -(.5 - this.cheight / 2 / l) * d, this.obj[p[t]].position.x = 0, this.obj[p[t]].position.z = 9 - .001 * t
                     }
                 }, {
                     key: "_updatePlane",
                     value: function(t) {
-                        this.showState && (this.texture[t].needsUpdate = !0, this.obj[t].visible = !0, this.options.camera.add(this.obj[t]))
+                        this.showState && (this.texture[t].needsUpdate = true, this.obj[t].visible = true, this.options.camera.add(this.obj[t]))
                     }
                 }, {
                     key: "_drawImageCenter",
@@ -8749,13 +8749,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -8790,13 +8790,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -8830,13 +8830,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -8874,13 +8874,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -8911,13 +8911,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -9004,13 +9004,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -9041,13 +9041,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -9093,13 +9093,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -9118,9 +9118,9 @@ define("game.js", function(require, module, exports) {
                         var t = this.model.is_from_wn,
                             e = this.model.firstBlood;
                         t || this.game.guider || (e ? this.viewer.lookers.showLookers({
-                            avaImg: !1,
-                            icon: !0,
-                            wording: !0
+                            avaImg: false,
+                            icon: true,
+                            wording: true
                         }) : this.viewer.open()), this.UI.showScore(), this.UI.scoreText.obj.position.y = 21, this.UI.scoreText.obj.position.x = -13, this.UI.scoreText.changeStyle({
                             textAlign: "left"
                         })
@@ -9133,7 +9133,7 @@ define("game.js", function(require, module, exports) {
                 }, {
                     key: "hideLookersShare",
                     value: function() {
-                        this.model.firstBlood && (this.model.setFirstBlood(!1), this.viewer.open())
+                        this.model.firstBlood && (this.model.setFirstBlood(false), this.viewer.open())
                     }
                 }]), t
             }();
@@ -9141,13 +9141,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -9182,13 +9182,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -9252,13 +9252,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -9307,13 +9307,13 @@ define("game.js", function(require, module, exports) {
             }
         }
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var r = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -9326,12 +9326,12 @@ define("game.js", function(require, module, exports) {
                 function t(e) {
                     ! function(t, e) {
                         if (!(t instanceof e)) throw new TypeError("Cannot call a class as a function")
-                    }(this, t), this._extent = e, this._friction = new a.default(.01), this._spring = new o.default(1, 90, 20), this._startTime = 0, this._springing = !1, this._springOffset = 0
+                    }(this, t), this._extent = e, this._friction = new a.default(.01), this._spring = new o.default(1, 90, 20), this._startTime = 0, this._springing = false, this._springOffset = 0
                 }
                 return r(t, [{
                     key: "set",
                     value: function(t, e) {
-                        this._friction.set(t, e), t > 0 && e >= 0 ? (this._springOffset = 0, this._springing = !0, this._spring.snap(t), this._spring.setEnd(0)) : t < -this._extent && e <= 0 ? (this._springOffset = 0, this._springing = !0, this._spring.snap(t), this._spring.setEnd(-this._extent)) : this._springing = !1, this._startTime = (new Date).getTime()
+                        this._friction.set(t, e), t > 0 && e >= 0 ? (this._springOffset = 0, this._springing = true, this._spring.snap(t), this._spring.setEnd(0)) : t < -this._extent && e <= 0 ? (this._springOffset = 0, this._springing = true, this._spring.snap(t), this._spring.setEnd(-this._extent)) : this._springing = false, this._startTime = (new Date).getTime()
                     }
                 }, {
                     key: "x",
@@ -9340,7 +9340,7 @@ define("game.js", function(require, module, exports) {
                         if (t || (t = ((new Date).getTime() - this._startTime) / 1e3), this._springing) return this._spring.x() + this._springOffset;
                         var e = this._friction.x(t),
                             i = this.dx(t);
-                        return e < -this._extent && i <= 0 && (this._springing = !0, this._spring.setEnd(0, i), e < -this._extent ? this._springOffset = -this._extent : this._springOffset = 0, e = this._spring.x() + this._springOffset), e
+                        return e < -this._extent && i <= 0 && (this._springing = true, this._spring.setEnd(0, i), e < -this._extent ? this._springOffset = -this._extent : this._springOffset = 0, e = this._spring.x() + this._springOffset), e
                     }
                 }, {
                     key: "dx",
@@ -9359,13 +9359,13 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         });
         var n = function() {
                 function t(t, e) {
                     for (var i = 0; i < e.length; i++) {
                         var n = e[i];
-                        n.enumerable = n.enumerable || !1, n.configurable = !0, "value" in n && (n.writable = !0), Object.defineProperty(t, n.key, n)
+                        n.enumerable = n.enumerable || false, n.configurable = true, "value" in n && (n.writable = true), Object.defineProperty(t, n.key, n)
                     }
                 }
                 return function(e, i, n) {
@@ -9481,7 +9481,7 @@ define("game.js", function(require, module, exports) {
     }, function(t, e, i) {
         "use strict";
         Object.defineProperty(e, "__esModule", {
-            value: !0
+            value: true
         }), e.encrypt = function(t, e) {
             var e = e.slice(0, 16),
                 i = n.default.enc.Utf8.parse(e),
