@@ -10,8 +10,8 @@
 ## 目录结构说明
 
     .
-    ├── game.beautified.js  # 小游戏源码
-    ├── game_js_beautifier.py  # 反混淆 game.js
+    ├── game.beautified.js  # 美化后的小游戏源码[移除了 three.js 的库代码]
+    ├── game_js_beautifier.py  # 美化 game.js
     ├── LICENSE
     ├── main_cv.py  # 自动跳 opencv 版本
     ├── main.py  # 自动跳 pillow 版本
