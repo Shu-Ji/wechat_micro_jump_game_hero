@@ -43,6 +43,24 @@ velocityZIncrement = 70
 
 bottle.velocity.vz = Math.min(holding * velocityZIncrement, 150)
 bottle.velocity.vy = Math.min(velocityY + holding * velocityYIncrement, 180)
+
+// 由源码得知飞行时间为 0.4 秒
+// 右飞时：
+x = vz * t
+  = 0.4vz
+  = 0.4 * Math.min(holding * velocityZIncrement, 150)
+  = 0.4 * Math.min(holding * 70, 150)
+// 若 holding * 70 < 150
+x = 0.4 * holding * 70
+  = 28 * holding
+// 否则
+x = 0.4 * 150 = 60
+
+// 假设三维坐标与手机屏幕坐标转换函数为 x_2d = f(x_3d)
+// 则:
+x_2d = f(x_3d) = f(x) = f(60 or 28 * holding)
+
+
 ```
 
 在 touchend 事件中可以控制很多东西。比如：
