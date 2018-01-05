@@ -10,6 +10,7 @@
 ## 目录结构说明
 
     .
+    ├── docs  # 源码分析
     ├── game.beautified.js  # 美化后的小游戏源码[移除了 three.js 的库代码]
     ├── game_js_beautifier.py  # 美化 game.js
     ├── LICENSE
@@ -18,6 +19,11 @@
     ├── Pipfile
     ├── Pipfile.lock
     └── README.md
+
+
+## 游戏源码分析
+
+[请前往源码分析](docs/README.md)
 
 
 ## 原理说明
