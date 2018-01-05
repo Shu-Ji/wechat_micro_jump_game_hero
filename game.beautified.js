@@ -2662,8 +2662,8 @@ define("game.js", function(require, module, exports) {
                     }
                 }, {
                     key: "jump",
-                    value: function(t) {
-                        this.resetParticles(), this.status = "jump", this.axis = t, a.customAnimation.to(this.body.scale, .25, {
+                    value: function(distance) {
+                        this.resetParticles(), this.status = "jump", this.axis = distance, a.customAnimation.to(this.body.scale, .25, {
                             x: 1,
                             y: 1,
                             z: 1
@@ -2699,7 +2699,11 @@ define("game.js", function(require, module, exports) {
                             x: 1,
                             z: 1,
                             delay: .2
-                        })) : (a.customAnimation.to(this.human.rotation, .12, {
+                        })
+
+                        ) : (
+
+                            a.customAnimation.to(this.human.rotation, .12, {
                             x: this.human.rotation.x - Math.PI
                         }), a.customAnimation.to(this.human.rotation, .2, {
                             x: this.human.rotation.x - 2 * Math.PI,
@@ -7400,6 +7404,7 @@ define("game.js", function(require, module, exports) {
                     value: function() {
                         var t = this;
                         v.default.getFirstBlood() || this.options.query.mode || (this.guider = true), this.gameCtrl = new C.default(this), this.gameView = new P.default(this), this.gameModel = new k.default(this), this.instructionCtrl = new L.default(this), this.historyTimes = new S.default(this), this.reporter = new E.default, this.audioManager = new f.default, this.gameSocket = new x.default(this), this.scene = new o.Scene;
+                        //d.FRUSTUMSIZE = window.innerHeight / window.innerWidth / 736 * 414 * 60, e.loader = new n.TextureLoader);
                         var e = d.FRUSTUMSIZE,
                             i = O / R;
                         this.camera = new o.OrthographicCamera(e * i / -2, e * i / 2, e / 2, e / -2, -10, 85), this.camera.position.set(-17, 30, 26), this.camera.lookAt(new o.Vector3(13, 0, -4)), this.scene.add(this.camera), this.renderer = new o.WebGLRenderer({
@@ -7563,22 +7568,23 @@ define("game.js", function(require, module, exports) {
                     }
                 }, {
                     key: "checkHit2",
-                    value: function(t, e, i, n) {
-                        var r = t.velocity.vy / d.GAME.gravity * 2;
-                        n = n || +t.obj.position.y.toFixed(2);
+                    // checkHit2(t.bottle, t.currentBlock, t.nextBlock)
+                    value: function(bottle, currentBlock, nextBlock, n) {
+                        var r = bottle.velocity.vy / d.GAME.gravity * 2;
+                        n = n || +bottle.obj.position.y.toFixed(2);
                         var a = d.BLOCK.height / 2 - n;
-                        r -= (-t.velocity.vy + Math.sqrt(Math.pow(t.velocity.vy, 2) - 2 * d.GAME.gravity * a)) / -d.GAME.gravity;
+                        r -= (-bottle.velocity.vy + Math.sqrt(Math.pow(bottle.velocity.vy, 2) - 2 * d.GAME.gravity * a)) / -d.GAME.gravity;
                         var s = [],
-                            h = new o.Vector2(t.obj.position.x, t.obj.position.z),
-                            l = this.direction.setLength(t.velocity.vz * r);
-                        if (h.add(l), t.destination = [h.x, h.y], s.push(h.x, h.y), this.animating) return 7;
-                        if (i) {
-                            var c, u = Math.pow(s[0] - i.obj.position.x, 2) + Math.pow(s[1] - i.obj.position.z, 2),
-                                f = i.getVertices();
+                            h = new o.Vector2(bottle.obj.position.x, bottle.obj.position.z),
+                            l = this.direction.setLength(bottle.velocity.vz * r);
+                        if (h.add(l), bottle.destination = [h.x, h.y], s.push(h.x, h.y), this.animating) return 7;
+                        if (nextBlock) {
+                            var c, u = Math.pow(s[0] - nextBlock.obj.position.x, 2) + Math.pow(s[1] - nextBlock.obj.position.z, 2),
+                                f = nextBlock.getVertices();
                             if ((0, m.default)(s, f)) return Math.abs(u) < .5 ? 1 : 7;
                             (0, m.default)([s[0] - d.BOTTLE.bodyWidth / 2, s[1]], f) || (0, m.default)([s[0], s[1] + d.BOTTLE.bodyDepth / 2], f) ? c = 5: ((0, m.default)([s[0], s[1] - d.BOTTLE.bodyDepth / 2], f) || (0, m.default)([s[0] + d.BOTTLE.bodyDepth / 2, s[1]], f)) && (c = 3)
                         }
-                        var p = e.getVertices();
+                        var p = currentBlock.getVertices();
                         return (0, m.default)(s, p) ? 2 : (0, m.default)([s[0], s[1] + d.BOTTLE.bodyDepth / 2], p) || (0, m.default)([s[0] - d.BOTTLE.bodyWidth / 2, s[1]], p) ? c ? 6 : 4 : c || void 0 || 0
                     }
                 }, {
@@ -7725,10 +7731,10 @@ define("game.js", function(require, module, exports) {
                                         if ("battlePage" != t.stage) {
                                             if ("groupRankList" == t.stage && t.full2D.doTouchEndEvent(e), "game" == t.stage && !("prepare" !== t.bottle.status || t.pendingReset || t.guider && t.animating)) {
                                                 t.audioManager.scale_intro.stop(), t.audioManager.scale_loop.stop(), t.currentBlock.rebound();
-                                                var i = (Date.now() - t.mouseDownTime) / 1e3;
-                                                t.bottle.velocity.vz = Math.min(i * d.BOTTLE.velocityZIncrement, 150), t.bottle.velocity.vy = Math.min(d.BOTTLE.velocityY + i * d.BOTTLE.velocityYIncrement, 180);
-                                                var n = new o.Vector3(t.nextBlock.obj.position.x - t.bottle.obj.position.x, 0, t.nextBlock.obj.position.z - t.bottle.obj.position.z);
-                                                if (t.direction = new o.Vector2(t.nextBlock.obj.position.x - t.bottle.obj.position.x, t.nextBlock.obj.position.z - t.bottle.obj.position.z), t.bottle.jump(n.normalize()), t.hideCombo(), t.hit = t.checkHit2(t.bottle, t.currentBlock, t.nextBlock), 15 == t.currentBlock.order && t.currentBlock.hideGlow(), t.distance = d.BLOCK.minDistance + (0, A.random)() * (d.BLOCK.maxDistance - d.BLOCK.minDistance), t.straight = (0, A.random)() > .5 ? 1 : 0, 1 === t.hit || 7 === t.hit) {
+                                                var holding = (Date.now() - t.mouseDownTime) / 1e3;
+                                                t.bottle.velocity.vz = Math.min(holding * d.BOTTLE.velocityZIncrement, 150), t.bottle.velocity.vy = Math.min(d.BOTTLE.velocityY + holding * d.BOTTLE.velocityYIncrement, 180);
+                                                var distance = new o.Vector3(t.nextBlock.obj.position.x - t.bottle.obj.position.x, 0, t.nextBlock.obj.position.z - t.bottle.obj.position.z);
+                                                if (t.direction = new o.Vector2(t.nextBlock.obj.position.x - t.bottle.obj.position.x, t.nextBlock.obj.position.z - t.bottle.obj.position.z), t.bottle.jump(distance.normalize()), t.hideCombo(), t.hit = t.checkHit2(t.bottle, t.currentBlock, t.nextBlock), 15 == t.currentBlock.order && t.currentBlock.hideGlow(), t.distance = d.BLOCK.minDistance + A.random() * (d.BLOCK.maxDistance - d.BLOCK.minDistance), t.straight = (0, A.random)() > .5 ? 1 : 0, 1 === t.hit || 7 === t.hit) {
                                                     var r = t.generateNextBlock();
                                                     t.thirdBlock = r, t.quick = Date.now() - t.lastSucceedTime < 800 || false, t.quickArr.push(t.quick), "player" === t.mode && (++t.seq, t.gameSocket.sendCommand(t.seq, {
                                                         type: 1,
@@ -7748,7 +7754,7 @@ define("game.js", function(require, module, exports) {
                                                             r: t.nextBlock.radius,
                                                             rs: t.nextBlock.radiusScale
                                                         },
-                                                        d: i,
+                                                        d: holding,
                                                         b: {
                                                             x: t.bottle.obj.position.x,
                                                             y: +t.bottle.obj.position.y.toFixed(2),
@@ -7796,7 +7802,7 @@ define("game.js", function(require, module, exports) {
                                                         r: t.nextBlock.radius,
                                                         rs: t.nextBlock.radiusScale
                                                     },
-                                                    d: i,
+                                                    d: holding,
                                                     b: {
                                                         x: t.bottle.obj.position.x,
                                                         y: +t.bottle.obj.position.y.toFixed(2),
@@ -7820,7 +7826,7 @@ define("game.js", function(require, module, exports) {
                                                     },
                                                     score: t.UI.score
                                                 }));
-                                                "observe" != t.mode && (t.actionList.push([i, +t.bottle.obj.position.y.toFixed(2), t.quick]), t.musicList.push(t.musicScore))
+                                                "observe" != t.mode && (t.actionList.push([holding, +t.bottle.obj.position.y.toFixed(2), t.quick]), t.musicList.push(t.musicScore))
                                             }
                                         } else t.full2D.doTouchEndEvent(e);
                             else t.full2D.doTouchEndEvent(e);
@@ -7871,7 +7877,7 @@ define("game.js", function(require, module, exports) {
         if (wx.getLaunchOptionsSync) z = new D(wx.getLaunchOptionsSync());
         else var z = new D;
         var j = Date.now(),
-            N = requestAnimationFrame,
+            //N = requestAnimationFrame,
             F = [],
             G = void 0;
         window.requestAnimationFrame = function(t, e) {
@@ -7884,7 +7890,7 @@ define("game.js", function(require, module, exports) {
                     e.push(t)
                 }), G = void 0, F.length = 0, e.forEach(function(t) {
                     "function" == typeof t && t()
-                }), "function" == typeof i && i(), N(t)
+                }), "function" == typeof i && i(), requestAnimationFrame(t)
             }(), r()
     }, function(t, e, i) {
         "use strict";
