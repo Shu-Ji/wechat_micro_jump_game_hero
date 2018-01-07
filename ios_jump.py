@@ -57,7 +57,7 @@ while True:
             ios_session.tap_hold(x1, y1, holding)
             t2 = time.time()
             print('time of tap', t2 - t1)
-            sleep_time = 0.4
+            sleep_time = .5
             time.sleep(sleep_time)
             print('sleeping seconds', sleep_time)
             print()
