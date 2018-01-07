@@ -28,7 +28,7 @@
 
 ## 原理说明
 
-普通版本（main.py）：
+普通版本（main.py，已废弃）：
 
 ![普通版本](http://upload-images.jianshu.io/upload_images/576195-ebb3e6782df3c0b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
