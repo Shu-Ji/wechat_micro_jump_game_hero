@@ -51,7 +51,7 @@ while True:
 
             run_cmd('adb shell input swipe {0} {1} {2} {3} {4}'.format(
                 x1, y1, x2, y2, holding))
-            sleep_time = .5
+            sleep_time = .7
             time.sleep(sleep_time)
             print('sleeping seconds', sleep_time)
             print()
