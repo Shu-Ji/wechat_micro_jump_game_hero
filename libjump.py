@@ -2,13 +2,10 @@
 
 from __future__ import print_function, unicode_literals
 
-import itertools
 import os
 import os.path as osp
 import platform
 import subprocess
-import time
-import traceback
 
 import cv2
 import numpy
@@ -29,10 +26,11 @@ class Otsu(object):
     RED = (0, 0, 255)
     BLACK = (0, 0, 0)
 
-    def __init__(self, path, debug=False):
+    def __init__(self, path, debug=False, press_ratio=1.5):
         # the bottle is purple
         self.hero_color = (56, 56, 97)
         self.path = path
+        self.press_ratio = press_ratio
 
         raw_im = cv2.imread(path)
         cv2.imwrite(path + '.debug.png', raw_im)
@@ -40,6 +38,7 @@ class Otsu(object):
 
         self.h, self.w, _ = self.im.shape
         self.thresh = cv2.Canny(self.im, 20, 70)
+        print(self.im.shape)
 
         cv2.imwrite(path + '.canny.png', self.thresh)
 
@@ -55,9 +54,9 @@ class Otsu(object):
 
         b, g, r = numpy.asarray(self.im).T
         hp = numpy.argwhere(
-            (r == self.hero_color[0]) & \
-            (g == self.hero_color[1]) & \
-            (b == self.hero_color[2])
+            (abs(r - self.hero_color[0]) < 10) & \
+            (abs(g - self.hero_color[1]) < 10) & \
+            (abs(b - self.hero_color[2]) < 10)
         )
         return [int(i) for i in numpy.mean(hp, axis=0)]
 
@@ -100,9 +99,8 @@ class Otsu(object):
 
         print('distance:', distance)
 
-        holding = int(min(950, max(distance * 1.5, 300)))
-        print('holding: ', holding)
-        print()
+        holding = min(950, max(distance * self.press_ratio, 300))
+        print('holding: ', holding, 'ms')
 
         # dray images for debugging
         fn = osp.split(self.path)[-1]
@@ -127,49 +125,6 @@ def run_cmd(cmd):
     return stdout, stderr
 
 
-# directory where screenshot image will be saved in.
-# if you use Windows, e.g 'c:/wechat_micro_jump_game_screenshot'
-screenshot_directory = '/tmp/wechat_micro_jump_game_screenshot'
-if not osp.exists(screenshot_directory):
-    os.makedirs(screenshot_directory)
-
-
-jump_times = itertools.count(0)
-while True:
-    try:
-        debug = False
-
-        if debug:
-            # your last failed image name
-            fn = '0.png'
-            fp = osp.join(screenshot_directory, fn)
-        else:
-            fn = str(next(jump_times)) + '.png'
-            fp = osp.join(screenshot_directory, fn)
-
-            run_cmd('adb shell screencap -p /sdcard/s.png')
-            run_cmd('adb pull /sdcard/s.png {}'.format(fp))
-
-        print(fp)
-
-        otsu = Otsu(fp, debug=debug)
-        holding = otsu.get_holding()
-
-        if debug:
-            raise KeyboardInterrupt
-        else:
-            # random tap position
-            # anti-wechat detect
-            rand_x = lambda: numpy.random.randint(0, otsu.w)
-            rand_y = lambda: numpy.random.randint(0, otsu.h * 3 / 4)
-            x1, y1 = rand_x(), rand_y()
-            x2, y2 = rand_x(), rand_y()
-
-            run_cmd('adb shell input swipe {0} {1} {2} {3} {4}'.format(
-                x1, y1, x2, y2, holding))
-            time.sleep(1.3 + numpy.random.random())
-    except KeyboardInterrupt:
-        raise KeyboardInterrupt
-    except:
-        traceback.print_exc()
-        time.sleep(2)
+def create_screenshot_directory(screenshot_directory):
+    if not osp.exists(screenshot_directory):
+        os.makedirs(screenshot_directory)
