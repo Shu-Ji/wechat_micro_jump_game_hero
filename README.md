@@ -28,7 +28,7 @@
 
 ## 原理说明
 
-普通版本（main.py）：
+普通版本（main.py，已废弃）：
 
 ![普通版本](http://upload-images.jianshu.io/upload_images/576195-ebb3e6782df3c0b3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
@@ -41,6 +41,8 @@
 
 原理：
 
+Android:
+
 1. adb 截图
 1. 找到小人臀部坐标（hsv 色相紫黑色）
 1. 找到下一桥墩的顶点坐标
@@ -49,6 +51,15 @@
 1. 从小人臀部到下一桥墩中心点计算出跳远距离
 1. 将距离换算为长按时长
 1. 使用 adb 跳
+
+iOS:
+
+使用 wda 截图与事件点击，比 adb 快很多。
+
+![16.png.canny.png](http://upload-images.jianshu.io/upload_images/576195-14cf69084bab0fa8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![16.png.debug.png](http://upload-images.jianshu.io/upload_images/576195-75eb2f74920898b8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 
 ## 更新日志
 
